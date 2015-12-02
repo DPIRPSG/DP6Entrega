@@ -98,24 +98,24 @@
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="title" value="Curriculum 2" />
 		<property name="academicRecord" value="Academic Record 2" />
-		<property name="professionalRecord"><null /></property>
+		<property name="professionalRecord" value="Professional Record 2" />
 		<property name="hobbies" value="Hobbies 2" />					
 		<property name="customer" ref="customer1" />
 	</bean>
 	
 	<bean id="curriculum3" class="domain.Curriculum">
 		<property name="title" value="Curriculum 3" />
-		<property name="academicRecord"><null /></property>
-		<property name="professionalRecord"><null /></property>
+		<property name="academicRecord" value="Academic Record 3"/>
+		<property name="professionalRecord" value="Professional Record 3" />
 		<property name="hobbies" value="Hobbies 3" />					
 		<property name="customer" ref="customer1" />
 	</bean>
 	
 	<bean id="curriculum4" class="domain.Curriculum">
 		<property name="title" value="Curriculum 4" />
-		<property name="academicRecord"><null /></property>
+		<property name="academicRecord" value="Academic Record 4"/>
 		<property name="professionalRecord" value="Professional Record 4" />
-		<property name="hobbies"><null /></property>		
+		<property name="hobbies" value="Hobbies 4" />		
 		<property name="customer" ref="customer2" />
 	</bean>
 	
@@ -123,7 +123,7 @@
 		<property name="title" value="Curriculum 5" />
 		<property name="academicRecord" value="Academic Record 5" />
 		<property name="professionalRecord" value="Professional Record 5" />
-		<property name="hobbies"><null /></property>		
+		<property name="hobbies" value="Hobbies 5" />	
 		<property name="customer" ref="customer2" />
 	</bean>
 	
