@@ -1,14 +1,4 @@
-/* CurriculumCustomerController.java
- *
- * Copyright (C) 2015 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- * 
- */
-
-package controllers.customer;
+package controllers.administrator;
 
 import java.util.Collection;
 
@@ -23,25 +13,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CurriculumService;
+import services.CategoryService;
+import services.ItemService;
+
 
 import controllers.AbstractController;
-import domain.Curriculum;
-
-// TODO: implement this controller. 
+import domain.Category;
+import domain.Item;
 
 @Controller
-@RequestMapping(value = "/curriculum/customer")
-public class CurriculumCustomerController extends AbstractController {
-	
+@RequestMapping(value = "/item/administrator")
+public class ItemAdministratorController extends AbstractController {
+
 	//Services ----------------------------------------------------------
 	
 	@Autowired
-	private CurriculumService curriculumService;
+	private ItemService itemService;
 	
+	@Autowired
+	private CategoryService categoryService;
 	//Constructors ----------------------------------------------------------
 
-	public CurriculumCustomerController() {
+	public ItemAdministratorController() {
 		super();
 	}
 	
@@ -50,11 +43,12 @@ public class CurriculumCustomerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Curriculum> curricula;
+		Collection<Item> items;
 		
-		curricula = curriculumService.findByPrincipal();
-		result = new ModelAndView("curriculum/list");
-		result.addObject("curricula", curricula);
+		items = itemService.findAll();
+		result = new ModelAndView("item/list");
+		result.addObject("requestUri", "item/administrator/list.do");
+		result.addObject("items", items);
 		
 		return result;
 	}
@@ -64,10 +58,10 @@ public class CurriculumCustomerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Curriculum curriculum;
+		Item item;
 		
-		curriculum = curriculumService.create();		
-		result = createEditModelAndView(curriculum);
+		item = itemService.create();		
+		result = createEditModelAndView(item);
 		
 		return result;
 	}
@@ -75,43 +69,43 @@ public class CurriculumCustomerController extends AbstractController {
 	//Edition ----------------------------------------------------------
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int curriculumId) {
+	public ModelAndView edit(@RequestParam int itemId) {
 		ModelAndView result;
-		Curriculum curriculum;
+		Item item;
 		
-		curriculum = curriculumService.findOneToEdit(curriculumId);
-		Assert.notNull(curriculum);
-		result = createEditModelAndView(curriculum);
+		item = itemService.findOne(itemId);
+		Assert.notNull(item);
+		result = createEditModelAndView(item);
 		
 		return result;
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Curriculum curriculum, BindingResult binding) {
+	public ModelAndView save(@Valid Item item, BindingResult binding) {
 		ModelAndView result;
 		
 		if(binding.hasErrors()) {
-			result = createEditModelAndView(curriculum);
+			result = createEditModelAndView(item);
 		} else {
 			try {
-				curriculumService.save(curriculum);
+				itemService.save(item);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(curriculum, "curriculum.commit.error");
+				result = createEditModelAndView(item, "curriculum.commit.error");
 			}
 		}
 		return result;
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Curriculum curriculum, BindingResult binding) {
+	public ModelAndView delete(Item item, BindingResult binding) {
 		ModelAndView result;
 
 		try {
-			curriculumService.delete(curriculum);
+			itemService.delete(item);
 			result = new ModelAndView("redirect:list.do");
 		} catch (Throwable oops) {
-			result = createEditModelAndView(curriculum,
+			result = createEditModelAndView(item,
 					"curriculum.commit.error");
 		}
 
@@ -120,22 +114,26 @@ public class CurriculumCustomerController extends AbstractController {
 	
 	//Ancillary Methods ----------------------------------------------------------
 	
-	protected ModelAndView createEditModelAndView(Curriculum curriculum) {
+	protected ModelAndView createEditModelAndView(Item item) {
 		ModelAndView result;
 		
-		result = createEditModelAndView(curriculum, null);
+		result = createEditModelAndView(item, null);
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndView(Curriculum curriculum, String message) {
+	protected ModelAndView createEditModelAndView(Item item, String message) {
 		ModelAndView result;
+		Collection<Category> categories;
+		
+		categories = categoryService.findAll();
+		
 				
-		result = new ModelAndView("curriculum/edit");
-		result.addObject("curriculum", curriculum);
+		result = new ModelAndView("item/edit");
+		result.addObject("item", item);
+		result.addObject("categories", categories);
 		result.addObject("message", message);
 		
 		return result;
-	}
-		
+	}	
 }
