@@ -24,25 +24,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
-import services.CustomerService;
 
 import controllers.AbstractController;
 import domain.Curriculum;
-import domain.Customer;
 
 // TODO: implement this controller. 
 
 @Controller
-@RequestMapping(value = "curriculum/customer")
+@RequestMapping(value = "/curriculum/customer")
 public class CurriculumCustomerController extends AbstractController {
 	
 	//Services ----------------------------------------------------------
 	
 	@Autowired
 	private CurriculumService curriculumService;
-	
-	@Autowired
-	private CustomerService customerService;
 	
 	//Constructors ----------------------------------------------------------
 
@@ -55,12 +50,11 @@ public class CurriculumCustomerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Curriculum> curriculums;
+		Collection<Curriculum> curricula;
 		
-		curriculums = curriculumService.findByPrincipal();
-		
+		curricula = curriculumService.findByPrincipal();
 		result = new ModelAndView("curriculum/list");
-		result.addObject("curricula", curriculums);
+		result.addObject("curricula", curricula);
 		
 		return result;
 	}
@@ -136,13 +130,9 @@ public class CurriculumCustomerController extends AbstractController {
 	
 	protected ModelAndView createEditModelAndView(Curriculum curriculum, String message) {
 		ModelAndView result;
-		Customer customer;
-		
-		customer = customerService.findByPrincipal();
-		
+				
 		result = new ModelAndView("curriculum/edit");
 		result.addObject("curriculum", curriculum);
-		result.addObject("customer", customer);
 		result.addObject("message", message);
 		
 		return result;
