@@ -50,6 +50,12 @@
 	<display:column>
 		<img src="${pictureHeader}" />
 	</display:column>
+	
+	<display:column>
+		<a href="comment/list.do?itemId=${row.id}">
+			<spring:message	code="item.comments" />
+		</a>
+	</display:column>		
 		
 </display:table>
 <!-- Action links -->
