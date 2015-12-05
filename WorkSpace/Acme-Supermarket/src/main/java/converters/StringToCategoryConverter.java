@@ -6,19 +6,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ItemRepository;
-import domain.Item;
+import repositories.CategoryRepository;
+import domain.Category;
 
 @Component
 @Transactional
-public class StringToCategoryConverter implements Converter<String, Item> {
+public class StringToCategoryConverter implements Converter<String, Category> {
 
 	@Autowired
-	ItemRepository itemRepository;
+	CategoryRepository categoryRepository;
 
 	@Override
-	public Item convert(String text) {
-		Item result;
+	public Category convert(String text) {
+		Category result;
 		int id;
 
 		try {
@@ -26,7 +26,7 @@ public class StringToCategoryConverter implements Converter<String, Item> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = itemRepository.findOne(id);
+				result = categoryRepository.findOne(id);
 			}
 		} catch (Throwable oops) {
 			throw new IllegalArgumentException(oops);

@@ -19,7 +19,9 @@ import services.ItemService;
 
 import controllers.AbstractController;
 import domain.Category;
+import domain.Comment;
 import domain.Item;
+import domain.Storage;
 
 @Controller
 @RequestMapping(value = "/item/administrator")
@@ -47,7 +49,7 @@ public class ItemAdministratorController extends AbstractController {
 		
 		items = itemService.findAll();
 		result = new ModelAndView("item/list");
-		result.addObject("requestUri", "item/administrator/list.do");
+		result.addObject("requestURI", "item/administrator/list.do");
 		result.addObject("items", items);
 		
 		return result;
@@ -83,17 +85,18 @@ public class ItemAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Item item, BindingResult binding) {
 		ModelAndView result;
-		
-		if(binding.hasErrors()) {
+
+		if (binding.hasErrors()) {
 			result = createEditModelAndView(item);
 		} else {
 			try {
-				itemService.save(item);
+				itemService.save(item);				
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(item, "curriculum.commit.error");
+				result = createEditModelAndView(item, "item.commit.error");				
 			}
 		}
+
 		return result;
 	}
 	
@@ -106,7 +109,7 @@ public class ItemAdministratorController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 		} catch (Throwable oops) {
 			result = createEditModelAndView(item,
-					"curriculum.commit.error");
+					"item.commit.error");
 		}
 
 		return result;
@@ -127,8 +130,7 @@ public class ItemAdministratorController extends AbstractController {
 		Collection<Category> categories;
 		
 		categories = categoryService.findAll();
-		
-				
+	
 		result = new ModelAndView("item/edit");
 		result.addObject("item", item);
 		result.addObject("categories", categories);
