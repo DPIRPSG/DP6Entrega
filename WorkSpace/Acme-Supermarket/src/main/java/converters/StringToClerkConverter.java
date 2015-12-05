@@ -6,19 +6,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.CommentRepository;
-import domain.Comment;
+import repositories.ClerkRepository;
+import domain.Clerk;
 
 @Component
 @Transactional
-public class StringToClerkConverter implements Converter<String, Comment> {
+public class StringToClerkConverter implements Converter<String, Clerk> {
 
 	@Autowired
-	CommentRepository commentRepository;
+	ClerkRepository clerkRepository;
 
 	@Override
-	public Comment convert(String text) {
-		Comment result;
+	public Clerk convert(String text) {
+		Clerk result;
 		int id;
 
 		try {
@@ -26,7 +26,7 @@ public class StringToClerkConverter implements Converter<String, Comment> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = commentRepository.findOne(id);
+				result = clerkRepository.findOne(id);
 			}
 		} catch (Throwable oops) {
 			throw new IllegalArgumentException(oops);
