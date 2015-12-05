@@ -71,29 +71,16 @@
 	<form:label path="category">
 		<spring:message code="item.category" />:
 	</form:label>
-	<form:select path="category">
- 		<jstl:if test="${item.id == 0}">
-			<form:option label="---" value="0"/>
-		</jstl:if>
-	    <jstl:forEach items="${categories}" var="c">
-	        <jstl:choose>
-	            <jstl:when test="${c.id eq item.category.id}">
-	                <option value="${c.id}" selected="selected">${c.name}</option>
-	            </jstl:when>
-	            <jstl:otherwise>
-	                <option value="${c.id}">${c.name}</option>
-	            </jstl:otherwise>
-	        </jstl:choose> 
-	    </jstl:forEach>
+	<form:select id="categories" path="category">
+		<form:option value="0" label="----" />		
+		<form:options items="${categories}" itemValue="id" itemLabel="name" />
 	</form:select>
 	<form:errors cssClass="error" path="category" />
 	<br />
 	
 	<!-- Action buttons -->
-	<jstl:if test="${item.id == 0 }">
-		<input type="submit" name="save"
-			value="<spring:message code="item.create" />" />&nbsp; 
-	</jstl:if>
+	<input type="submit" name="save"
+		value="<spring:message code="item.save" />" />&nbsp; 
 	<jstl:if test="${item.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="item.delete" />"
