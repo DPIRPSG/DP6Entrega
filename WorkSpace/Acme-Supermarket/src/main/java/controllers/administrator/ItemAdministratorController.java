@@ -90,7 +90,7 @@ public class ItemAdministratorController extends AbstractController {
 			result = createEditModelAndView(item);
 		} else {
 			try {
-				itemService.save(item);				
+				itemService.save(item);		
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(item, "item.commit.error");				
