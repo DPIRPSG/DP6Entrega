@@ -67,8 +67,8 @@
 	</div>
 </security:authorize>
 
-<!-- Search Form -->
+<!-- Search Form 
 <form:form action="item/list-search.do" modelAttribute="item">
 	<form:input path="search-word"/>
 	<input type="submit" name="search-button" value="<spring:message code="search.button"/>"/>
-</form:form>
+</form:form>-->
