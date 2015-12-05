@@ -1,13 +1,3 @@
-<%--
- * action-1.jsp
- *
- * Copyright (C) 2013 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -27,42 +17,42 @@
 		
 		<!-- Editable Attributes -->
 		<form:label path="name">
-			<spring:message code = "consumer.create.name"/>
+			<spring:message code = "consumer.name"/>
 		</form:label>
 		<form:input path="name"/>
 		<form:errors cssClass="error" path="name"/>
 		<br />
 		
 		<form:label path="surname">
-			<spring:message code = "consumer.create.surname"/>
+			<spring:message code = "consumer.surname"/>
 		</form:label>
 		<form:input path="surname"/>
 		<form:errors cssClass="error" path="surname"/>
 		<br />
 		
 		<form:label path="email">
-			<spring:message code = "consumer.create.email"/>
+			<spring:message code = "consumer.email"/>
 		</form:label>
 		<form:input path="email"/>
 		<form:errors cssClass="error" path="email"/>
 		<br />
 					
 		<form:label path="phone">
-			<spring:message code = "consumer.create.phone"/>
+			<spring:message code = "consumer.phone"/>
 		</form:label>
 		<form:input path="phone"/>
 		<form:errors cssClass="error" path="phone"/>
 		<br />
 		
 		<form:label path="username">
-			<spring:message code="consumer.create.username" />
+			<spring:message code="consumer.username" />
 		</form:label>
 		<form:input path="username" />	
 		<form:errors class="error" path="username" />
 		<br />
 
 		<form:label path="password">
-			<spring:message code="consumer.create.password" />
+			<spring:message code="consumer.password" />
 		</form:label>
 		<form:password path="password" />
 		<form:errors class="error" path="password" />
@@ -70,10 +60,10 @@
 		
 		<!-- Action buttons -->
 		<input type="submit" name="save"
-			value="<spring:message code="customer.create.save"/>"/>
+			value="<spring:message code="customer.save"/>"/>
 		&nbsp;
 		<input type="button" name="cancel"
-			value="<spring:message code="consumer.create.cancel" />"
+			value="<spring:message code="consumer.cancel" />"
 			onclick="javascript: relativeRedir('../../');" />
 		<br />
 		
