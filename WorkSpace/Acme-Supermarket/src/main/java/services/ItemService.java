@@ -60,7 +60,7 @@ public class ItemService {
 		Assert.notNull(item);
 		Assert.isTrue(item.getId() != 0);
 		
-		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create items");		
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete items");
 		
 		item.setDeleted(true);
 		this.save(item);
