@@ -32,7 +32,7 @@
 	
 	<!-- Attributes -->
 	<spring:message code="item.category" var="categoryHeader" />
-	<display:column property="category" title="${categoryHeader}" sortable="true" />
+	<display:column property="category.name" title="${categoryHeader}" sortable="true" />
 	
 	<spring:message code="item.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="false" />
@@ -50,6 +50,12 @@
 	<display:column>
 		<img src="${pictureHeader}" />
 	</display:column>
+	
+	<display:column>
+		<a href="comment/list.do?itemId=${row.id}">
+			<spring:message	code="item.comments" />
+		</a>
+	</display:column>		
 		
 </display:table>
 <!-- Action links -->
@@ -60,9 +66,3 @@
 		</a>
 	</div>
 </security:authorize>
-
-<!-- Search Form -->
-<form:form action="item/list-search.do" modelAttribute="item">
-	<form:input path="search-word"/>
-	<input type="submit" name="search-button" value="<spring:message code="search.button"/>"/>
-</form:form>

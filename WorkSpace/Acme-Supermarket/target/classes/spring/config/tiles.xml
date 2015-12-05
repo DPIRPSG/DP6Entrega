@@ -26,6 +26,7 @@
 		<value>/views/item/tiles.xml</value>
 		<value>/views/order/tiles.xml</value>
 		<value>/views/shopping-cart/tiles.xml</value>
+		<value>/views/comment/tiles.xml</value>
 	</util:list>
 
 </beans>
