@@ -1,4 +1,4 @@
-package controllers;
+package controllers.administrator;
 
 import javax.validation.Valid;
 
@@ -9,77 +9,80 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ClerkService;
 
+import controllers.AbstractController;
+import domain.Clerk;
 import domain.Consumer;
 
-import services.ConsumerService;
-
 @Controller
-@RequestMapping(value = "/consumer")
-public class RegisterController extends AbstractController{
+@RequestMapping(value = "/new-clerk/administrator")
+public class ClerkAdministratorController extends AbstractController{
 
 	//Services ----------------------------------------------------------
-	
+
 	@Autowired
-	private ConsumerService consumerService;
+	private ClerkService clerkService;
 	
 	//Constructors ----------------------------------------------------------
 	
-	public RegisterController(){
+	public ClerkAdministratorController(){
 		super();
 	}
 
 	//Listing ----------------------------------------------------------
 
-	//Creation ----------------------------------------------------------
 	
+	//Creation ----------------------------------------------------------
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(){
 		ModelAndView result;
-		Consumer consu;
+		Clerk clerk;
 		
-		consu = consumerService.create();
-		result = createEditModelAndView(consu);
+		clerk = clerkService.create();
+		result = createEditModelAndView(clerk);
 		
 		return result;
 	}
 	
 	//Edition ----------------------------------------------------------
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Consumer consu, BindingResult binding){
+	public ModelAndView save(@Valid Clerk clerk, BindingResult binding){
 		ModelAndView result;
 		
 		if(binding.hasErrors()){
 			System.out.println("Errores encontrados: " + binding);
-			result = createEditModelAndView(consu);
+			result = createEditModelAndView(clerk);
 		} else {
 			try {
-				consumerService.save(consu);
+				clerkService.save(clerk);
 				result = new ModelAndView("redirect:Welcome/index");
 			} catch (Throwable oops){
 				System.out.println("Error oops: "+ oops);
-				result = createEditModelAndView(consu, "consumer.commit.error");
+				result = createEditModelAndView(clerk, "consumer.commit.error");
 			}
 		}
 		
 		return result;
 	}
+	
 	//Ancillary Methods ----------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(Consumer consumer){
+	protected ModelAndView createEditModelAndView(Clerk clerk) {
 		ModelAndView result;
 		
-		result = createEditModelAndView(consumer, null);
+		result = createEditModelAndView(clerk, null);
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndView(Consumer consumer, String message){
+	protected ModelAndView createEditModelAndView(Clerk clerk, String message){
 		ModelAndView result;
 		
-		result = new ModelAndView("consumer/create");
-		result.addObject("consumer", consumer);
+		result = new ModelAndView("clerk/create");
+		result.addObject("clerk", clerk);
 		result.addObject("message", message);
 		
 		return result;
