@@ -30,7 +30,7 @@
 
 <!-- Action links -->
 <div>
-	<a href="comment/create.do"> <spring:message
+	<a href="comment/create.do?itemId=${row.item.id}"> <spring:message
 			code="comment.create" />
 	</a>
 </div>
