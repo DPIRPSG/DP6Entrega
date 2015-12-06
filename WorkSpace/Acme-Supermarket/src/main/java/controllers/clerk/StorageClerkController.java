@@ -30,14 +30,31 @@ public class StorageClerkController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int warehouseId) {
+	public ModelAndView listByWarehouse(@RequestParam Integer warehouseId, @RequestParam Integer itemId) {
 		ModelAndView result;
 		Collection<Storage> storages;
+		boolean byWarehouse;
+		boolean byItem;
+		
+		if(warehouseId != null) {
+			byWarehouse = true;
 
-		storages = storageService.findAllByWarehouseId(warehouseId);
-		result = new ModelAndView("storage/list");
-		result.addObject("requestURI", "storage/clerk/list.do");
-		result.addObject("storages", storages);
+			storages = storageService.findAllByWarehouseId(warehouseId);
+			result = new ModelAndView("storage/list");
+			result.addObject("requestURI", "storage/clerk/list.do");
+			result.addObject("storages", storages);
+			result.addObject("byWarehouse", byWarehouse);
+		} else {
+			byItem = true;
+			
+			storages = storageService.findAllByItemId(itemId);
+			result = new ModelAndView("storage/list");
+			result.addObject("requestURI", "storage/clerk/list.do");
+			result.addObject("storages", storages);
+			result.addObject("byItem", byItem);
+		}
+		
+		
 
 		return result;
 	}

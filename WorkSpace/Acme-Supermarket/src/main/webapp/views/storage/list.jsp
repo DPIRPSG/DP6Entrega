@@ -15,17 +15,43 @@
 	<!-- Action links -->
 	
 	<!-- Attributes -->
+	
 	<spring:message code="storage.units" var="unitsHeader" />
 	<display:column property="units" title="${unitsHeader}" sortable="false" />
-	
-	<spring:message code="storage.item.name" var="nameHeader" />
-	<display:column property="item.name" title="${nameHeader}" sortable="true" />
-	
-	<spring:message code="storage.item.description" var="descriptionHeader" />
-	<display:column property="item.description" title="${descriptionHeader}" sortable="false" />
-	
-	<spring:message code="storage.item.price" var="priceHeader" />
-	<display:column property="item.price" title="${priceHeader}" sortable="true" />
-				
+
+	<jstl:if test="${byWarehouse}">
+
+		<spring:message code="storage.item.name" var="nameHeader" />
+		<display:column property="item.name" title="${nameHeader}"
+			sortable="true" />
+
+		<spring:message code="storage.item.description"
+			var="descriptionHeader" />
+		<display:column property="item.description"
+			title="${descriptionHeader}" sortable="false" />
+
+		<spring:message code="storage.item.price" var="priceHeader" />
+		<display:column property="item.price" title="${priceHeader}"
+			sortable="true" />
+
+	</jstl:if>
+
+	<jstl:if test="${byItem}">
+
+		<spring:message code="storage.warehouse.name" var="nameHeader" />
+		<display:column property="wareHouse.name" title="${nameHeader}"
+			sortable="true" />
+			
+		<spring:message code="storage.warehouse.address" var="addressHeader" />
+		<display:column property="wareHouse.address" title="${addressHeader}"
+			sortable="true" />
+
+	</jstl:if>
+
+
+
+
+
+
 </display:table>
 <!-- Action links -->

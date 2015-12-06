@@ -33,11 +33,15 @@ public class StorageAdministratorController extends AbstractController {
 	public ModelAndView list(@RequestParam int warehouseId) {
 		ModelAndView result;
 		Collection<Storage> storages;
+		boolean byWarehouse;
+		
+		byWarehouse = true;
 
 		storages = storageService.findAllByWarehouseId(warehouseId);
 		result = new ModelAndView("storage/list");
 		result.addObject("requestURI", "storage/administrator/list.do");
 		result.addObject("storages", storages);
+		result.addObject("byWarehouse", byWarehouse);
 
 		return result;
 	}
