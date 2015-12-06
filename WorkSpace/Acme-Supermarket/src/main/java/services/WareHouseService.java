@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.WareHouseRepository;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
 import domain.WareHouse;
-
-import repositories.WareHouseRepository;
 
 @Service
 @Transactional 
