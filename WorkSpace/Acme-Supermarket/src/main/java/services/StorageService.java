@@ -162,5 +162,15 @@ public class StorageService {
 		
 		return result;	
 	}
+
+	public Collection<Storage> findAllByItemId(int itemId) {
+		Assert.notNull(itemId);
+
+		Collection<Storage> result;
+
+		result = storageRepository.findAllByItemId(itemId);
+
+		return result;
+	}
  
 }

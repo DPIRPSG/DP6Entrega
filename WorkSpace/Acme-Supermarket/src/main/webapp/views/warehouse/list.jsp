@@ -33,7 +33,7 @@
 	
 	<security:authorize access="hasRole('CLERK')">
 		<display:column>
-			<a href="storage/clerk/list.do?warehouseId=${row.id}"> <spring:message
+			<a href="storage/clerk/list.do?warehouseId=${row.id}&itemId="> <spring:message
 					code="warehouse.storage" />
 			</a>
 		</display:column>

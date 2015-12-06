@@ -50,6 +50,8 @@
 		<security:intercept-url pattern="/storage/administrator/**" access="hasRole('ADMIN')" />
 		
 		
+		<security:intercept-url pattern="/item/clerk/**" access="hasRole('CLERK')" />
+		
 		<security:intercept-url pattern="/warehouse/clerk/**" access="hasRole('CLERK')" />
 		
 		<security:intercept-url pattern="/storage/clerk/**" access="hasRole('CLERK')" />
