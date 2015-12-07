@@ -28,6 +28,8 @@
 		<value>/views/order/tiles.xml</value>
 		<value>/views/shopping-cart/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
+		<value>/views/warehouse/tiles.xml</value>
+		<value>/views/storage/tiles.xml</value>
 	</util:list>
 
 </beans>
