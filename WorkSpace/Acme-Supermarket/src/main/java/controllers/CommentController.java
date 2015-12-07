@@ -2,8 +2,11 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,6 +72,23 @@ public class CommentController extends AbstractController {
 		comment = commentService.createByItem(item);		
 		result = createEditModelAndView(comment);
 		
+		return result;
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.POST, params="save")
+	public ModelAndView save(@Valid Comment comment, BindingResult binding) {
+		ModelAndView result;
+		
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(comment);
+		} else {
+			try {
+				commentService.save(comment);
+				result = new ModelAndView("redirect:list.do?itemId=" + comment.getItem().getId());
+			} catch (Throwable oops) {
+				result = createEditModelAndView(comment, "comment.commit.error");
+			}
+		}
 		return result;
 	}
 	

@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,6 +150,26 @@ public class StorageService {
 		storage = this.findByWareHouseAndItem(wareHouse, item);
 		result = storage.getUnits();
 		
+		return result;
+	}
+
+	public Collection<Storage> findAllByWarehouseId(int warehouseId) {
+		Assert.notNull(warehouseId);
+		
+		Collection<Storage> result;
+		
+		result = storageRepository.findAllByWarehouseId(warehouseId);
+		
+		return result;	
+	}
+
+	public Collection<Storage> findAllByItemId(int itemId) {
+		Assert.notNull(itemId);
+
+		Collection<Storage> result;
+
+		result = storageRepository.findAllByItemId(itemId);
+
 		return result;
 	}
  

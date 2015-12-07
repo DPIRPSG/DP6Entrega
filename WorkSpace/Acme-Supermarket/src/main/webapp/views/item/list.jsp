@@ -29,6 +29,14 @@
 		</display:column>		
 	</security:authorize>
 	
+	<security:authorize access="hasRole('CLERK')">
+		<display:column>
+			<a href="storage/clerk/list.do?warehouseId=&itemId=${row.id}">
+				<spring:message	code="item.storage" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
 	
 	<!-- Attributes -->
 	<spring:message code="item.category" var="categoryHeader" />
