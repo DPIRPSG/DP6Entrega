@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+
 import domain.Item;
 import domain.Order;
 
@@ -18,7 +20,7 @@ import services.OrderService;
 
 @Controller
 @RequestMapping(value = "/order/consumer")
-public class OrderConsumerController {
+public class OrderConsumerController extends AbstractController {
 	
 	// Services ----------------------------------------------------------
 	@Autowired
