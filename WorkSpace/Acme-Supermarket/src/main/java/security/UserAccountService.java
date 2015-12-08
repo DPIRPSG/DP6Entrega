@@ -23,7 +23,7 @@ public class UserAccountService {
 		super();
 	}
 	// Simple CRUD methods ----------------------------------------------------
-	private UserAccount create(String authority){
+	public UserAccount create(String authority){
 		UserAccount result;
 		Authority au;
 		Collection<Authority> authorities = new ArrayList<Authority>();
