@@ -6,9 +6,9 @@
        
 <tiles-definitions>
 
-	<definition name="consumer/create" extends="master.page">	
-		<put-attribute name="title" value="Consumer: Register" />
-		<put-attribute name="body" value="/views/consumer/create.jsp" />
+	<definition name="clerk/create" extends="master.page">	
+		<put-attribute name="title" value="Clerk: Register" />
+		<put-attribute name="body" value="/views/clerk/create.jsp" />
 	</definition>
 	
 </tiles-definitions>

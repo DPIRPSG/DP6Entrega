@@ -89,6 +89,15 @@ public class OrderService {
 		return result;
 	}
 	
+	public Order findOne(int id){
+		Order result;
+		
+		result = orderRepository.findOne(id);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
 
 	//Other business methods -------------------------------------------------
 	
@@ -271,7 +280,7 @@ public class OrderService {
 	 * Devuelven las orders no asignadas a ningún clerk siendo la primera la más antigua
 	 */
 	//ref: 18.3
-	private Collection<Order> findAllNotAssigned(){
+	public Collection<Order> findAllNotAssigned(){
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 		
 		Collection<Order> result;

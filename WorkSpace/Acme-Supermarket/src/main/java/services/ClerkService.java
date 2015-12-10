@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,13 @@ import org.springframework.util.Assert;
 
 import domain.Clerk;
 import domain.Folder;
+import domain.Message;
 import domain.Order;
 
 import repositories.ClerkRepository;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 
 @Service
 @Transactional
@@ -31,6 +34,9 @@ public class ClerkService {
 	@Autowired
 	private ActorService actorService;
 	
+	@Autowired
+	private UserAccountService userAccountService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ClerkService(){
@@ -44,15 +50,30 @@ public class ClerkService {
 	 */	
 	//req: 17.1
 	public Clerk create(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create clerk");		
+		
 		Clerk result;
 		Collection<Folder> folders;
-		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create clerk");
-
+		UserAccount userAccount;
+		Collection<Message> sent;
+		Collection<Message> received;
+		Collection<Order> orders;
 		
 		result = new Clerk();
 		
 		folders = folderService.initializeSystemFolder(result);
 		result.setFolders(folders);
+
+		userAccount = userAccountService.create("CLERK");
+		result.setUserAccount(userAccount);
+		
+		sent = new ArrayList<Message>();
+		received = new ArrayList<Message>();
+		result.setSent(sent);
+		result.setReceived(received);
+		
+		orders = new ArrayList<Order>();
+		result.setOrders(orders);
 		
 		return result;
 	}
