@@ -16,7 +16,7 @@
 	name="categories" requestURI="${requestURI}" id="row">
 		<!-- Action links -->
 		<display:column>
-			<a href="category/edit.do?categoryId=${row.id}">
+			<a href="category/administrator/edit.do?categoryId=${row.id}">
 				<spring:message	code="category.list.edit" />
 			</a>
 		</display:column>
@@ -33,15 +33,15 @@
 		</display:column>
 		
 		<spring:message code="category.list.taxName" var="taxNameHeader" />
-		<display:column property="taxName" title="${taxNameHeader}" sortable="true" />
+		<display:column property="tax.name" title="${taxNameHeader}" sortable="true" />
 		
 		<spring:message code="category.list.taxValue" var="taxValueHeader" />
-		<display:column property="taxValue" title="${taxValueHeader}" sortable="true" />
+		<display:column property="tax.value" title="${taxValueHeader}" sortable="true" />
 		
 </display:table>
 <!-- Action links -->
 <div>
-	<a href="item/administrator/create.do"> <spring:message
+	<a href="category/administrator/create.do"> <spring:message
 			code="category.list.create" />
 	</a>
 </div>
