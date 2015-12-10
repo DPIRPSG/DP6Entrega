@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -43,11 +44,16 @@ public class ItemAdministratorController extends AbstractController {
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam String keyword) {
 		ModelAndView result;
 		Collection<Item> items;
 		
-		items = itemService.findAll();
+		if (keyword == "") {
+			items = itemService.findAll();
+		} else {
+			items = itemService.findBySingleKeyword(keyword);
+		}
+		
 		result = new ModelAndView("item/list");
 		result.addObject("requestURI", "item/administrator/list.do");
 		result.addObject("items", items);
