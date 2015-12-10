@@ -21,7 +21,7 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('CONSUMER')">
-			<li><a class="fNiv" href="item/consumer/list.do"><spring:message code="master.page.catalogue" /></a></li>
+			<li><a class="fNiv" href="item/consumer/list.do?keyword="><spring:message code="master.page.catalogue" /></a></li>
 			<li><a class="fNiv" href="shopping-cart/consumer/list.do"><spring:message code="master.page.shopping-cart" /></a></li>
 			<li><a class="fNiv" href="order/consumer/list.do"><spring:message code="master.page.orders" /></a></li>
 			<li><a class="fNiv" href="folder/consumer/list.do"><spring:message code="master.page.messages" /></a></li>
@@ -57,7 +57,7 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="item/list.do"><spring:message code="master.page.catalogue" /></a></li>
+			<li><a class="fNiv" href="item/list.do?keyword="><spring:message code="master.page.catalogue" /></a></li>
 			<li><a class="fNiv" href="consumer/create.do"><spring:message code="master.page.register" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>

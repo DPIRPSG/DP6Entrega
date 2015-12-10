@@ -74,13 +74,4 @@
 		</a>
 	</div>
 </security:authorize>
-
-<form:form action="item/administrator/edit.do">
-	<form:label path="name">
-		<spring:message code="item.name" />:
-	</form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
-</form:form>
 	
