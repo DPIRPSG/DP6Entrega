@@ -62,6 +62,7 @@
 		
 		<security:intercept-url pattern="/storage/clerk/**" access="hasRole('CLERK')" />
 
+		<security:intercept-url pattern="/item/list.do" access="permitAll"/>
 		<security:intercept-url pattern="/comment/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/comment/create.do" access="permitAll" /> 
 

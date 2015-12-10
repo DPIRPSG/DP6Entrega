@@ -12,39 +12,17 @@
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="items" requestURI="${requestURI}" id="row">
-		<!-- Action links -->
-		<display:column>
-			<a href="shopping-cart/consumer/delete.do?itemId=${row.id}"
-			onclick="javascript: return confirm('<spring:message code="item.confirm.delete" />')">
-				<spring:message	code="item.delete" />
+		name="shoppingCarts" requestURI="${requestURI}" id="row">
+
+	<!-- Attributes -->
+	<spring:message code="shoppingCart.comment" var="commentHeader" />
+	<display:column property="comment" title="${commentHeader}" sortable="false" />
+	
+	<display:column>
+			<a href="content/consumr/list.do?shoppingCartId=${row.id}&itemId="> <spring:message
+					code="shoppingCart.content" />
 			</a>
-		</display:column>
-		
-		<!-- Attributes -->
-		<spring:message code="item.picture" var="pictureHeader" />
-		<display:column property="picture" title="${pictureHeader}" sortable="false" />
-		
-		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="true" />
-		
-		<spring:message code="item.price" var="priceHeader" />
-		<display:column property="price" title="${priceHeader}" sortable="true" />
-		
-		<!-- Form -->
-		<form:form action="shopping-cart/consumer/list.do" modelAttribute="item">
-			<!-- Hidden Attributes -->
-			<form:hidden path="id"/>
-			<form:hidden path="version"/>
-		
-			<!-- Editable Attributes -->
-			<form:label path="content">
-				<spring:message code="item.content" var="contentHeader" />
-				<display:column property="content" title="${contentHeader}" sortable="false" />
-			</form:label>
-			<form:input path="content" />
-			<form:errors cssClass="error" path="content" />
-		</form:form>
+	</display:column>
 	
 	</display:table>
 	
@@ -55,9 +33,5 @@
 			<spring:message	code="item.checkout" />
 		</a>
 	</jstl:if>
-	
-	<input type="button" name="save"
-		value="<spring:message code="item.save" />"
-		onclick="javascript: relativeRedir('/');" />
 	
 </security:authorize>
