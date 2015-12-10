@@ -1,0 +1,10 @@
+Cambios de DP6Entrega
+
+- Mensaje de error en el registro de Consumer y Clerk
+- Revisar el pattern de teléfono. No funcionaba con un teléfono de Chile
+- Cambiar populate.xml para crear más items y que la paginación funcione.
+- Puedes entrar en una URL de admin siendo consumer.
+- Modificar security del proyecto.
+- La URL del botón de crear clerk está mal.
+- Faltan los servicios de issue de Git (https://github.com/DPIRPSG/DP6Entrega/issues/16)
+- 
