@@ -105,11 +105,10 @@ public class CommentController extends AbstractController {
 	
 	protected ModelAndView createEditModelAndView(Comment comment, String message) {
 		ModelAndView result;
-		
-		if(!actorService.checkAuthority("ADMIN") && !actorService.checkAuthority("CONSUMER") && !actorService.checkAuthority("CLERK")){
-			comment.setUserName("Anonymous");
-		}else{
+		if(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CONSUMER") || actorService.checkAuthority("CLERK")){
 			comment.setUserName(actorService.findByPrincipal().getName());
+		}else{
+			comment.setUserName("Anonymous");
 		}
 		
 		result = new ModelAndView("comment/create");

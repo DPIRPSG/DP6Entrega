@@ -64,17 +64,23 @@ public class ActorService {
 		boolean result;
 		Actor actor;
 		Collection<Authority> authorities;
-		
-		actor = this.findByPrincipal();
-		authorities = actor.getUserAccount().getAuthorities();
 		result = false;
-		
-		for (Authority a : authorities) {
-			if(a.getAuthority().equals(authority.toUpperCase())){
-				result = true;
-				break;
+
+		try {
+			actor = this.findByPrincipal();
+			authorities = actor.getUserAccount().getAuthorities();
+			
+			for (Authority a : authorities) {
+				if(a.getAuthority().equals(authority.toUpperCase())){
+					result = true;
+					break;
+				}
 			}
+		} catch (IllegalArgumentException e) {
+			result = false;
 		}
+		
+		
 		
 		return result;
 	}

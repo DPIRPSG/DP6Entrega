@@ -20,7 +20,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("select i from Item i where i.deleted is false and i.comments.size = (select max(i.comments.size) from Item i where i.deleted is false) group by i")
 	Collection<Item> findItemMoreComments();
 	
-	@Query("select i from Item i where i.deleted = false")
+	@Query("select i from Item i where i.deleted = false order by i.category")
 	Collection<Item> findAllNotDeleted();
 	
 	@Query("select i from Item i where i.deleted = false and i.category.id = ?1")
