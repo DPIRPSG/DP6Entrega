@@ -31,7 +31,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.manage" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="item/administrator/list.do"><spring:message code="master.page.manage.catalogue" /></a></li>
+					<li><a href="item/administrator/list.do?keyword="><spring:message code="master.page.manage.catalogue" /></a></li>
 					<li><a href="tax/administrator/list.do"><spring:message code="master.page.manage.taxes" /></a></li>			
 					<li><a href="category/administrator/list.do"><spring:message code="master.page.manage.categories" /></a></li>	
 					<li><a href="warehouse/administrator/list.do"><spring:message code="master.page.manage.warehouses" /></a></li>			
