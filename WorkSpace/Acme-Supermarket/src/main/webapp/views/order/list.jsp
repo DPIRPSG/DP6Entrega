@@ -57,13 +57,13 @@
 			</security:authorize>
 		</jstl:if>
 		<jstl:if test="${row.clerk != null}">
-			<display:column property="clerk" title="${clerkHeader}"
+			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
 				sortable="false" />
 		</jstl:if>
 
 
 		<spring:message code="order.consumer" var="consumerHeader" />
-		<display:column property="consumer" title="${consumerHeader}"
+		<display:column property="consumer.userAccount.username" title="${consumerHeader}"
 			sortable="false" />
 
 	</display:table>
