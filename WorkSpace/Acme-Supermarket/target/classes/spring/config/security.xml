@@ -47,6 +47,9 @@
 		
 		
 		<security:intercept-url pattern="/item/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/shopping-cart/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/order/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/content/consumer/**" access="hasRole('CONSUMER')"/>
 		
 		
 		<security:intercept-url pattern="/order/clerk/**" access="hasRole('CLERK')" />
