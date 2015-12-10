@@ -316,6 +316,19 @@ public class OrderService {
 		
 		this.save(order);
 	}
+	
+	public Collection<Order> findAllByConsumer(){
+		Collection<Order> result;
+		Consumer consu;
+		
+		consu = consumerService.findByPrincipal();
+		
+		Assert.notNull(consu);
+		
+		result = orderRepository.findAllByConsumerId(consu.getId());
+		
+		return result;
+	}
 
 
 	
