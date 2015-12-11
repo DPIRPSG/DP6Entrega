@@ -33,11 +33,14 @@ public class ItemController extends AbstractController {
 	public ModelAndView list(@RequestParam String keyword) {
 		ModelAndView result;
 		Collection<Item> items;
+		String keywordToFind;
 
 		if (keyword == "") {
 			items = itemService.findAll();
 		} else {
-			items = itemService.findBySingleKeyword(keyword);
+			String[] keywordComoArray = keyword.split(" ");
+			keywordToFind = keywordComoArray[0];
+			items = itemService.findBySingleKeyword(keywordToFind);
 		}
 
 		result = new ModelAndView("item/list");
