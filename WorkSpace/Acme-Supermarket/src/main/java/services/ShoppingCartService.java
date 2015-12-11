@@ -1,11 +1,15 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Consumer;
+import domain.Content;
 import domain.Item;
 import domain.Order;
 import domain.ShoppingCart;
@@ -43,6 +47,22 @@ public class ShoppingCartService {
 	
 	//Simple CRUD methods ----------------------------------------------------
 
+	/**
+	 * Inicializa un carrito
+	 */
+	public ShoppingCart create(Consumer consumer){
+		ShoppingCart result;
+		Collection<Content> content;
+		
+		result = new ShoppingCart();
+		content = new ArrayList<Content>();
+		
+		result.setConsumer(consumer);
+		result.setContents(content);
+		
+		return result;
+	}
+	
 	/**
 	 * Guarda los cambios del carrito. Usar solo para comentarios.
 	 */

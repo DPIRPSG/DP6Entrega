@@ -57,14 +57,15 @@ public class ClerkServiceTest extends AbstractTest{
 			System.out.println(c.getName());
 		}
 		
-		userAccount = userAccountService.createComplete("Clerk99", "91ec1f9322200048c9496d036a694f86", "CLERK");
-		
 		result = clerkService.create();
+		userAccount = result.getUserAccount();
 	
 		result.setName("Manuel");
 		result.setEmail("manuel@mail.com");
 		result.setPhone("666123123");
 		result.setSurname("García");
+		userAccount.setUsername("Clerk99");
+		userAccount.setPassword("Clerk99");
 		result.setUserAccount(userAccount);
 		result.setReceived(received);
 		result.setSent(sent);

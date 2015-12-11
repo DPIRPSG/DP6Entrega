@@ -48,15 +48,22 @@ public class RegisterController extends AbstractController{
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Consumer consu, BindingResult binding){
+
 		ModelAndView result;
+		boolean bindingError;
 		
-		if(binding.hasErrors()){
-			System.out.println("Errores encontrados: " + binding);
+		if(binding.hasFieldErrors("folders")){
+			bindingError = binding.getErrorCount() > 1;
+		}else{
+			bindingError = binding.getErrorCount() > 0;
+		}
+		
+		if(bindingError){
 			result = createEditModelAndView(consu);
 		} else {
 			try {
 				consumerService.save(consu);
-				result = new ModelAndView("redirect:Welcome/index");
+				result = new ModelAndView("redirect:../security/login.do");
 			} catch (Throwable oops){
 				System.out.println("Error oops: "+ oops);
 				result = createEditModelAndView(consu, "consumer.commit.error");

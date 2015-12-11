@@ -12,8 +12,10 @@ import domain.Consumer;
 import domain.Folder;
 import domain.Message;
 import domain.Order;
+import domain.ShoppingCart;
 
 import repositories.ConsumerRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
@@ -37,6 +39,9 @@ public class ConsumerService {
 	@Autowired
 	private UserAccountService userAccountService;
 	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ConsumerService(){
@@ -51,28 +56,13 @@ public class ConsumerService {
 	// req: 10.1
 	public Consumer create(){
 		Consumer result;
-		Collection<Folder> folders;
 		UserAccount userAccount;
-		Collection<Message> sent;
-		Collection<Message> received;
-		Collection<Order> orders;
 
 		result = new Consumer();
-		
-		folders = folderService.initializeSystemFolder(result);
-		result.setFolders(folders);
 		
 		userAccount = userAccountService.create("CONSUMER");
 		result.setUserAccount(userAccount);
 		
-		sent = new ArrayList<Message>();
-		received = new ArrayList<Message>();
-		result.setSent(sent);
-		result.setReceived(received);
-		
-		orders = new ArrayList<Order>();
-		result.setOrders(orders);
-
 		return result;
 	}
 	
@@ -82,7 +72,47 @@ public class ConsumerService {
 	// req: 10.1
 	public void save(Consumer consumer){
 		Assert.notNull(consumer);
-
+		
+		boolean result = true;
+		for(Authority a: consumer.getUserAccount().getAuthorities()){
+			if(!a.getAuthority().equals("CONSUMER")){
+				result = false;
+				break;
+			}
+		}
+		Assert.isTrue(result, "A consumer can only be a authority.consumer");
+		
+		if(consumer.getId() == 0){
+			Collection<Folder> folders;
+			Collection<Message> sent;
+			Collection<Message> received;
+			Collection<Order> orders;
+			UserAccount auth;
+			ShoppingCart shoppingCart;
+			
+			//Encoding password
+			auth = consumer.getUserAccount();
+			auth = userAccountService.modifyPassword(auth);
+			consumer.setUserAccount(auth);
+			
+			// Initialize folders
+			folders = folderService.initializeSystemFolder(consumer);
+			consumer.setFolders(folders);
+			
+			sent = new ArrayList<Message>();
+			received = new ArrayList<Message>();
+			consumer.setSent(sent);
+			consumer.setReceived(received);
+			
+			//Initialize orders			
+			orders = new ArrayList<Order>();
+			consumer.setOrders(orders);
+			
+			//Initialize shoppingCart
+			shoppingCart = shoppingCartService.create(consumer);
+			consumer.setShoppingCart(shoppingCart);
+			
+		}
 		consumerRepository.save(consumer);
 	}
 	

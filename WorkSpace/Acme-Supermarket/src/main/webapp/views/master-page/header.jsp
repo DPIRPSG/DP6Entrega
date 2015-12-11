@@ -45,7 +45,7 @@
 				</ul>
 			</li>
 			<li><a class="fNiv" href="dashboard/administrator/list.do"><spring:message code="master.page.dashboard" /></a></li>
-			<li><a class="fNiv" href="new-clerk/administrator/list.do"><spring:message code="master.page.new-clerk" /></a></li>
+			<li><a class="fNiv" href="clerk/administrator/create.do"><spring:message code="master.page.new-clerk" /></a></li>
 			<li><a class="fNiv" href="folder/administrator/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
