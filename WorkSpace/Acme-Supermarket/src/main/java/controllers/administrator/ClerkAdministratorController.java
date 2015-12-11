@@ -13,10 +13,9 @@ import services.ClerkService;
 
 import controllers.AbstractController;
 import domain.Clerk;
-import domain.Consumer;
 
 @Controller
-@RequestMapping(value = "/new-clerk/administrator")
+@RequestMapping(value = "/clerk/administrator")
 public class ClerkAdministratorController extends AbstractController{
 
 	//Services ----------------------------------------------------------
@@ -51,17 +50,23 @@ public class ClerkAdministratorController extends AbstractController{
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Clerk clerk, BindingResult binding){
 		ModelAndView result;
+		boolean bindingError;
 		
-		if(binding.hasErrors()){
-			System.out.println("Errores encontrados: " + binding);
+		if(binding.hasFieldErrors("folders")){
+			bindingError = binding.getErrorCount() > 1;
+		}else{
+			bindingError = binding.getErrorCount() > 0;
+		}
+		
+		if(bindingError){
 			result = createEditModelAndView(clerk);
 		} else {
 			try {
 				clerkService.save(clerk);
-				result = new ModelAndView("redirect:Welcome/index");
+				result = new ModelAndView("redirect:../..");
 			} catch (Throwable oops){
 				System.out.println("Error oops: "+ oops);
-				result = createEditModelAndView(clerk, "consumer.commit.error");
+				result = createEditModelAndView(clerk, "clerk.commit.error");
 			}
 		}
 		
