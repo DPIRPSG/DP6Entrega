@@ -105,6 +105,14 @@ public class ContentService {
 		return result;
 	}
 	
+	public Collection<Content> findByShoppingCart(int shoppingCartId){
+		Collection<Content> result;
+		
+		result = contentRepository.findByShoppingCartID(shoppingCartId);
+		
+		return result;
+	}
+	
 	/**
 	 * NO USAR. Usar ShoppingCartService.consultItemQuantity
 	 */

@@ -12,37 +12,24 @@
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="shoppingCarts" requestURI="${requestURI}" id="row">
+		name="contents" requestURI="${requestURI}" id="row">
 
 	<!-- Attributes -->
+	<spring:message code="content.item.name" var="nameHeader" />
+	<display:column property="item.name" title="${nameHeader}"
+		sortable="true" />
+		
 	<spring:message code="content.units" var="unitsHeader" />
 	<display:column property="units" title="${unitsHeader}" sortable="false" />
 	
-	<jstl:if test="${byShoppingCart}">
+	<spring:message code="content.item.description"
+		var="descriptionHeader" />
+	<display:column property="item.description"
+		title="${descriptionHeader}" sortable="false" />
 
-		<spring:message code="content.item.name" var="nameHeader" />
-		<display:column property="item.name" title="${nameHeader}"
-			sortable="true" />
-
-		<spring:message code="content.item.description"
-			var="descriptionHeader" />
-		<display:column property="item.description"
-			title="${descriptionHeader}" sortable="false" />
-
-		<spring:message code="content.item.price" var="priceHeader" />
-		<display:column property="item.price" title="${priceHeader}"
-			sortable="true" />
-
-	</jstl:if>
-	
-	<jstl:if test="${byItem}">
-
-		<spring:message code="content.shoppingCart.comment" var="commentHeader" />
-		<display:column property="shoppingCart.comment" title="${commentHeader}"
-			sortable="false" />
-
-	</jstl:if>
-
+	<spring:message code="content.item.price" var="priceHeader" />
+	<display:column property="item.price" title="${priceHeader}"
+		sortable="true" />
 	
 	</display:table>
 	

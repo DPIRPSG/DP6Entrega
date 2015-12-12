@@ -16,4 +16,5 @@ public interface ContentRepository extends JpaRepository<Content, Integer> {
 
 	@Query("select c from Content c where c.shoppingCart.id = ?1")
 	Collection<Content> findByShoppingCartID(int shoppingCartId);
+	
 }

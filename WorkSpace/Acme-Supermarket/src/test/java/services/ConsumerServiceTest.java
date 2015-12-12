@@ -112,14 +112,16 @@ public class ConsumerServiceTest extends AbstractTest{
 			System.out.println(c.getName());
 		}
 		authenticate(null);
-		userAccount = userAccountService.createComplete("Consumer99", "91ec1f9333300048c9496d036a694f86", "CONSUMER");
 		
 		result = consumerService.create();
+		userAccount = result.getUserAccount();
 		
 		result.setName("Fatima");
 		result.setEmail("fatima@mail.com");
 		result.setPhone("666123321");
 		result.setSurname("Caballero");
+		userAccount.setUsername("Consumer99");
+		userAccount.setPassword("Consumer99");
 		result.setUserAccount(userAccount);
 		result.setReceived(received);
 		result.setSent(sent);

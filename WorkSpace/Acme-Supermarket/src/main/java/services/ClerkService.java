@@ -14,6 +14,7 @@ import domain.Message;
 import domain.Order;
 
 import repositories.ClerkRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
@@ -53,27 +54,12 @@ public class ClerkService {
 		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create clerk");		
 		
 		Clerk result;
-		Collection<Folder> folders;
 		UserAccount userAccount;
-		Collection<Message> sent;
-		Collection<Message> received;
-		Collection<Order> orders;
 		
 		result = new Clerk();
 		
-		folders = folderService.initializeSystemFolder(result);
-		result.setFolders(folders);
-
 		userAccount = userAccountService.create("CLERK");
 		result.setUserAccount(userAccount);
-		
-		sent = new ArrayList<Message>();
-		received = new ArrayList<Message>();
-		result.setSent(sent);
-		result.setReceived(received);
-		
-		orders = new ArrayList<Order>();
-		result.setOrders(orders);
 		
 		return result;
 	}
@@ -84,8 +70,42 @@ public class ClerkService {
 	//req: 17.1
 	public void save(Clerk clerk){
 		Assert.notNull(clerk);
-		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or a clerk can save clerk");
+		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or a clerk can save clerks");
 
+		boolean result = true;
+		for(Authority a: clerk.getUserAccount().getAuthorities()){
+			if(!a.getAuthority().equals("CLERK")){
+				result = false;
+				break;
+			}
+		}
+		Assert.isTrue(result, "A clerk can only be a authority.clerk");
+		
+		if(clerk.getId() == 0){
+			Collection<Folder> folders;
+			Collection<Message> sent;
+			Collection<Message> received;
+			Collection<Order> orders;
+			UserAccount auth;
+			
+			//Encoding password
+			auth = clerk.getUserAccount();
+			auth = userAccountService.modifyPassword(auth);
+			clerk.setUserAccount(auth);
+			
+			// Initialize folders
+			folders = folderService.initializeSystemFolder(clerk);
+			clerk.setFolders(folders);
+			
+			sent = new ArrayList<Message>();
+			received = new ArrayList<Message>();
+			clerk.setSent(sent);
+			clerk.setReceived(received);
+			
+			//Initialize orders			
+			orders = new ArrayList<Order>();
+			clerk.setOrders(orders);			
+		}
 		
 		clerkRepository.save(clerk);
 	}
