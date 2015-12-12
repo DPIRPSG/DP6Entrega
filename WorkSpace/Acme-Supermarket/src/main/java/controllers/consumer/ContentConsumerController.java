@@ -35,17 +35,13 @@ public class ContentConsumerController extends AbstractController{
 	public ModelAndView list(@RequestParam int shoppingCartId) {
 		ModelAndView result;
 		Collection<Content> contents;
-		boolean byShoppingCart;
 		
-		byShoppingCart = true;
-
 		/* Falta un servicio de findAllByShoppingCartId(shoppingCartId) como el de storageService */
 		contents = contentService.findByShoppingCart(shoppingCartId);
 		result = new ModelAndView("content/list");
 		result.addObject("requestURI", "content/consumer/list.do");
 		result.addObject("contents", contents);
-		result.addObject("byShoppingCart", byShoppingCart);
-
+		
 		return result;
 	}
 

@@ -38,12 +38,10 @@ public class ShoppingCartConsumerController extends AbstractController{
 		ModelAndView result;
 		Consumer consumer;
 		ShoppingCart shoppingCart;
-
-		/* Tengo que ver como pasarle el consumer. Quizás se pueda hacer para que el servicio lo tenga en cuenta */
 		
 		consumer = consumerService.findByPrincipal();
-		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
+		
 		result = new ModelAndView("shopping-cart/list");
 		result.addObject("requestURI", "shopping-cart/consumer/list.do");
 		result.addObject("shoppingCarts", shoppingCart);

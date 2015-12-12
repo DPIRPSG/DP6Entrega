@@ -19,7 +19,7 @@
 	<display:column property="comments" title="${commentsHeader}" sortable="false" />
 	
 	<display:column>
-			<a href="content/consumer/list.do?shoppingCartId=${row.id}&itemId="> <spring:message
+			<a href="content/consumer/list.do?shoppingCartId=${row.id}"> <spring:message
 					code="shoppingCart.contents" />
 			</a>
 	</display:column>
