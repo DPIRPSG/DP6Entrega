@@ -238,4 +238,14 @@ public class ItemService {
 		return result;
 	}
 
+	public Item findOneBySKU(String sku) {
+		Assert.notNull(sku);
+		
+		Item result;
+
+		result = itemRepository.findOneBySKU(sku);
+
+		return result;
+	}
+
 }
