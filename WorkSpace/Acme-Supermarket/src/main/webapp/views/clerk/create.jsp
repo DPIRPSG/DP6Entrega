@@ -10,7 +10,7 @@
 
 <security:authorize access = "hasRole('ADMIN')">
 	<!-- Form -->
-	<form:form action="clerk/create.do" modelAttribute="clerk">
+	<form:form action="clerk/administrator/create.do" modelAttribute="clerk">
 		<!-- Hidden Attributes -->
 		<form:hidden path="id"/>
 		<form:hidden path="version"/>

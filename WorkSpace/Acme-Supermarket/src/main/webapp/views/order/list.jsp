@@ -10,7 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasAnyRole('ADMIN', 'CONSUMER')">
+<security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="orders" requestURI="${requestURI}" id="row">

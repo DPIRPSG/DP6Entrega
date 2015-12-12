@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.jboss.logging.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -15,52 +14,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CategoryService;
-import services.ItemService;
-
-
+import services.TaxService;
 import controllers.AbstractController;
 import domain.Category;
-import domain.Comment;
-import domain.Item;
-import domain.Storage;
+import domain.Tax;
 
 @Controller
-@RequestMapping(value = "/item/administrator")
-public class ItemAdministratorController extends AbstractController {
+@RequestMapping(value = "/category/administrator")
+public class CategoryAdministratorController extends AbstractController {
 
 	//Services ----------------------------------------------------------
 	
 	@Autowired
-	private ItemService itemService;
+	private CategoryService categoryService;
 	
 	@Autowired
-	private CategoryService categoryService;
+	private TaxService taxService;
+	
 	//Constructors ----------------------------------------------------------
 
-	public ItemAdministratorController() {
+	public CategoryAdministratorController() {
 		super();
 	}
 	
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam String keyword) {
+	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Item> items;
-		String keywordToFind;
-
-		if (keyword == "") {
-			items = itemService.findAll();
-		} else {
-			String[] keywordComoArray = keyword.split(" ");
-			keywordToFind = keywordComoArray[0];
-			items = itemService.findBySingleKeyword(keywordToFind);
-		}
-
-		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
-		result.addObject("items", items);
-
+		Collection<Category> categories;
+		
+		categories = categoryService.findAll();
+		
+		result = new ModelAndView("category/list");
+		result.addObject("requestURI", "category/administrator/list.do");
+		result.addObject("categories", categories);
+		
 		return result;
 	}
 	
@@ -69,10 +58,10 @@ public class ItemAdministratorController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Item item;
+		Category category;
 		
-		item = itemService.create();		
-		result = createEditModelAndView(item);
+		category = categoryService.create();		
+		result = createEditModelAndView(category);
 		
 		return result;
 	}
@@ -80,29 +69,29 @@ public class ItemAdministratorController extends AbstractController {
 	//Edition ----------------------------------------------------------
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int itemId) {
+	public ModelAndView edit(@RequestParam int categoryId) {
 		ModelAndView result;
-		Item item;
+		Category category;
 		
-		item = itemService.findOne(itemId);
-		Assert.notNull(item);
-		result = createEditModelAndView(item);
+		category = categoryService.findOne(categoryId);
+		Assert.notNull(category);
+		result = createEditModelAndView(category);
 		
 		return result;
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Item item, BindingResult binding) {
+	public ModelAndView save(@Valid Category category, BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = createEditModelAndView(item);
+			result = createEditModelAndView(category);
 		} else {
 			try {
-				itemService.save(item);		
+				categoryService.save(category);		
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(item, "item.commit.error");				
+				result = createEditModelAndView(category, "category.commit.error");				
 			}
 		}
 
@@ -110,15 +99,15 @@ public class ItemAdministratorController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Item item, BindingResult binding) {
+	public ModelAndView delete(Category category, BindingResult binding) {
 		ModelAndView result;
 
 		try {
-			itemService.delete(item);
+			categoryService.delete(category);
 			result = new ModelAndView("redirect:list.do");
 		} catch (Throwable oops) {
-			result = createEditModelAndView(item,
-					"item.commit.error");
+			result = createEditModelAndView(category,
+					"category.commit.error");
 		}
 
 		return result;
@@ -126,23 +115,23 @@ public class ItemAdministratorController extends AbstractController {
 	
 	//Ancillary Methods ----------------------------------------------------------
 	
-	protected ModelAndView createEditModelAndView(Item item) {
+	protected ModelAndView createEditModelAndView(Category category) {
 		ModelAndView result;
 		
-		result = createEditModelAndView(item, null);
+		result = createEditModelAndView(category, null);
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndView(Item item, String message) {
+	protected ModelAndView createEditModelAndView(Category category, String message) {
 		ModelAndView result;
-		Collection<Category> categories;
+		Collection<Tax> taxes;
 		
-		categories = categoryService.findAll();
+		taxes = taxService.findAll();
 	
-		result = new ModelAndView("item/edit");
-		result.addObject("item", item);
-		result.addObject("categories", categories);
+		result = new ModelAndView("category/edit");
+		result.addObject("category", category);
+		result.addObject("taxes", taxes);
 		result.addObject("message", message);
 		
 		return result;

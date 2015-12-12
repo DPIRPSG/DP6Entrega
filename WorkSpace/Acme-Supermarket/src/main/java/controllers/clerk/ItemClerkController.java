@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ItemService;
@@ -32,15 +33,23 @@ public class ItemClerkController extends AbstractController {
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam String keyword) {
 		ModelAndView result;
 		Collection<Item> items;
-		
-		items = itemService.findAll();
+		String keywordToFind;
+
+		if (keyword == "") {
+			items = itemService.findAll();
+		} else {
+			String[] keywordComoArray = keyword.split(" ");
+			keywordToFind = keywordComoArray[0];
+			items = itemService.findBySingleKeyword(keywordToFind);
+		}
+
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/clerk/list.do");
+		result.addObject("requestURI", "item/list.do");
 		result.addObject("items", items);
-		
+
 		return result;
 	}
 	
