@@ -15,23 +15,17 @@
 		name="shoppingCarts" requestURI="${requestURI}" id="row">
 
 	<!-- Attributes -->
-	<spring:message code="shoppingCart.comment" var="commentHeader" />
-	<display:column property="comment" title="${commentHeader}" sortable="false" />
+	<spring:message code="shoppingCart.comments" var="commentsHeader" />
+	<display:column property="comments" title="${commentsHeader}" sortable="false" />
 	
 	<display:column>
-			<a href="content/consumr/list.do?shoppingCartId=${row.id}&itemId="> <spring:message
-					code="shoppingCart.content" />
+			<a href="content/consumer/list.do?shoppingCartId=${row.id}"> <spring:message
+					code="shoppingCart.contents" />
 			</a>
 	</display:column>
 	
 	</display:table>
 	
 	<!-- Action links -->
-	<jstl:if test="${numberItems} >= 1">
-		<a href="shopping-cart/consumer/checkout.do?consumerUsername=<security:authentication property=principal.username/>" 
-			onclick="javascript: return confirm('<spring:message code="item.confirm.checkout" />')">
-			<spring:message	code="item.checkout" />
-		</a>
-	</jstl:if>
 	
 </security:authorize>

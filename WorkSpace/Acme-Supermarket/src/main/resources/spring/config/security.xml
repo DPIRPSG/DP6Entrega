@@ -41,13 +41,16 @@
 			
 		
 		<security:intercept-url pattern="/item/administrator/**" access="hasRole('ADMIN')" />	
-		<security:intercept-url pattern="/new-clerk/**" access="hasRole('ADMIN')" />	
+		<security:intercept-url pattern="/clerk/administrator/**" access="hasRole('ADMIN')" />	
 		<security:intercept-url pattern="/warehouse/administrator/**" access="hasRole('ADMIN')" />		
 		<security:intercept-url pattern="/storage/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/administrator/**" access="hasRole('ADMIN')" />
 		
 		
 		<security:intercept-url pattern="/item/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/shopping-cart/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/order/consumer/**" access="hasRole('CONSUMER')"/>
+		<security:intercept-url pattern="/content/consumer/**" access="hasRole('CONSUMER')"/>
 		
 		
 		<security:intercept-url pattern="/order/clerk/**" access="hasRole('CLERK')" />
