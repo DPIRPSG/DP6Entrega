@@ -16,12 +16,20 @@
 		name="orders" requestURI="${requestURI}" id="row">
 		
 		<security:authorize access="hasRole('CONSUMER')">
-			<display:column>
-				<a href="order/clerk/edit.do?OrderId=${row.id}"> <spring:message
-						code="order.edit" />
-				</a>
-			</display:column>
+			<spring:message code="order.delete" var="deleteHeader" />
+			<jstl:if test="${row.clerk == null && row.cancelMoment == null}">
+				<display:column>
+					<a href="order/consumer/cancel.do?orderId=${row.id}"> <spring:message
+						code="order.cancel" />
+					</a>
+				</display:column>	
+			</jstl:if>
+			<jstl:if test="${row.clerk != null}">
+				<display:column title="${deleteHeader}"
+					sortable="false" />
+			</jstl:if>
 		</security:authorize>
+		
 		<!-- Attributes -->
 		<spring:message code="order.ticker" var="tickerHeader" />
 		<display:column property="ticker" title="${tickerHeader}"
@@ -46,26 +54,28 @@
 		<display:column property="amount" title="${amountHeader}"
 			sortable="true" />
 
-		<spring:message code="order.clerk" var="clerkHeader" />
-		<jstl:if test="${row.clerk == null}">
-			<security:authorize access="hasRole('CLERK')">
-				<display:column>
-					<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
-							code="order.self-assign" />
-					</a>
-				</display:column>
-			</security:authorize>
-		</jstl:if>
-		<jstl:if test="${row.clerk != null}">
-			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
+		<security:authorize access="!hasRole('CONSUMER')">
+			<spring:message code="order.clerk" var="clerkHeader" />
+			<jstl:if test="${row.clerk == null}">
+				<security:authorize access="hasRole('CLERK')">
+					<display:column>
+						<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
+								code="order.self-assign" />
+						</a>
+					</display:column>
+				</security:authorize>
+			</jstl:if>
+			<jstl:if test="${row.clerk != null}">
+				<display:column property="clerk.userAccount.username" title="${clerkHeader}"
+					sortable="false" />
+			</jstl:if>
+		</security:authorize>
+
+		<security:authorize access="!hasRole('CONSUMER')">
+			<spring:message code="order.consumer" var="consumerHeader" />
+			<display:column property="consumer.userAccount.username" title="${consumerHeader}"
 				sortable="false" />
-		</jstl:if>
-
-
-		<spring:message code="order.consumer" var="consumerHeader" />
-		<display:column property="consumer.userAccount.username" title="${consumerHeader}"
-			sortable="false" />
-
+		</security:authorize>
 	</display:table>
 
 </security:authorize>
