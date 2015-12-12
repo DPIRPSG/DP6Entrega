@@ -43,4 +43,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	@Query("select c.item from ShoppingCart s join s.contents c where c.item.deleted = false and s.id = ?1")
 	Collection<Item> findAllByShoppingCartId(int shoppingCartId);
+
+	@Query("Select i from Item i where i.sku like ?1")
+	Item findOneBySKU(String sku);
 }

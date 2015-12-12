@@ -76,6 +76,14 @@
 			<display:column property="consumer.userAccount.username" title="${consumerHeader}"
 				sortable="false" />
 		</security:authorize>
+		
+		<security:authorize access="hasRole('CLERK')">
+				<display:column>
+					<a href="order-item/clerk/list.do?orderId=${row.id}"> <spring:message
+						code="order.orderItems" />
+					</a>
+				</display:column>	
+		</security:authorize>
 	</display:table>
 
 </security:authorize>
