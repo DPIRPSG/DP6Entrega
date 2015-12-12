@@ -61,7 +61,7 @@ public class ContentConsumerController extends AbstractController{
 		return result;
 	}
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params="save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Content content, BindingResult binding){
 		ModelAndView result;
 		
@@ -74,6 +74,20 @@ public class ContentConsumerController extends AbstractController{
 			} catch (Throwable oops) {
 				result = createEditModelAndView(content, "content.commit.error");				
 			}
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(Content content, BindingResult binding){
+		ModelAndView result;
+		
+		try{
+			contentService.deleteComplete(content);
+			result = new ModelAndView("redirect:/shopping-cart/consumer/list.do");
+		}catch(Throwable oops){
+			result = createEditModelAndView(content, "content.commit.error");
 		}
 		
 		return result;

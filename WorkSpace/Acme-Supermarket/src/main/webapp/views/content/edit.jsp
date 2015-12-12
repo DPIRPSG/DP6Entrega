@@ -29,6 +29,9 @@
 	<input type="submit" name="save"
 		value="<spring:message code="content.save" />" />&nbsp;
 		
+	<input type="submit" name="delete"
+		value="<spring:message code="content.delete" />" />&nbsp;
+		
 	<input type="button" name="cancel"
 		value="<spring:message code="item.cancel" />"
 		onclick="javascript: relativeRedir('shopping-cart/consumer/list.do');" />

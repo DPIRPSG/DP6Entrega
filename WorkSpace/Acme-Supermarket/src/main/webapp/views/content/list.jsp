@@ -13,7 +13,7 @@
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="contents" requestURI="${requestURI}" id="row">
-		
+	
 	<spring:message code="content.edit" var="editHeader" />
 	<display:column title="${editHeader}">
 		<a href="content/consumer/edit.do?contentId=${row.id}"> <spring:message
