@@ -11,8 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
+import services.ConsumerService;
 import services.ItemService;
+import services.ShoppingCartService;
+import domain.Consumer;
 import domain.Item;
+import domain.ShoppingCart;
 
 @Controller
 @RequestMapping(value = "/item/consumer")
@@ -22,6 +26,12 @@ public class ItemConsumerController extends AbstractController {
 
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+	
+	@Autowired
+	private ConsumerService consumerService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -49,6 +59,30 @@ public class ItemConsumerController extends AbstractController {
 		result.addObject("requestURI", "item/list.do");
 		result.addObject("items", items);
 
+		return result;
+	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView add(@RequestParam int itemId){
+		ModelAndView result;
+		ShoppingCart shoppingCart;
+		Item item;
+		Consumer consumer;
+		
+		try{
+			consumer = consumerService.findByPrincipal();
+			shoppingCart = shoppingCartService.findByConsumer(consumer);
+			item = itemService.findOne(itemId);
+			shoppingCartService.addItem(shoppingCart, item);
+			result = new ModelAndView("redirect:list.do");
+			result.addObject("message", "item.add.ok");
+			result.addObject("keyword", "");
+		}catch(Throwable oops){
+			result = new ModelAndView("redirect:list.do");
+			result.addObject("message", "item.commit.error");
+			result.addObject("keyword", "");
+		}
+		
 		return result;
 	}
 }
