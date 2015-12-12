@@ -14,6 +14,7 @@
 	<!-- Hidden Attributes -->
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<form:hidden path="item"/>
 	
 	<!-- Shown Attributes -->
 	<form:hidden path="userName"/>

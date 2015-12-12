@@ -49,10 +49,12 @@ public class CommentAdministratorController extends AbstractController {
 	public ModelAndView delete(
 			Comment comment, BindingResult binding) {
 		ModelAndView result;
+		int itemId;
 		
 		try {
+			itemId = comment.getItem().getId();
 			commentService.delete(comment);
-			result = new ModelAndView("redirect:list.do?itemId=" + comment.getItem().getId());
+			result = new ModelAndView("redirect:/comment/list.do?itemId=" + itemId);
 		} catch (Throwable oops) {
 			result = createEditModelAndView(comment, comment.getItem(), "comment.commit.error");
 		}
