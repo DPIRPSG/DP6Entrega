@@ -9,7 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
-<spring:message code="comment.itemPlural"/> <jstl:out value="${item.name}." />
+<h3><spring:message code="comment.itemPlural"/> <jstl:out value="${item.name}" /></h3>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="comments" requestURI="${requestURI}" id="row">
