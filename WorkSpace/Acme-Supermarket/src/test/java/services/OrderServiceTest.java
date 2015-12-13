@@ -99,7 +99,6 @@ public class OrderServiceTest extends AbstractTest{
 		double ratio;
 		
 		authenticate("admin");
-		
 		ratio = orderService.rateOrderCancelled();
 		System.out.println("Ratio: " + ratio);
 		
@@ -166,7 +165,7 @@ public class OrderServiceTest extends AbstractTest{
 		
 		System.out.println("Servimos sus unidades restantes:");
 		
-		warehouseService.addItemToOrderItem(warehouse, item, 2, order);
+		warehouseService.addItemToOrderItem(item, 2, order);
 		
 		System.out.println("Comprobemos que ya tenga deliveryMoment a hoy y unidades servidas 2:");
 		orderItemServed = order.getOrderItems().iterator().next();
