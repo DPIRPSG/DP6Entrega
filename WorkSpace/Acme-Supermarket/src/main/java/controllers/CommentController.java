@@ -54,13 +54,14 @@ public class CommentController extends AbstractController {
 		
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
+		result.addObject("item", item);
 		result.addObject("requestURI", "comment/list.do");
 		
 		return result;
 	}
 	
 	
-	// Creation --------------------------------------------------------------
+	// Creating --------------------------------------------------------------
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam int itemId) {
@@ -70,7 +71,7 @@ public class CommentController extends AbstractController {
 		
 		item = itemService.findOne(itemId);
 		comment = commentService.createByItem(item);		
-		result = createEditModelAndView(comment);
+		result = createEditModelAndView(comment, item);
 		
 		return result;
 	}
@@ -80,13 +81,13 @@ public class CommentController extends AbstractController {
 		ModelAndView result;
 		
 		if (binding.hasErrors()) {
-			result = createEditModelAndView(comment);
+			result = createEditModelAndView(comment, comment.getItem());
 		} else {
 			try {
 				commentService.save(comment);
 				result = new ModelAndView("redirect:list.do?itemId=" + comment.getItem().getId());
 			} catch (Throwable oops) {
-				result = createEditModelAndView(comment, "comment.commit.error");
+				result = createEditModelAndView(comment, comment.getItem(), "comment.commit.error");
 			}
 		}
 		return result;
@@ -95,15 +96,15 @@ public class CommentController extends AbstractController {
 	
 	// Ancillary methods ---------------------------------------------------
 	
-	protected ModelAndView createEditModelAndView(Comment comment) {
+	protected ModelAndView createEditModelAndView(Comment comment, Item item) {
 		ModelAndView result;
 		
-		result = createEditModelAndView(comment, null);
+		result = createEditModelAndView(comment, item, null);
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndView(Comment comment, String message) {
+	protected ModelAndView createEditModelAndView(Comment comment, Item item, String message) {
 		ModelAndView result;
 		if(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CONSUMER") || actorService.checkAuthority("CLERK")){
 			comment.setUserName(actorService.findByPrincipal().getName());
@@ -113,6 +114,8 @@ public class CommentController extends AbstractController {
 		
 		result = new ModelAndView("comment/create");
 		result.addObject("comment", comment);
+		result.addObject("item", item);
+		result.addObject("message", message);
 		
 		return result;
 	}
