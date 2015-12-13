@@ -9,13 +9,23 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
+<spring:message code="comment.itemPlural"/> <jstl:out value="${item.name}." />
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="comments" requestURI="${requestURI}" id="row">
 	
+	<!-- Action links -->
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="comment/administrator/delete.do?commentId=${row.id}">
+				<spring:message	code="comment.delete" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
 	<!-- Attributes -->
 	<spring:message code="comment.userName" var="userNameHeader" />
-	<display:column property="userName" title="${userNameHeader}" sortable="false" />
+	<display:column property="userName" title="${userNameHeader}" sortable="true" />
 	
 	<spring:message code="comment.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="false" />
@@ -24,7 +34,7 @@
 	<display:column property="text" title="${textHeader}" sortable="false" />
 
 	<spring:message code="comment.rating" var="ratingHeader" />
-	<display:column property="rating" title="${ratingHeader}" sortable="false" />
+	<display:column property="rating" title="${ratingHeader}" sortable="true" />
 		
 </display:table>
 

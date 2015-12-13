@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.TaxRepository;
 import domain.Category;
 import domain.Item;
 import domain.Tax;
-
-import repositories.TaxRepository;
 
 @Service
 @Transactional
@@ -89,6 +88,15 @@ public class TaxService {
 		Tax result;
 		
 		result = taxRepository.findByCategoryId(category.getId());
+		
+		return result;
+	}
+
+	public Tax findOne(int taxId) {
+		Tax result;
+		
+		result = taxRepository.findOne(taxId);
+		Assert.notNull(result, "Comment " + taxId + " don't exist");
 		
 		return result;
 	}

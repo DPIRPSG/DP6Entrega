@@ -26,6 +26,10 @@
 		<security:authentication property="principal.username" />
 	</security:authorize>
 	<spring:message code="welcome.greeting.suffix" /></p>
-	
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
+
+<!-- Listing grid -->
+<security:authorize access="hasRole('CONSUMER')">
+	<!-- Implementar aquí los best-selling y posibilidad de que el Consumer los añada a su Carrito -->
+</security:authorize>
