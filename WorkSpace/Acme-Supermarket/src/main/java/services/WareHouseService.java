@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import repositories.WareHouseRepository;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
+import domain.Storage;
 import domain.WareHouse;
 
 @Service
@@ -78,8 +80,12 @@ public class WareHouseService {
 	//req: 17.3
 	public WareHouse create(){
 		WareHouse result;
+		Collection<Storage> storages;
 		
+		storages = new ArrayList<Storage>();		
 		result = new WareHouse();
+		
+		result.setStorages(storages);
 		
 		return result;
 	}

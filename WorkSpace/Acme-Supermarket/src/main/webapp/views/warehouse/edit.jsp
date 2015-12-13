@@ -9,22 +9,22 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-security !!!!!
 <!-- Form -->
-<form:form action="wareHouse/administrator/edit.do" modelAttribute="wareHouse">
+<form:form action="warehouse/administrator/edit.do" modelAttribute="warehouse">
 	<!-- Hidden Attributes -->
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="storages" />
 
 	<form:label path="name">
-		<spring:message code="wareHouse.name" />:
+		<spring:message code="warehouse.name" />:
 	</form:label>
 	<form:input path="name" />
 	<form:errors cssClass="error" path="name" />
 	<br />
 
 	<form:label path="address">
-		<spring:message code="wareHouse.address" />:
+		<spring:message code="warehouse.address" />:
 	</form:label>
 	<form:input path="address" />
 	<form:errors cssClass="error" path="address" />
@@ -32,15 +32,15 @@ security !!!!!
 	
 	<!-- Action buttons -->
 	<input type="submit" name="save"
-		value="<spring:message code="wareHouse.save" />" />&nbsp; 
-	<jstl:if test="${wareHouse.id != 0}">
+		value="<spring:message code="warehouse.save" />" />&nbsp; 
+	<jstl:if test="${warehouse.id != 0}">
 		<input type="submit" name="delete"
-			value="<spring:message code="wareHouse.delete" />"
-			onclick="return confirm('<spring:message code="wareHouse.confirm.delete" />')" />&nbsp;
+			value="<spring:message code="warehouse.delete" />"
+			onclick="return confirm('<spring:message code="warehouse.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 	<input type="button" name="cancel"
-		value="<spring:message code="wareHouse.cancel" />"
-		onclick="javascript: relativeRedir('wareHouse/administrator/list.do');" />
+		value="<spring:message code="warehouse.cancel" />"
+		onclick="javascript: relativeRedir('warehouse/administrator/list.do');" />
 	<br />
 
 </form:form>

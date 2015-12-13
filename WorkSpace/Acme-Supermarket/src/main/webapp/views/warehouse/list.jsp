@@ -10,7 +10,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-security ! ! !
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="warehouses" requestURI="${requestURI}" id="row">
@@ -49,4 +48,13 @@ security ! ! !
 
 
 </display:table>
+
+
 <!-- Action links -->
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<b><a href="warehouse/administrator/create.do"> 
+			<spring:message code="warehouse.create" />
+		</a></b>
+	</div>
+</security:authorize>

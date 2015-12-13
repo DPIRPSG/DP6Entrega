@@ -105,7 +105,12 @@ public class WarehouseAdministratorController extends AbstractController {
 				wareHouseService.delete(wareHouse);		
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(wareHouse, "warehouse.commit.error");				
+				if(oops.getMessage().equals("The warehouse isn't empty")){
+					result = createEditModelAndView(wareHouse, "warehouse.commit.error.notempty");
+				}else{
+					result = createEditModelAndView(wareHouse, "warehouse.commit.error");
+				}
+								
 			}
 		}
 
