@@ -149,6 +149,26 @@ public class OrderItemService {
 		
 		return result;
 	}
+
+	public Collection<OrderItem> findAllByOrderId(int orderId) {
+		Assert.notNull(orderId);
+		
+		Collection<OrderItem> result;
+		
+		result = orderItemRepository.findAllByOrderId(orderId);
+		
+		return result;
+	}
+
+	public OrderItem findOne(int orderItemId) {
+		Assert.notNull(orderItemId);
+
+		OrderItem result;
+		
+		result = orderItemRepository.findOne(orderItemId);
+		
+		return result;
+	}
 	
 
 	

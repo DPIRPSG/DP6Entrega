@@ -38,6 +38,7 @@
 		<value>/views/storage/messages</value>
 		<value>/views/content/messages</value>
 		<value>/views/tax/messages</value>
+		<value>/views/order-item/messages</value>
 	</util:list>
 
 </beans>

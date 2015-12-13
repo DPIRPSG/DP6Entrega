@@ -191,4 +191,12 @@ public class ContentService {
 		shoppingCart.setContents(contents);
 		shoppingCartService.save(shoppingCart);
 	}
+	
+	public Content findOneByContentId(int contentId){
+		Content content;
+		
+		content = contentRepository.findOne(contentId);
+		
+		return content;
+	}
 }
