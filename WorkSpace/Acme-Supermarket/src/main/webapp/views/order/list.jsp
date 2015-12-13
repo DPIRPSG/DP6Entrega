@@ -46,20 +46,26 @@
 		<display:column property="amount" title="${amountHeader}"
 			sortable="true" />
 
-		<spring:message code="order.clerk" var="clerkHeader" />
-		<jstl:if test="${row.clerk == null}">
-			<security:authorize access="hasRole('CLERK')">
-				<display:column>
+		<security:authorize access="hasRole('CLERK')">
+			<spring:message code="order.clerk" var="clerkHeader" />
+			<jstl:if test="${row.clerk == null}">
+				<display:column sortable = "true">
 					<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
 							code="order.self-assign" />
 					</a>
 				</display:column>
-			</security:authorize>
-		</jstl:if>
-		<jstl:if test="${row.clerk != null}">
+			</jstl:if>
+			<jstl:if test="${row.clerk != null}">
+				<display:column property="clerk.userAccount.username" title="${clerkHeader}"
+					sortable="true" />
+			</jstl:if>
+		</security:authorize>
+		
+		<security:authorize access="hasAnyRole('CONSUMER', 'ADMIN')">
+			<spring:message code="order.clerk" var="clerkHeader" />
 			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
-				sortable="false" />
-		</jstl:if>
+					sortable="false" />
+		</security:authorize>
 
 
 		<spring:message code="order.consumer" var="consumerHeader" />

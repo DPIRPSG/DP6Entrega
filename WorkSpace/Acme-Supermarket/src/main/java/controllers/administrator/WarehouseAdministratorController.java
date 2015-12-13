@@ -19,7 +19,7 @@ public class WarehouseAdministratorController extends AbstractController {
 
 	// Services ----------------------------------------------------------
 	@Autowired
-	private WareHouseService warehouseService;
+	private WareHouseService wareHouseService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -34,7 +34,7 @@ public class WarehouseAdministratorController extends AbstractController {
 		ModelAndView result;
 		Collection<WareHouse> warehouses;
 
-		warehouses = warehouseService.findAll();
+		warehouses = wareHouseService.findAll();
 		result = new ModelAndView("warehouse/list");
 		result.addObject("requestURI", "warehouse/administrator/list.do");
 		result.addObject("warehouses", warehouses);
@@ -43,9 +43,89 @@ public class WarehouseAdministratorController extends AbstractController {
 	}
 
 	// Creation ----------------------------------------------------------
+	
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(){
+		ModelAndView result;
+		WareHouse warehouse;
+		
+		warehouse = wareHouseService.create();
+		
+		result = createEditModelAndView(warehouse);
+		
+		return result;
+	}
 
 	// Edition ----------------------------------------------------------
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int warehouseId) {
+	
+		ModelAndView result;
+		WareHouse wareHouse;
+		
+		wareHouse = wareHouseService.findOne(warehouseId);
+		Assert.notNull(wareHouse);
+		result = createEditModelAndView(wareHouse);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid WareHouse wareHouse, BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(wareHouse);
+		} else {
+			try {
+				wareHouseService.save(wareHouse);		
+				result = new ModelAndView("redirect:list.do");
+			} catch (Throwable oops) {
+				result = createEditModelAndView(wareHouse, "warehouse.commit.error");				
+			}
+		}
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView save(@Valid WareHouse wareHouse, BindingResult binding) {
+		ModelAndView result;
+
+Comprobar bien el método ! !
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(wareHouse);
+		} else {
+			try {
+				wareHouseService.delet(wareHouse);		
+				result = new ModelAndView("redirect:list.do");
+			} catch (Throwable oops) {
+				result = createEditModelAndView(wareHouse, "warehouse.commit.error");				
+			}
+		}
+
+		return result;
+	}
 
 	// Ancillary Methods ----------------------------------------------------------
+	
+	protected ModelAndView createEditModelAndView(WareHouse warehouse) {
+		ModelAndView result;
+		
+		result = createEditModelAndView(warehouse, null);
+		
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndView(WareHouse warehouse, String message){
+		ModelAndView result;
+		
+		result = new ModelAndView("warehouse/edit");
+		result.addObject("warehouse", warehouse);
+		result.addObject("message", message);
+		
+		return result;
+	}	
 
 }

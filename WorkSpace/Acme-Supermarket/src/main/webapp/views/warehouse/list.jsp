@@ -10,11 +10,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+security ! ! !
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="warehouses" requestURI="${requestURI}" id="row">
 	<!-- Action links -->
-
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="warehouse/administrator/edit.do?warehouseId=${row.id}"> <spring:message
+					code="warehouse.edit" />
+			</a>
+		</display:column>
+	</security:authorize>
+	
 	<!-- Attributes -->
 	<spring:message code="warehouse.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="true" />
