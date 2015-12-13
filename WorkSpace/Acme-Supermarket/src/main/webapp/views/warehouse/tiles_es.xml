@@ -10,7 +10,7 @@
 	</definition>
 
 	<definition name="warehouse/edit" extends="master.page">	
-		<put-attribute name="title" value="Almacén: Edición" />
+		<put-attribute name="title" value="AlmacÃ©n: EdiciÃ³n" />
 		<put-attribute name="body" value="/views/warehouse/edit.jsp" />
 	</definition>
 	

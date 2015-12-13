@@ -2,10 +2,15 @@ package controllers.administrator;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.WareHouseService;
@@ -90,15 +95,14 @@ public class WarehouseAdministratorController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView save(@Valid WareHouse wareHouse, BindingResult binding) {
+	public ModelAndView delete(@Valid WareHouse wareHouse, BindingResult binding) {
 		ModelAndView result;
 
-Comprobar bien el método ! !
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(wareHouse);
 		} else {
 			try {
-				wareHouseService.delet(wareHouse);		
+				wareHouseService.delete(wareHouse);		
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(wareHouse, "warehouse.commit.error");				

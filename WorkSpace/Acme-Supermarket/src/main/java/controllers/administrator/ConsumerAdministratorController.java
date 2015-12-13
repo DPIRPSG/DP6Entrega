@@ -1,13 +1,14 @@
 package controllers.administrator;
 
-import javax.validation.Valid;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ConsumerService;
 
 import controllers.AbstractController;
 import domain.Consumer;
@@ -38,7 +39,7 @@ public class ConsumerAdministratorController extends AbstractController{
         
         result = new ModelAndView("consumer/list");
         result.addObject("consumers", consumers);
-        result.addObject("requestURI", "consumer/list.do")
+        result.addObject("requestURI", "consumer/administrator/list.do");
         
         return result;
 	}

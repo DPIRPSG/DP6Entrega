@@ -61,6 +61,18 @@ public class WareHouseService {
 	}
 	
 	/**
+	 * Devuelve el warehouse con el id
+	 */
+	public WareHouse findOne(int id){
+		WareHouse result;
+		
+		result = wareHouseRepository.findOne(id);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
+	/**
 	 * Devuelve WareHouse preparado para ser modificado. Necesita usar save para que persista en la base de datos
 	 */
 	//req: 17.3
