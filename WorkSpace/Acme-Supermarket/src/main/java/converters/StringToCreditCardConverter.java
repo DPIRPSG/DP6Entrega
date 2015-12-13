@@ -16,7 +16,7 @@ public class StringToCreditCardConverter implements Converter<String, CreditCard
 
 		try {
 			result = new CreditCard();
-			result.setCreditCard(text);
+			result.setNumber(text);
 		} catch (Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}

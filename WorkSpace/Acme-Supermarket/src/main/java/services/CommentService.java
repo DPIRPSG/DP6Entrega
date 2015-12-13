@@ -70,6 +70,15 @@ public class CommentService {
 		commentRepository.delete(comment.getId());
 	}
 	
+	public Comment findOne(int commentId) {
+		Comment result;
+		
+		result = commentRepository.findOne(commentId);
+		Assert.notNull(result, "Comment " + commentId + " don't exist");
+		
+		return result;
+	}
+	
 	//Other business methods -------------------------------------------------
 
 	/**

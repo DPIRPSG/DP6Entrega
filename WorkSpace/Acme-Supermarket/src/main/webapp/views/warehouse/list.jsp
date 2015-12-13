@@ -14,7 +14,14 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="warehouses" requestURI="${requestURI}" id="row">
 	<!-- Action links -->
-
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="warehouse/administrator/edit.do?warehouseId=${row.id}"> <spring:message
+					code="warehouse.edit" />
+			</a>
+		</display:column>
+	</security:authorize>
+	
 	<!-- Attributes -->
 	<spring:message code="warehouse.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="true" />
@@ -41,4 +48,13 @@
 
 
 </display:table>
+
+
 <!-- Action links -->
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<b><a href="warehouse/administrator/create.do"> 
+			<spring:message code="warehouse.create" />
+		</a></b>
+	</div>
+</security:authorize>

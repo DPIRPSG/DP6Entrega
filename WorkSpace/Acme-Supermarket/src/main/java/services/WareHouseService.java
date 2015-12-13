@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import repositories.WareHouseRepository;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
+import domain.Storage;
 import domain.WareHouse;
 
 @Service
@@ -61,13 +63,29 @@ public class WareHouseService {
 	}
 	
 	/**
+	 * Devuelve el warehouse con el id
+	 */
+	public WareHouse findOne(int id){
+		WareHouse result;
+		
+		result = wareHouseRepository.findOne(id);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
+	/**
 	 * Devuelve WareHouse preparado para ser modificado. Necesita usar save para que persista en la base de datos
 	 */
 	//req: 17.3
 	public WareHouse create(){
 		WareHouse result;
+		Collection<Storage> storages;
 		
+		storages = new ArrayList<Storage>();		
 		result = new WareHouse();
+		
+		result.setStorages(storages);
 		
 		return result;
 	}
