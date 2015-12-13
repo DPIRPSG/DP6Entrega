@@ -133,33 +133,43 @@ public class WareHouseService {
 	/**
 	 * Actualiza la cantidad de item en un WareHouse y de orderItem en una order
 	 */
-	public void addItemToOrderItem(WareHouse wareHouse, Item item, int quantity, Order order){
-		Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse, item) >= quantity, "No se pueden añadir a una order mas items de los que hay en el WareHouse");
-		
-		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()), "Only the clerk of the order can add items");
-		
+	public void addItemToOrderItem(Item item, int quantity, Order order) {
+		// Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse,
+		// item) >= quantity,
+		// "No se pueden añadir a una order mas items de los que hay en el WareHouse");
+		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()),
+				"Only the clerk of the order can add items");
+
 		OrderItem orderItem;
 		Collection<OrderItem> orderItems;
+		Collection<WareHouse> warehouses;
 		int unitsServed;
-		
+
+		warehouses = wareHouseRepository.findAll();
+
 		orderItem = null;
 		orderItems = order.getOrderItems();
-		for(OrderItem o : orderItems) {
-			if(item.getSku().equals(o.getSku())) {
+		for (OrderItem o : orderItems) {
+			if (item.getSku().equals(o.getSku())) {
 				orderItem = o;
 				break;
 			}
 		}
-		
+
 		Assert.notNull(orderItem, "No existe OrderItem del Item pasado");
-				
+
 		unitsServed = orderItem.getUnitsServed() + quantity;
-		
-		Assert.isTrue(unitsServed <= orderItem.getUnits(), "Se intentan añadir mas unidades de las solicitadas por el OrderItem");
-		
-		storageService.subtractQuantityByWareHouseAndItem(wareHouse, item, quantity);
-		orderItem.setUnitsServed(unitsServed);
-		
+
+		Assert.isTrue(unitsServed <= orderItem.getUnits(),
+				"Se intentan añadir mas unidades de las solicitadas por el OrderItem");
+		for (WareHouse warehouse : warehouses) {
+			if (storageService.quantityByWareHouseAndItem(warehouse, item) >= quantity) {
+				storageService.subtractQuantityByWareHouseAndItem(warehouse,
+						item, quantity);
+				orderItem.setUnitsServed(unitsServed);
+				break;
+			}
+		}
 		orderItemService.save(orderItem);
 	}
 	

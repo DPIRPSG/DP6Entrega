@@ -17,7 +17,7 @@ public class CreditCardToStringConverter implements Converter<CreditCard, String
 		if (creditCard == null)
 			result = null;
 		else
-			result = creditCard.getCreditCard();
+			result = creditCard.getNumber();
 
 		return result;
 	}

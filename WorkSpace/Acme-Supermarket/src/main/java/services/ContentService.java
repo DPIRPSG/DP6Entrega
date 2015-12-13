@@ -105,6 +105,14 @@ public class ContentService {
 		return result;
 	}
 	
+	public Collection<Content> findByShoppingCart(int shoppingCartId){
+		Collection<Content> result;
+		
+		result = contentRepository.findByShoppingCartID(shoppingCartId);
+		
+		return result;
+	}
+	
 	/**
 	 * NO USAR. Usar ShoppingCartService.consultItemQuantity
 	 */
@@ -182,5 +190,13 @@ public class ContentService {
 		contents = this.findByShoppingCart(shoppingCart);
 		shoppingCart.setContents(contents);
 		shoppingCartService.save(shoppingCart);
+	}
+	
+	public Content findOneByContentId(int contentId){
+		Content content;
+		
+		content = contentRepository.findOne(contentId);
+		
+		return content;
 	}
 }

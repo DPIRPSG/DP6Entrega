@@ -16,12 +16,20 @@
 		name="orders" requestURI="${requestURI}" id="row">
 		
 		<security:authorize access="hasRole('CONSUMER')">
-			<display:column>
-				<a href="order/clerk/edit.do?OrderId=${row.id}"> <spring:message
-						code="order.edit" />
-				</a>
-			</display:column>
+			<spring:message code="order.delete" var="deleteHeader" />
+			<jstl:if test="${row.clerk == null && row.cancelMoment == null}">
+				<display:column>
+					<a href="order/consumer/cancel.do?orderId=${row.id}"> <spring:message
+						code="order.cancel" />
+					</a>
+				</display:column>	
+			</jstl:if>
+			<jstl:if test="${row.clerk != null}">
+				<display:column title="${deleteHeader}"
+					sortable="false" />
+			</jstl:if>
 		</security:authorize>
+		
 		<!-- Attributes -->
 		<spring:message code="order.ticker" var="tickerHeader" />
 		<display:column property="ticker" title="${tickerHeader}"
@@ -61,17 +69,25 @@
 			</jstl:if>
 		</security:authorize>
 		
-		<security:authorize access="hasAnyRole('CONSUMER', 'ADMIN')">
+		<security:authorize access="hasRole('ADMIN')">
 			<spring:message code="order.clerk" var="clerkHeader" />
 			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
 					sortable="false" />
 		</security:authorize>
 
-
-		<spring:message code="order.consumer" var="consumerHeader" />
-		<display:column property="consumer.userAccount.username" title="${consumerHeader}"
-			sortable="false" />
-
+		<security:authorize access="!hasAnyRole('CONSUMER')">
+			<spring:message code="order.consumer" var="consumerHeader" />
+			<display:column property="consumer.userAccount.username" title="${consumerHeader}"
+				sortable="false" />
+		</security:authorize>
+		
+		<security:authorize access="hasRole('CLERK')">
+				<display:column>
+					<a href="order-item/clerk/list.do?orderId=${row.id}"> <spring:message
+						code="order.orderItems" />
+					</a>
+				</display:column>	
+		</security:authorize>
 	</display:table>
 
 </security:authorize>
