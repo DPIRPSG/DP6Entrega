@@ -39,6 +39,8 @@
 		<value>/views/content/messages</value>
 		<value>/views/tax/messages</value>
 		<value>/views/order-item/messages</value>
+		<value>/views/folder/messages</value>
+		
 	</util:list>
 
 </beans>

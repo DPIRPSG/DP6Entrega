@@ -3,7 +3,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,8 +41,12 @@ public class FolderService {
 	//req: 24.2
 	public Folder create(){
 		Folder result;
+		Collection<Message> messages;
 		
 		result = new Folder();
+		messages = new ArrayList<Message>();
+		
+		result.setMessages(messages);
 		
 		return result;
 	}
@@ -63,6 +66,25 @@ public class FolderService {
 	}
 	
 	/**
+	 * Guarda varias folder
+	 */
+	//req: 24.2
+	public Collection<Folder> save(Collection<Folder> folder){
+		Assert.notNull(folder);
+		
+		Collection<Folder> result;
+		
+		result = new ArrayList<Folder>();
+		
+		for(Folder a:folder){
+			result.add(folderRepository.save(a));
+		}
+
+		
+		return result;
+	}
+	
+	/**
 	 * Elimina un folder. No elimina carpetas del sistema
 	 */
 	//req: 24.2	
@@ -76,6 +98,16 @@ public class FolderService {
 		Assert.isTrue(!folder.getIsSystem(), "It's a system Folder and couldn't be removed");
 		
 		folderRepository.delete(folder);
+	}
+	
+	public Folder findOne(int folderId){
+		Folder result;
+		
+		result = folderRepository.findOne(folderId);
+		
+		Assert.notNull(result);
+		
+		return result;
 	}
 	
 	//Other business methods -------------------------------------------------
