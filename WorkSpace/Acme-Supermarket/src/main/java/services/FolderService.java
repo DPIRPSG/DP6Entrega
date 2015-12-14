@@ -3,7 +3,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,9 @@ public class FolderService {
 	@Autowired
 	private ActorService actorService;
 	
+	@Autowired
+	private MessageService messageService;
+	
 	//Constructors -----------------------------------------------------------
 	
 	public FolderService(){
@@ -42,8 +44,12 @@ public class FolderService {
 	//req: 24.2
 	public Folder create(){
 		Folder result;
+		Collection<Message> messages;
 		
 		result = new Folder();
+		messages = new ArrayList<Message>();
+		
+		result.setMessages(messages);
 		
 		return result;
 	}
@@ -63,6 +69,25 @@ public class FolderService {
 	}
 	
 	/**
+	 * Guarda varias folder
+	 */
+	//req: 24.2
+	public Collection<Folder> save(Collection<Folder> folder){
+		Assert.notNull(folder);
+		
+		Collection<Folder> result;
+		
+		result = new ArrayList<Folder>();
+		
+		for(Folder a:folder){
+			result.add(folderRepository.save(a));
+		}
+
+		
+		return result;
+	}
+	
+	/**
 	 * Elimina un folder. No elimina carpetas del sistema
 	 */
 	//req: 24.2	
@@ -76,6 +101,18 @@ public class FolderService {
 		Assert.isTrue(!folder.getIsSystem(), "It's a system Folder and couldn't be removed");
 		
 		folderRepository.delete(folder);
+	}
+	
+	public Folder findOne(int folderId){
+		Folder result;
+		
+		result = folderRepository.findOne(folderId);
+		
+		Assert.notNull(result);
+		
+		checkActor(result);
+		
+		return result;
 	}
 	
 	//Other business methods -------------------------------------------------
@@ -208,5 +245,38 @@ public class FolderService {
 		}
 		
 		this.removeMessage(origin, m);
+	}
+	
+	
+	public void checkActor(Folder folder){
+		int actId;
+		int inputId;
+		
+		actId = folder.getActor().getUserAccount().getId();
+		inputId = actorService.findByPrincipal().getUserAccount().getId();
+		
+		Assert.isTrue(actId == inputId, "folder.modify.notOwner");
+	}
+	
+	public Collection<Folder> findByMessageAndActualActor(Message messa){
+		messageService.checkActor(messa);
+		
+		Collection<Folder> result;
+		Collection<Folder> folders;
+		Actor actor;
+		
+		actor = actorService.findByPrincipal();
+		result = new ArrayList<Folder>();
+		
+		folders = folderRepository.findAllByActorId(actor.getId());
+		
+		for (Folder f: folders){
+			if(f.getMessages().contains(messa)){
+				result.add(f);
+			}
+		}
+		
+		
+		return result;
 	}
 }
