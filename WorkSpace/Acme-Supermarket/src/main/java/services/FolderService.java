@@ -241,4 +241,15 @@ public class FolderService {
 		
 		this.removeMessage(origin, m);
 	}
+	
+	
+	public void checkActor(Folder folder){
+		int actId;
+		int inputId;
+		
+		actId = folder.getActor().getUserAccount().getId();
+		inputId = actorService.findByPrincipal().getUserAccount().getId();
+		
+		Assert.isTrue(actId == inputId, "folder.modify.notOwner");
+	}
 }

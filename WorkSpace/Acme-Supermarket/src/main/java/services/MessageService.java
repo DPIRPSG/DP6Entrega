@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,10 +46,16 @@ public class MessageService {
 	public Message create(){
 		Message result;
 		Collection<Folder> folders;
+		Collection<Actor> recipients;
 		
 		folders = new ArrayList<Folder>();
+		recipients = new ArrayList<Actor>();
 		result = new Message();
+			
 		result.setFolders(folders);
+		result.setRecipients(recipients);
+		result.setSender(actorService.findByPrincipal());
+		result.setMoment(new Date());
 		
 		return result;	
 	}
@@ -60,6 +67,8 @@ public class MessageService {
 	private Message save(Message message){
 		Assert.notNull(message);
 		Assert.isTrue(message.getSender().equals(actorService.findByPrincipal()), "Only the sender can save the message");
+		
+		message.setMoment(new Date());
 		
 		Message result;
 		
@@ -134,6 +143,34 @@ public class MessageService {
 		Assert.isTrue(folder.getActor().equals(actorService.findByPrincipal()), "Only the owner of the folder can delete a message");		
 		
 		folderService.removeMessage(folder, message);
-	}	
+	}
+	
+	
+	
+	public void checkActor(Message input){
+		int actId;
+		int inputId;
+
+		boolean res;
+		
+		actId = actorService.findByPrincipal().getUserAccount().getId();
+		inputId = input.getSender().getUserAccount().getId();
+		res = false;
+		
+		if (actId == inputId) {
+			res = true;
+		} else {
+			for (Actor a : input.getRecipients()) {
+				inputId = a.getUserAccount().getId();
+
+				if (actId == inputId) {
+					res = true;
+					break;
+				}
+			}
+		}
+		
+		Assert.isTrue(res, "message.consult.notOwner");
+	}
 	
 }

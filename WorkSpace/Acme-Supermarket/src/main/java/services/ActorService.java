@@ -36,6 +36,13 @@ public class ActorService {
 	
 	// Simple CRUD methods ----------------------------------------------------
 
+	public Collection<Actor> findAll(){
+		Collection<Actor> result;
+		
+		result = actorRepository.findAll();
+		
+		return result;
+	}
 	
 	// Other business methods -------------------------------------------------
 

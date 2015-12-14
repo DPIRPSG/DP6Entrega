@@ -79,7 +79,7 @@ public class FolderActorController extends AbstractController{
 		folder = folderService.findOne(folderId);
 		Assert.notNull(folder);
 		
-		checkActor(folder);
+		folderService.checkActor(folder);
 		
 		result = createEditModelAndView(folder);
 		
@@ -90,7 +90,7 @@ public class FolderActorController extends AbstractController{
 	public ModelAndView save(@Valid Folder folder, BindingResult binding) {
 		ModelAndView result;
 		
-		checkActor(folder);
+		folderService.checkActor(folder);
 
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(folder);
@@ -110,7 +110,7 @@ public class FolderActorController extends AbstractController{
 	public ModelAndView delete(@Valid Folder folder, BindingResult binding) {
 		ModelAndView result;
 		
-		checkActor(folder);
+		folderService.checkActor(folder);
 
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(folder);
@@ -145,14 +145,5 @@ public class FolderActorController extends AbstractController{
 		
 		return result;
 	}
-	
-	private void checkActor(Folder folder){
-		int actId;
-		int inputId;
-		
-		actId = folder.getActor().getUserAccount().getId();
-		inputId = actorService.findByPrincipal().getUserAccount().getId();
-		
-		Assert.isTrue(actId == inputId, "folder.modify.notOwner");
-	}
+
 }

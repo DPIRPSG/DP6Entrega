@@ -13,43 +13,27 @@
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="folders" requestURI="${requestURI}" id="row">
+		name="messa" requestURI="${requestURI}" id="row">
 
-		<spring:message code="folder.edit" var="editHeader" />
-		<jstl:if test="${!row.isSystem}">
-			<display:column>
-				<a href="folder/actor/edit.do?folderId=${row.id}"> 
-					<spring:message code="folder.edit" />
-				</a>
-			</display:column>
-		</jstl:if>
-		<jstl:if test="${row.isSystem}">
-			<display:column>
-
-			</display:column>
-		</jstl:if>
-
-
-		<!-- Attributes -->
-		<spring:message code="folder.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}"
-			sortable="true" />
-
-		<spring:message code="folder.messages" var="messageHeader" />
+		<spring:message code="message.display" var="displayHeader" />
 		<display:column>
-			<a href="message/actor/list.do?folderId=${row.id}"> <spring:message
-					code="folder.messages" />
+			<a href="message/actor/display.do?messageId=${row.id}"> 
+				<spring:message code="message.display" />
 			</a>
 		</display:column>
 
+		<!-- Attributes -->
+		<spring:message code="message.moment" var="momentHeader" />
+		<display:column property="moment" title="${momentHeader}"
+			sortable="true" format="{0,date,yyyy/MM/dd }" />
+		
+		<spring:message code="message.subject" var="subjectHeader" />
+		<display:column property="subject" title="${subjectHeader}"
+			sortable="true" />
+			
 	</display:table>
 	
 	<!-- Action links -->
-	<div>
-		<b><a href="folder/actor/create.do"> 
-			<spring:message code="folder.create" />
-		</a></b>
-	</div>
 	<div>
 		<b><a href="message/actor/create.do"> 
 			<spring:message code="message.create" />
