@@ -42,7 +42,8 @@ public class OrderClerkController extends AbstractController{
 		ModelAndView result;
 		Collection<Order> orders;
 		
-		orders = orderService.findAll();
+		orders = orderService.findAllNotAssigned();
+		orders.addAll(orderService.findAllByClerk());
 		
 		result = new ModelAndView("order/list");
 		result.addObject("requestURI", "order/clerk/list.do");

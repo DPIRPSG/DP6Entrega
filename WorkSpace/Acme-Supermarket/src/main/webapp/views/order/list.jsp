@@ -57,7 +57,7 @@
 		<security:authorize access="hasRole('CLERK')">
 			<spring:message code="order.clerk" var="clerkHeader" />
 			<jstl:if test="${row.clerk == null}">
-				<display:column sortable = "true">
+				<display:column sortable = "true"  title="${clerkHeader}">
 					<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
 							code="order.self-assign" />
 					</a>
