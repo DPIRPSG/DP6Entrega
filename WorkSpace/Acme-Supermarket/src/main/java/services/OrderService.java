@@ -299,7 +299,6 @@ public class OrderService {
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 
 		double result;
-		
 		result = orderRepository.rateOrderCancelled();
 		
 		return result;
