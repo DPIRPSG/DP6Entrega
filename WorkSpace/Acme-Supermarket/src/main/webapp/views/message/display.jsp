@@ -12,31 +12,50 @@
 
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="messages" requestURI="${requestURI}" id="row">
-
-		<spring:message code="folder.display" var="displayHeader" />
-		<display:column>
-			<a href="message/actor/display.do?messageId=${row.id}"> 
-				<spring:message code="folder.display" />
-			</a>
-		</display:column>
-
-		<!-- Attributes -->
-		<spring:message code="folder.moment" var="momentHeader" />
-		<display:column property="moment" title="${momentHeader}"
-			sortable="true" format="{0,date,yyyy/MM/dd }" />
-		
-		<spring:message code="folder.subject" var="subjectHeader" />
-		<display:column property="subject" title="${subjectHeader}"
-			sortable="true" />
-			
-	</display:table>
+	<div>
+	<table>
+	<tr>
+		<th><spring:message code="message.moment" /> :</th>
+		<td><jstl:out value="${messa.moment}" /></td>
+	</tr>
+	<tr>
+		<th><spring:message code="message.folders" /> :</th>
+		<td><jstl:forEach var="temp" items="${folders}">
+			<jstl:out value="${temp.name}" /> &nbsp;
+		</jstl:forEach>
+		<b><a href="message/actor/edit.do?messageId=${messa.id}"> 
+			<spring:message code="message.addToFolder" />
+		</a></b>
+		</td>
+	</tr>
+	<tr>
+		<th><spring:message code="message.sender" /> :</th>
+		<td><jstl:out value="${messa.sender.userAccount.username}" /></td>
+	</tr>
+	<tr>
+		<th><spring:message code="message.recipients" /> :</th>
+		<td><jstl:forEach var="temp" items="${messa.recipients}">
+			<jstl:out value="${temp.userAccount.username}" /> &nbsp;
+		</jstl:forEach>
+		</td>
+	</tr>
+	<tr>
+		<th><spring:message code="message.subject" /> :</th>
+		<td><jstl:out value="${messa.subject}" /></td>
+	</tr>
+	<tr>
+		<th><spring:message code="message.body" /> :</th>
+		<td><jstl:out value="${messa.body}" /></td>
+	</tr>
+	
+	
+	</table>
+	</div>
 	
 	<!-- Action links -->
 	<div>
-		<b><a href="message/actor/create.do"> 
-			<spring:message code="message.create" />
+		<b><a href="message/actor/edit.do?messageId=${messa.id}"> 
+			<spring:message code="message.addToFolder" />
 		</a></b>
 	</div>
 

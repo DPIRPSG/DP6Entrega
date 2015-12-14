@@ -59,10 +59,28 @@ public class MessageActorController extends AbstractController{
         
         result = new ModelAndView("message/list");
         result.addObject("messa", messages);
+        result.addObject("folder", folder);
         result.addObject("requestURI", "messages/actor/list.do");
         
         return result;
 	}
+	
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int messageId){
+		ModelAndView result;
+		Message messa;
+		Collection<Folder> folders;
+		
+		messa = messageService.findOne(messageId);		
+		folders = folderService.findByMessageAndActualActor(messa);
+		
+		result = new ModelAndView("message/display");
+		result.addObject("messa", messa);
+		result.addObject("folders", folders);
+		
+		return result;
+	}
+	
 	
 	// Creation ----------------------------------------------------------
 	
@@ -75,7 +93,7 @@ public class MessageActorController extends AbstractController{
 		
 		message.setSender(actorService.findByPrincipal());
 		
-		result = createEditModelAndView(message);
+		result = createSendModelAndView(message);
 		
 		return result;
 	}
@@ -93,13 +111,13 @@ public class MessageActorController extends AbstractController{
 		
 
 		if (binding.hasErrors()) {
-			result = createEditModelAndView(message);
+			result = createSendModelAndView(message);
 		} else {
 			try {
 				messageService.firstSave(message);
 				result = new ModelAndView("redirect:../../folder/actor/list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(message, "message.commit.error");				
+				result = createSendModelAndView(message, "message.commit.error");				
 			}
 		}
 
@@ -108,9 +126,89 @@ public class MessageActorController extends AbstractController{
 
 	// Edition ----------------------------------------------------------
 	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView removeFromFolder(@RequestParam int messageId, @RequestParam int folderId){
+		ModelAndView result;
+		Message message;
+		Folder folder;
+		
+		message = messageService.findOne(messageId);
+		
+		folder = folderService.findOne(folderId);
+		
+		messageService.deleteMessageFromFolder(message, folder);
+		
+		result = new ModelAndView("redirect:../../folder/actor/list.do");
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView addFolder(@RequestParam int messageId){
+		ModelAndView result;
+		Message message;
+		
+		message = messageService.findOne(messageId);
+		
+		result = createEditModelAndView(message);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView addFolderSave(@Valid Message message, BindingResult binding){
+		ModelAndView result;
+		int actId;
+		Collection<Folder> folders;
+		
+		actId = actorService.findByPrincipal().getUserAccount().getId();
+		
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(message);
+		} else {
+			try {
+				folders = message.getFolders();
+				for(Folder a:folders){
+					if(!a.getMessages().contains(message)){
+						Assert.isTrue(a.getActor().getUserAccount().getId() == actId);
+						
+						a.addMessage(message);
+						folderService.save(a);
+					}
+				}
+				result = new ModelAndView("redirect:../../folder/actor/list.do");
+			} catch (Throwable oops) {
+				result = createEditModelAndView(message, "message.commit.error");				
+			}
+		}
+		return result;
+	}
+	
 	
 
 	// Ancillary Methods ----------------------------------------------------------
+	
+	protected ModelAndView createSendModelAndView(Message input) {
+		ModelAndView result;
+		
+		result = createSendModelAndView(input, null);
+		
+		return result;
+	}
+	
+	protected ModelAndView createSendModelAndView(Message input, String message){
+		ModelAndView result;
+		Collection<Actor> actors;
+		
+		actors = actorService.findAll();
+		
+		result = new ModelAndView("message/create");
+		result.addObject("messa", input);
+		result.addObject("actors", actors);
+		result.addObject("message", message);
+		
+		return result;
+	}
 	
 	protected ModelAndView createEditModelAndView(Message input) {
 		ModelAndView result;
@@ -122,13 +220,13 @@ public class MessageActorController extends AbstractController{
 	
 	protected ModelAndView createEditModelAndView(Message input, String message){
 		ModelAndView result;
-		Collection<Actor> actors;
+		Collection<Folder> folders;
 		
-		actors = actorService.findAll();
+		folders = folderService.findAllByActor();
 		
-		result = new ModelAndView("message/create");
+		result = new ModelAndView("message/edit");
 		result.addObject("messa", input);
-		result.addObject("actors", actors);
+		result.addObject("foldersActor", folders);
 		result.addObject("message", message);
 		
 		return result;

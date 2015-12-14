@@ -76,6 +76,18 @@ public class MessageService {
 		
 		return result;
 	}
+	
+	public Message findOne(int messageId){
+		Message result;
+		
+		result = messageRepository.findOne(messageId);
+		
+		Assert.notNull(result, "message.findOne.UnknownID");
+		
+		checkActor(result);		
+		
+		return result;
+	}
 
 	//Other business methods -------------------------------------------------
 	

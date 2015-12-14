@@ -21,6 +21,13 @@
 				<spring:message code="message.display" />
 			</a>
 		</display:column>
+		
+		<spring:message code="message.delete" var="deleteHeader" />
+		<display:column>
+			<a href="message/actor/delete.do?messageId=${row.id}&folderId=${folder.id}"> 
+				<spring:message code="message.delete" />
+			</a>
+		</display:column>
 
 		<!-- Attributes -->
 		<spring:message code="message.moment" var="momentHeader" />

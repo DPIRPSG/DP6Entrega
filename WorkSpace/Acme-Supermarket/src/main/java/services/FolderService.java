@@ -27,6 +27,9 @@ public class FolderService {
 	@Autowired
 	private ActorService actorService;
 	
+	@Autowired
+	private MessageService messageService;
+	
 	//Constructors -----------------------------------------------------------
 	
 	public FolderService(){
@@ -106,6 +109,8 @@ public class FolderService {
 		result = folderRepository.findOne(folderId);
 		
 		Assert.notNull(result);
+		
+		checkActor(result);
 		
 		return result;
 	}
@@ -251,5 +256,27 @@ public class FolderService {
 		inputId = actorService.findByPrincipal().getUserAccount().getId();
 		
 		Assert.isTrue(actId == inputId, "folder.modify.notOwner");
+	}
+	
+	public Collection<Folder> findByMessageAndActualActor(Message messa){
+		messageService.checkActor(messa);
+		
+		Collection<Folder> result;
+		Collection<Folder> folders;
+		Actor actor;
+		
+		actor = actorService.findByPrincipal();
+		result = new ArrayList<Folder>();
+		
+		folders = folderRepository.findAllByActorId(actor.getId());
+		
+		for (Folder f: folders){
+			if(f.getMessages().contains(messa)){
+				result.add(f);
+			}
+		}
+		
+		
+		return result;
 	}
 }
