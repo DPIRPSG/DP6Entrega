@@ -13,7 +13,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import security.UserAccount;
-import security.UserAccountService;
 import utilities.AbstractTest;
 import domain.Consumer;
 import domain.Message;
@@ -30,9 +29,7 @@ public class ConsumerServiceTest extends AbstractTest{
 	// Service under test -------------------------
 	@Autowired
 	private ConsumerService consumerService;
-	@Autowired
-	private UserAccountService userAccountService;
-	
+		
 	// Test ---------------------------------------
 	@Test
 	public void testConsumerCancelledMoreOrders1(){

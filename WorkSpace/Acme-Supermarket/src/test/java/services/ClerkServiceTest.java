@@ -12,7 +12,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import security.UserAccount;
-import security.UserAccountService;
 import utilities.AbstractTest;
 import domain.Clerk;
 import domain.Message;
@@ -29,8 +28,6 @@ public class ClerkServiceTest extends AbstractTest{
 	// Service under test -------------------------
 	@Autowired
 	private ClerkService clerkService;
-	@Autowired
-	private UserAccountService userAccountService;
 	
 	// Test ---------------------------------------
 	@Test
