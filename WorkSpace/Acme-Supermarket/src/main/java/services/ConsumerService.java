@@ -73,6 +73,8 @@ public class ConsumerService {
 	public void save(Consumer consumer){
 		Assert.notNull(consumer);
 		
+		Consumer modify;
+		
 		boolean result = true;
 		for(Authority a: consumer.getUserAccount().getAuthorities()){
 			if(!a.getAuthority().equals("CONSUMER")){
@@ -113,7 +115,15 @@ public class ConsumerService {
 			consumer.setShoppingCart(shoppingCart);
 			
 		}
-		consumerRepository.save(consumer);
+		modify = consumerRepository.save(consumer);
+		
+		if(consumer.getId() == 0){
+			Collection<Folder> folders;
+
+			folders = folderService.initializeSystemFolder(modify);
+			folderService.save(folders);
+		}
+		
 	}
 	
 	/**
