@@ -93,6 +93,7 @@ public class ContentConsumerController extends AbstractController{
 		return result;
 	}
 	
+	// Ancilary methods -------------------------------------------------
 	protected ModelAndView createEditModelAndView(Content content) {
 		ModelAndView result;
 		

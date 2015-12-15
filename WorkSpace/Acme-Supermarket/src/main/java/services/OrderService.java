@@ -299,7 +299,6 @@ public class OrderService {
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 
 		double result;
-		
 		result = orderRepository.rateOrderCancelled();
 		
 		return result;
@@ -315,6 +314,19 @@ public class OrderService {
 		order.setDeliveryMoment(new Date());
 		
 		this.save(order);
+	}
+	
+	public Collection<Order> findAllByClerk(){
+		Collection<Order> result;
+		Clerk clerk;
+		
+		clerk = clerkService.findByprincipal();
+		
+		Assert.notNull(clerk);
+		
+		result = orderRepository.findAllByClerkId(clerk.getId());
+		
+		return result;
 	}
 	
 	public Collection<Order> findAllByConsumer(){

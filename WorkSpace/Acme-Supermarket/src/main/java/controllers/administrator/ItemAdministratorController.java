@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.jboss.logging.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -20,9 +19,7 @@ import services.ItemService;
 
 import controllers.AbstractController;
 import domain.Category;
-import domain.Comment;
 import domain.Item;
-import domain.Storage;
 
 @Controller
 @RequestMapping(value = "/item/administrator")

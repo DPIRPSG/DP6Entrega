@@ -14,7 +14,6 @@ import domain.Clerk;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
-import domain.WareHouse;
 
 import utilities.AbstractTest;
 
@@ -99,7 +98,6 @@ public class OrderServiceTest extends AbstractTest{
 		double ratio;
 		
 		authenticate("admin");
-		
 		ratio = orderService.rateOrderCancelled();
 		System.out.println("Ratio: " + ratio);
 		
@@ -150,13 +148,11 @@ public class OrderServiceTest extends AbstractTest{
 		Order order;
 		OrderItem orderItem;
 		OrderItem orderItemServed;
-		WareHouse warehouse;
 		Item item;
 		
 		authenticate("clerk1");
 		
 		System.out.println("Vamos a servir todas las unidades de este orderItem:");
-		warehouse = warehouseService.findAll().iterator().next();
 		item = itemService.findAll().iterator().next();
 		order = orderService.findAll().iterator().next();
 		orderItem = order.getOrderItems().iterator().next();
@@ -166,7 +162,7 @@ public class OrderServiceTest extends AbstractTest{
 		
 		System.out.println("Servimos sus unidades restantes:");
 		
-		warehouseService.addItemToOrderItem(warehouse, item, 2, order);
+		warehouseService.addItemToOrderItem(item, 2, order);
 		
 		System.out.println("Comprobemos que ya tenga deliveryMoment a hoy y unidades servidas 2:");
 		orderItemServed = order.getOrderItems().iterator().next();

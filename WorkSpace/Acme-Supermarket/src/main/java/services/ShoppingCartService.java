@@ -188,4 +188,12 @@ public class ShoppingCartService {
 		shoppingCart.addComment(comment);
 		shoppingCartRepository.save(shoppingCart);
 	}
+	
+	public ShoppingCart finOneByShoppingCartId(int shoppingCartId){
+		ShoppingCart shoppingCart;
+		
+		shoppingCart = shoppingCartRepository.findOne(shoppingCartId);
+		
+		return shoppingCart;
+	}
 }
