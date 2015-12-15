@@ -13,7 +13,14 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="storages" requestURI="${requestURI}" id="row">
 	<!-- Action links -->
-	
+	<security:authorize access="hasRole('ADMIN')">
+		<spring:message code="storage.edit" var="editHeader" />
+		<display:column>
+			<a href="storage/administrator/edit.do?storageId=${row.id}"> <spring:message
+					code="storage.edit" />
+			</a>
+		</display:column>
+	</security:authorize>
 	<!-- Attributes -->
 	
 	<spring:message code="storage.units" var="unitsHeader" />
@@ -48,10 +55,15 @@
 
 	</jstl:if>
 
-
-
-
-
-
 </display:table>
+
 <!-- Action links -->
+
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<b><a
+			href="storage/administrator/create.do?warehouseId=${warehouseId}">
+				<spring:message code="storage.create" />
+		</a></b>
+	</div>
+</security:authorize>
