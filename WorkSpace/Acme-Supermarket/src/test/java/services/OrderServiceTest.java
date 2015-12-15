@@ -14,7 +14,6 @@ import domain.Clerk;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
-import domain.WareHouse;
 
 import utilities.AbstractTest;
 
@@ -149,13 +148,11 @@ public class OrderServiceTest extends AbstractTest{
 		Order order;
 		OrderItem orderItem;
 		OrderItem orderItemServed;
-		WareHouse warehouse;
 		Item item;
 		
 		authenticate("clerk1");
 		
 		System.out.println("Vamos a servir todas las unidades de este orderItem:");
-		warehouse = warehouseService.findAll().iterator().next();
 		item = itemService.findAll().iterator().next();
 		order = orderService.findAll().iterator().next();
 		orderItem = order.getOrderItems().iterator().next();
