@@ -70,7 +70,7 @@
 		&nbsp;
 		<input type="button" name="cancel"
 			value="<spring:message code="clerk.cancel" />"
-			onclick="javascript: relativeRedir('../../');" />
+			onclick="javascript: relativeRedir('/');" />
 		<br />
 		
 	</form:form>

@@ -60,7 +60,7 @@ public class MessageActorController extends AbstractController{
         result = new ModelAndView("message/list");
         result.addObject("messa", messages);
         result.addObject("folder", folder);
-        result.addObject("requestURI", "messages/actor/list.do");
+        result.addObject("requestURI", "message/actor/list.do");
         
         return result;
 	}

@@ -21,7 +21,9 @@
 	<tr>
 		<th><spring:message code="message.folders" /> :</th>
 		<td><jstl:forEach var="temp" items="${folders}">
-			<jstl:out value="${temp.name}" /> &nbsp;
+			<a href="message/actor/list.do?folderId=${temp.id}">
+				<jstl:out value="${temp.name}" />
+			</a> &nbsp;
 		</jstl:forEach>
 		<b><a href="message/actor/edit.do?messageId=${messa.id}"> 
 			<spring:message code="message.addToFolder" />
