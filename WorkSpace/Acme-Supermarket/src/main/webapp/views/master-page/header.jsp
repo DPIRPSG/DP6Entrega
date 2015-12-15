@@ -24,7 +24,7 @@
 			<li><a class="fNiv" href="item/consumer/list.do?keyword="><spring:message code="master.page.catalogue" /></a></li>
 			<li><a class="fNiv" href="shopping-cart/consumer/list.do"><spring:message code="master.page.shopping-cart" /></a></li>
 			<li><a class="fNiv" href="order/consumer/list.do"><spring:message code="master.page.orders" /></a></li>
-			<li><a class="fNiv" href="folder/consumer/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ADMIN')">
@@ -46,14 +46,14 @@
 			</li>
 			<li><a class="fNiv" href="dashboard/administrator/list.do"><spring:message code="master.page.dashboard" /></a></li>
 			<li><a class="fNiv" href="clerk/administrator/create.do"><spring:message code="master.page.new-clerk" /></a></li>
-			<li><a class="fNiv" href="folder/administrator/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CLERK')">
 			<li><a class="fNiv" href="item/clerk/list.do?keyword="><spring:message code="master.page.catalogue" /></a></li>
 			<li><a class="fNiv" href="warehouse/clerk/list.do"><spring:message code="master.page.warehouses" /></a></li>
 			<li><a class="fNiv" href="order/clerk/list.do"><spring:message code="master.page.orders" /></a></li>
-			<li><a class="fNiv" href="folder/clerk/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">

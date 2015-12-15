@@ -337,8 +337,8 @@ public class WarehouseServiceTest extends AbstractTest{
 		
 		System.out.println("\nQuitamos un par de unidades cada Warehouse");
 		order = orderService.findAll().iterator().next();
-		warehouseService.addItemToOrderItem(warehouse1, item1, 1, order);
-		warehouseService.addItemToOrderItem(warehouse2, item2, 1, order);
+		warehouseService.addItemToOrderItem(item1, 1, order);
+		warehouseService.addItemToOrderItem(item2, 1, order);
 		
 		System.out.println("\nComprobamos ahora el número de unidades de cada item en su correspondiente Warehouse:");
 		warehouses = warehouseService.findAll();

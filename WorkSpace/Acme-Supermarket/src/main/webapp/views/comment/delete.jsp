@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="comment.item"/> <jstl:out value="${item.name}" />
+<h3><spring:message code="comment.item"/> <jstl:out value="${item.name}" /></h3>
 <!-- Form -->
 <form:form action="comment/administrator/delete.do" modelAttribute="comment">
 	<!-- Hidden Attributes -->
@@ -18,20 +18,16 @@
 	
 	<!-- Shown Attributes -->
 	<form:hidden path="userName"/>
-	<spring:message code = "comment.userName"/>: <jstl:out value="${comment.userName}" />
-	<br />
+	<p><spring:message code = "comment.userName"/>: <jstl:out value="${comment.userName}" /></p>
 	
 	<form:hidden path="title"/>
-	<spring:message code = "comment.title"/>: <jstl:out value="${comment.title}" />
-	<br />
+	<p><spring:message code = "comment.title"/>: <jstl:out value="${comment.title}" /></p>
 				
 	<form:hidden path="text"/>
-	<spring:message code = "comment.text"/>: <jstl:out value="${comment.text}" />
-	<br />
+	<p><spring:message code = "comment.text"/>: <jstl:out value="${comment.text}" /></p>
 	
 	<form:hidden path="rating"/>
-	<spring:message code = "comment.rating"/>: <jstl:out value="${comment.rating}" />
-	<br />
+	<p><spring:message code = "comment.rating"/>: <jstl:out value="${comment.rating}" /></p>
 	
 	<!-- Action buttons -->
 	<input type="submit" name="delete"

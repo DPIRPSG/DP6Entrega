@@ -81,6 +81,8 @@ public class ClerkService {
 		}
 		Assert.isTrue(result, "A clerk can only be a authority.clerk");
 		
+		Clerk modify;
+		
 		if(clerk.getId() == 0){
 			Collection<Folder> folders;
 			Collection<Message> sent;
@@ -107,7 +109,14 @@ public class ClerkService {
 			clerk.setOrders(orders);			
 		}
 		
-		clerkRepository.save(clerk);
+		modify = clerkRepository.save(clerk);
+		
+		if(clerk.getId() == 0){
+			Collection<Folder> folders;
+
+			folders = folderService.initializeSystemFolder(modify);
+			folderService.save(folders);
+		}
 	}
 	
 	/**

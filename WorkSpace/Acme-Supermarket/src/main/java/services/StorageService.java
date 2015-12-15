@@ -36,7 +36,7 @@ public class StorageService {
 	 * USAR EN WareHouse. Devuelve WareHouse preparado para ser modificado. Necesita usar save para que persista en la base de datos
 	 */
 	//req: 17.5
-	private Storage create(){
+	public Storage create(){
 		Storage result;
 		
 		result = new Storage();
@@ -68,6 +68,16 @@ public class StorageService {
 		
 		storageRepository.delete(storage);
 	}
+	
+	public Storage findOne(int id){
+		Storage result;
+		
+		result = storageRepository.findOne(id);
+		
+		Assert.notNull(result);
+		
+		return result;
+	}
 
 	//Other business methods -------------------------------------------------
 	
@@ -75,7 +85,7 @@ public class StorageService {
 	 * Dado un wareHouse y un item, busca el storage
 	 */
 	//req: 17.5
-	private Storage findByWareHouseAndItem(WareHouse wareHouse, Item item){
+	public Storage findByWareHouseAndItem(WareHouse wareHouse, Item item){
 		Assert.notNull(wareHouse);
 		Assert.notNull(item);
 		
@@ -172,5 +182,6 @@ public class StorageService {
 
 		return result;
 	}
+
  
 }
