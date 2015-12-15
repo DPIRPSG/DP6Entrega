@@ -190,7 +190,7 @@ public class FolderService {
 		
 		names.add("Inbox");
 		names.add("OutBox");
-		names.add("Trashbox");
+		names.add("TrashBox");
 				
 		
 		for (String string : names) {
