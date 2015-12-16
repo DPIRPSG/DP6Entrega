@@ -51,13 +51,13 @@
 		<security:intercept-url pattern="/tax/administrator/list.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/tax/administrator/edit.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/tax/administrator/create.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/dashboard/administrator/list.do" access="hasRole('ADMIN')" />
 		
 		
 		<security:intercept-url pattern="/item/consumer/**" access="hasRole('CONSUMER')"/>
 		<security:intercept-url pattern="/shopping-cart/consumer/**" access="hasRole('CONSUMER')"/>
 		<security:intercept-url pattern="/order/consumer/**" access="hasRole('CONSUMER')"/>
-		<security:intercept-url pattern="/content/consumer/**" access="hasRole('CONSUMER')"/>
-		
+		<security:intercept-url pattern="/content/consumer/**" access="hasRole('CONSUMER')"/>		
 		
 		<security:intercept-url pattern="/order/clerk/**" access="hasRole('CLERK')" />
 		<security:intercept-url pattern="/item/clerk/**" access="hasRole('CLERK')" />

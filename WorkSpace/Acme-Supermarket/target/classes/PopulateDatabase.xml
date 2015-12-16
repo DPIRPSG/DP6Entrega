@@ -718,6 +718,7 @@
 				<value>Chocolate</value>
 			</list>
 		</property>
+		<property name="picture" value="http://www.misthermorecetas.com/wp-content/uploads/2013/01/turron_chocolate_crujiente11.jpg"/>
 		<property name="deleted" value="false"/>
 		<property name="category" ref="category1"/>
 		<property name="storages">
@@ -745,6 +746,7 @@
 				<value>Smart-TV</value>
 			</list>
 		</property>
+		<property name="picture" value="http://i.kinja-img.com/gawker-media/image/upload/lwg7g1pdr3azlrd4vfqo.png"/>
 		<property name="deleted" value="false"/>
 		<property name="category" ref="category2"/>
 		<property name="storages">
@@ -769,6 +771,7 @@
 				<value>Colonia</value>
 			</list>
 		</property>
+		<property name="picture" value="http://i.anuxi.ec/i-a/Dyne-32.jpg"/>
 		<property name="deleted" value="false"/>
 		<property name="category" ref="category3"/>
 		<property name="storages">
@@ -796,6 +799,7 @@
 				<value>Carne</value>
 			</list>
 		</property>
+		<property name="picture" value="http://azu1.facilisimo.com/ima/i/1/8/3b/am_79224_4508052_81641.jpg"/>
 		<property name="deleted" value="false"/>
 		<property name="category" ref="category1"/>
 		<property name="storages">

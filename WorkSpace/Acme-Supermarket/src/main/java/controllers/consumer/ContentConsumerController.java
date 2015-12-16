@@ -39,7 +39,6 @@ public class ContentConsumerController extends AbstractController{
 		ModelAndView result;
 		Collection<Content> contents;
 		
-		/* Falta un servicio de findAllByShoppingCartId(shoppingCartId) como el de storageService */
 		contents = contentService.findByShoppingCart(shoppingCartId);
 		result = new ModelAndView("content/list");
 		result.addObject("requestURI", "content/consumer/list.do");
@@ -70,7 +69,7 @@ public class ContentConsumerController extends AbstractController{
 		} else {
 			try {
 				contentService.save(content);
-				result = new ModelAndView("redirect:/shopping-cart/consumer/list.do");
+				result = new ModelAndView("redirect:list.do?shoppingCartId=" + content.getShoppingCart().getId());
 			} catch (Throwable oops) {
 				result = createEditModelAndView(content, "content.commit.error");				
 			}
@@ -85,7 +84,7 @@ public class ContentConsumerController extends AbstractController{
 		
 		try{
 			contentService.deleteComplete(content);
-			result = new ModelAndView("redirect:/shopping-cart/consumer/list.do");
+			result = new ModelAndView("redirect:list.do?shoppingCartId=" + content.getShoppingCart().getId());
 		}catch(Throwable oops){
 			result = createEditModelAndView(content, "content.commit.error");
 		}
@@ -93,6 +92,7 @@ public class ContentConsumerController extends AbstractController{
 		return result;
 	}
 	
+	// Ancilary methods -------------------------------------------------
 	protected ModelAndView createEditModelAndView(Content content) {
 		ModelAndView result;
 		
