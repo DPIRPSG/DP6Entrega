@@ -20,10 +20,12 @@ import controllers.AbstractController;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
+import domain.WareHouse;
 
 @Controller
 @RequestMapping(value = "/order-item/clerk")
 public class OrderItemClerkController extends AbstractController {
+
 
 	//Services ----------------------------------------------------------
 	
@@ -58,6 +60,22 @@ public class OrderItemClerkController extends AbstractController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam int orderId, @RequestParam int warehouseId) {
+		ModelAndView result;
+		String warehouse;
+		
+		warehouse = warehouseService.findOne(warehouseId).getName();
+
+		
+		result = new ModelAndView("order-item/confirm");
+		result.addObject("requestURI", "order-item/confirm.do");
+		result.addObject("warehouse", warehouse);
+		result.addObject("orderId", orderId);
+
+		return result;
+	}
+	
 	//Creation ----------------------------------------------------------
 	
 	@RequestMapping(value = "/serve", method = RequestMethod.GET)
@@ -81,6 +99,10 @@ public class OrderItemClerkController extends AbstractController {
 		Item item;
 		String sku;
 		int orderId;
+		int warehouseId;
+		WareHouse warehouse;
+		
+		warehouse = null;
 		
 		orderId = orderItem.getOrder().getId();
 		sku = orderItem.getSku();
@@ -92,13 +114,13 @@ public class OrderItemClerkController extends AbstractController {
 			result = createEditModelAndView(orderItem);
 		} else {
 			try {
-				warehouseService.addItemToOrderItem(item, unitsToServe, order);	
-				result = new ModelAndView("redirect:list.do?orderId="+orderId);
+				warehouse = warehouseService.addItemToOrderItem(item, unitsToServe, order);
+				warehouseId = warehouse.getId();
+				result = new ModelAndView("redirect:confirm.do?orderId="+orderId+"&warehouseId="+warehouseId);
 			} catch (Throwable oops) {
 				result = createEditModelAndView(orderItem, "orderItem.commit.error");				
 			}
-		}
-
+		}		
 		return result;
 	}
 	
@@ -128,6 +150,7 @@ public class OrderItemClerkController extends AbstractController {
 		result.addObject("unitsNum", units);
 		result.addObject("unitsServedNum", unitsServed);
 		result.addObject("orderId", orderId);
+
 		
 		return result;
 	}

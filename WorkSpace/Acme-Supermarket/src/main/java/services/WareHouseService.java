@@ -133,13 +133,15 @@ public class WareHouseService {
 	/**
 	 * Actualiza la cantidad de item en un WareHouse y de orderItem en una order
 	 */
-	public void addItemToOrderItem(Item item, int quantity, Order order) {
+	public WareHouse addItemToOrderItem(Item item, int quantity, Order order) {
 		// Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse,
 		// item) >= quantity,
 		// "No se pueden añadir a una order mas items de los que hay en el WareHouse");
 		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()),
 				"Only the clerk of the order can add items");
+		Assert.isTrue(order.getCancelMoment() == null, "No se pueden servir unidades de un pedido cancelado");
 
+		WareHouse result;
 		OrderItem orderItem;
 		Collection<OrderItem> orderItems;
 		Collection<WareHouse> warehouses;
@@ -147,6 +149,8 @@ public class WareHouseService {
 
 		warehouses = wareHouseRepository.findAll();
 
+		result = null;
+		
 		orderItem = null;
 		orderItems = order.getOrderItems();
 		for (OrderItem o : orderItems) {
@@ -167,10 +171,13 @@ public class WareHouseService {
 				storageService.subtractQuantityByWareHouseAndItem(warehouse,
 						item, quantity);
 				orderItem.setUnitsServed(unitsServed);
+				result = warehouse;
 				break;
 			}
 		}
 		orderItemService.save(orderItem);
+		
+		return result;
 	}
 	
 	/**
