@@ -10,7 +10,7 @@
 	</definition>
 	
 	<definition name="order-item/serve" extends="master.page">	
-		<put-attribute name="title" value="Sirviendo el Objeto de un Pedido" />
+		<put-attribute name="title" value="Sirviendo el Artículo de un Pedido" />
 		<put-attribute name="body" value="/views/order-item/serve.jsp" />
 	</definition>
 	
