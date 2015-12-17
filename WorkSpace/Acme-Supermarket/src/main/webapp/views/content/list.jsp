@@ -43,7 +43,7 @@
 	<!-- Action Links -->
 	<div>
 		<b><a
-			href="order/consumer/create.do">
+			href="order/consumer/create.do" >
 				<spring:message code="content.checkout" />
 		</a></b>
 	</div>
