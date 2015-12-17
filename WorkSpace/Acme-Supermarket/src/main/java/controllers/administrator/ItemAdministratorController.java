@@ -97,7 +97,7 @@ public class ItemAdministratorController extends AbstractController {
 		} else {
 			try {
 				itemService.save(item);		
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?keyword=");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(item, "item.commit.error");				
 			}
@@ -112,7 +112,7 @@ public class ItemAdministratorController extends AbstractController {
 
 		try {
 			itemService.delete(item);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?keyword=");
 		} catch (Throwable oops) {
 			result = createEditModelAndView(item,
 					"item.commit.error");
