@@ -34,7 +34,7 @@
 		
 	<input type="button" name="cancel"
 		value="<spring:message code="item.cancel" />"
-		onclick="javascript: relativeRedir('shopping-cart/consumer/list.do');" />
+		onclick="javascript: relativeRedir('content/consumer/list.do?shoppingCartId=${content.shoppingCart.id}');" />
 	<br />
 
 </form:form>

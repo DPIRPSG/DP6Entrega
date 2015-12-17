@@ -69,10 +69,15 @@ public class OrderService {
 	 * Guarda o actualiza una order
 	 */
 	//req: 11.7
-	public void save(Order order){
+	public Order save(Order order){
 		Assert.notNull(order);
 		
-		orderRepository.saveAndFlush(order);
+		Order result;
+		
+		//orderRepository.saveAndFlush(order);
+		result = orderRepository.save(order);
+		
+		return result;
     }
 	
 	/**
@@ -102,6 +107,33 @@ public class OrderService {
 	//Other business methods -------------------------------------------------
 	
 	/**
+	 * Guarda la Order desde ShoppingCart. NO USAR. Usar desde ShoppingCartService.saveCheckOut.
+	 */
+	public void saveFromShoppingCart(ShoppingCart shoppingCart, Order order){
+		Assert.notNull(shoppingCart);
+		Assert.notNull(order);
+		
+		Collection<OrderItem> orderItems;
+		double amount;
+
+		// Adding OrderItems
+		orderItems = orderItemService.createByShoppingCart(shoppingCart, order);
+		order.setOrderItems(orderItems);
+
+		
+		// Calculate amount
+		amount = this.amountCalculate(orderItems);
+		Assert.isTrue(amount == order.getAmount(), "order.commit.AmountChanged");
+		
+		order = this.save(order);
+		
+		//Saving OrderItems
+		orderItems = orderItemService.createByShoppingCart(shoppingCart, order);
+		orderItemService.save(orderItems);
+	}
+	
+	
+	/**
 	 * Crea una Order desde ShoppingCart. NO USAR. Usar desde ShoppingCartService.createCheckOut.
 	 */
 	//req: 11.7
@@ -126,9 +158,8 @@ public class OrderService {
 		result.setAmount(amount);
 		
 			// Adding Order to Consumer
-		consumer.addOrder(result);
+		result.setConsumer(consumer);
 		
-		// consumerService.save(consumer);
 		return result;
 	}
 	
