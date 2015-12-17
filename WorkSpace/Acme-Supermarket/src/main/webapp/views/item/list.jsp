@@ -46,11 +46,11 @@
 		sortable="true" />
 
 	<spring:message code="item.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="false" />
+	<display:column property="name" title="${nameHeader}" sortable="true" />
 
 	<spring:message code="item.price" var="priceHeader" />
 	<display:column property="price" title="${priceHeader}"
-		sortable="false" />
+		sortable="true" />
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}"
