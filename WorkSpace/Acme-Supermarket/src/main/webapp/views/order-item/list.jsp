@@ -19,7 +19,7 @@
 			<a href="order-item/clerk/serve.do?orderItemId=${row.id}"> <spring:message
 					code="orderItem.serve" />
 			</a>
-		</display:column>
+	</display:column>
 
 	<!-- Attributes -->
 	<spring:message code="orderItem.sku" var="skuHeader" />
