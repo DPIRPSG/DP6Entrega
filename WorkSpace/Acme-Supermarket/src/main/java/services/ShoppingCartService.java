@@ -90,6 +90,7 @@ public class ShoppingCartService {
 		ShoppingCart shoppingCart;
 		
 		consumer = consumerService.findByPrincipal();
+		Assert.notNull(consumer);
 		shoppingCart = this.findByConsumer(consumer);		
 		
 		// Create a order with their orderItems (none is persist)
@@ -107,7 +108,7 @@ public class ShoppingCartService {
 		Assert.notNull(consumer);
 		Assert.isTrue(order.getConsumer().equals(consumer), "Only the owner can keep order");
 		
-		orderService.save(order);
+		orderService.saveFromShoppingCart(consumer.getShoppingCart(), order);
 		this.emptyShoppingCart(consumer);
 	}
 	
