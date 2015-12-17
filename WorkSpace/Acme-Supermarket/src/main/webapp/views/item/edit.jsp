@@ -42,7 +42,7 @@
 	<form:label path="description">
 		<spring:message code="item.description" />:
 	</form:label>
-	<form:input path="description" />
+	<form:textarea path="description" />
 	<form:errors cssClass="error" path="description" />
 	<br />
 
@@ -63,7 +63,7 @@
 	<form:label path="picture">
 		<spring:message code="item.picture" />:
 	</form:label>
-	<form:input path="picture" />
+	<form:textarea path="picture" />
 	<form:errors cssClass="error" path="picture" />
 	<br />
 	
@@ -88,7 +88,7 @@
 	</jstl:if>
 	<input type="button" name="cancel"
 		value="<spring:message code="item.cancel" />"
-		onclick="javascript: relativeRedir('item/administrator/list.do');" />
+		onclick="javascript: relativeRedir('item/administrator/list.do?keyword=');" />
 	<br />
 
 </form:form>

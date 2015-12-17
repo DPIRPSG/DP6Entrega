@@ -59,7 +59,9 @@
 	<display:column property="tags" title="${tagsHeader}" sortable="false" />
 
 	<spring:message code="item.picture" var="pictureHeader" />
-	<display:column property="picture" title="${pictureHeader}" sortable="false" />
+	<display:column title="${pictureHeader}" sortable="false" >
+		<img src="${row.picture}" style="width:204px;height:128px;"/>
+	</display:column>
 
 	<display:column>
 		<a href="comment/list.do?itemId=${row.id}"> <spring:message

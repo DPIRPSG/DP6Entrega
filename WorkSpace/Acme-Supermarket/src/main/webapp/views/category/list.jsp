@@ -28,8 +28,8 @@
 		<display:column property="description" title="${descriptionHeader}" sortable="true" />
 		
 		<spring:message code="category.list.picture" var="pictureHeader" />
-		<display:column>
-			<img src="${pictureHeader}" />
+		<display:column title="${pictureHeader}" sortable="false" >
+			<img src="${row.picture}" style="width:204px;height:128px;"/>
 		</display:column>
 		
 		<spring:message code="category.list.taxName" var="taxNameHeader" />
