@@ -16,7 +16,7 @@
 	<!-- Action links -->
 	<security:authorize access="hasRole('CONSUMER')">
 		<display:column>
-			<a href="item/consumer/add.do?itemId=${row.id}&?keyword=" onclick="return confirm('<spring:message code="item.add.ok" />')"> 
+			<a href="item/consumer/add.do?itemId=${row.id}&?keyword=" onclick="return confirm('<spring:message code="item.add.advise" />')"> 
 				<spring:message code="item.add" />
 				
 			</a>
