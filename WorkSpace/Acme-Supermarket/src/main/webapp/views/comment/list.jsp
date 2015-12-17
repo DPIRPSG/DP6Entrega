@@ -24,8 +24,15 @@
 	</security:authorize>
 	
 	<!-- Attributes -->
-	<spring:message code="comment.userName" var="userNameHeader" />
-	<display:column property="userName" title="${userNameHeader}" sortable="true" />
+	<jstl:choose>
+  		<jstl:when test="${row.userName != 'Anonymous'}">
+			<spring:message code="comment.userName" var="userNameHeader" />
+			<display:column property="userName" title="${userNameHeader}" sortable="true" />
+		</jstl:when>
+  		<jstl:otherwise>
+		<display:column title="${userNameHeader}" sortable="true"><spring:message code="comment.anonymous"/></display:column>
+		</jstl:otherwise>
+	</jstl:choose>
 	
 	<spring:message code="comment.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="false" />
