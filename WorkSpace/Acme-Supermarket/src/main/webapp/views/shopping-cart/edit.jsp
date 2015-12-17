@@ -17,6 +17,13 @@
 	<form:hidden path="consumer" />
 	<form:hidden path="contents" />
 	
+	<spring:message code="shoppingCart.comments.addComment"/>
+	<br />
+	<spring:message code="shoppingCart.comments.editComment"/>
+	<br />
+	<spring:message code="shoppingCart.comments.deleteComment"/>
+	<br /> <br />
+	
 	<!-- Editable Attributes -->
 	<form:label path="comments">
 		<spring:message code="shoppingCart.comments" />:
@@ -27,7 +34,8 @@
 	
 	<!-- Action buttons -->
 	<input type="submit" name="save"
-		value="<spring:message code="shoppingCart.comments.save" />" />&nbsp;
+		value="<spring:message code="shoppingCart.comments.save" />" 
+		onclick="return confirm('<spring:message code="shoppingCart.comment.save.advise" />')"/>&nbsp;
 		
 	<input type="button" name="cancel"
 		value="<spring:message code="shoppingCart.comments.cancel" />"
