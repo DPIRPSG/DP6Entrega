@@ -17,6 +17,7 @@
 		
 		<form:hidden path="placementMoment"/>
 		<form:hidden path="ticker"/>
+		<form:hidden path="amount"/>
 
 		<form:hidden path="clerk"/>
 		<form:hidden path="orderItems"/>

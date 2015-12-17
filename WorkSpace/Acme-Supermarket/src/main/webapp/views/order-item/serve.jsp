@@ -29,23 +29,26 @@
 	<form:hidden path="order" />
 
 	<spring:message code="orderItem.units" var="units" />
-	<jstl:out value="${units}"></jstl:out>
+	<jstl:out value="${units}:"></jstl:out>
 	<jstl:out value="${unitsNum}"></jstl:out>
 	<br/>
 	
 	<spring:message code="orderItem.unitsServed" var="unitsServed" />
-	<jstl:out value="${unitsServed}"></jstl:out>
+	<jstl:out value="${unitsServed}:"></jstl:out>
 	<jstl:out value="${unitsServedNum}"></jstl:out>
 	<br/>
 	
+	<spring:message code="orderItem.unitsToServe" var="unitsToServe"/>
+	<jstl:out value="${unitsToServe}:"></jstl:out>
 	<input type="text" name="unitsToServe">
 	<br />
 
 	
 	<!-- Action buttons -->
 	<input type="submit" name="serve"
-		value="<spring:message code="orderItem.serve" />" />&nbsp; 
-	<input type="button" name="cancel"
+		value="<spring:message code="orderItem.serve" />"/>
+		
+		<input type="button" name="cancel"
 		value="<spring:message code="orderItem.cancel" />"
 		onclick="javascript: relativeRedir('order-item/clerk/list.do?orderId=${orderId}');" />
 	<br />

@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
-import domain.Consumer;
 import domain.Order;
 
-import services.ConsumerService;
 import services.OrderService;
 import services.ShoppingCartService;
 
@@ -31,8 +28,7 @@ public class OrderConsumerController extends AbstractController {
 	private OrderService orderService;
 	@Autowired
 	private ShoppingCartService ShoppingCartService;
-	@Autowired
-	private ConsumerService	consumerService;
+
 	
 	// Constructors ----------------------------------------------------------
 	public OrderConsumerController(){
@@ -61,13 +57,8 @@ public class OrderConsumerController extends AbstractController {
 	public ModelAndView create(){
 		ModelAndView result;
 		Order order;
-		Consumer consumer;
 		
 		order = ShoppingCartService.createCheckOut();
-		consumer = consumerService.findByPrincipal();
-		Assert.notNull(consumer);
-		
-		order.setConsumer(consumer);
 		result = createEditModelAndView(order);
 		
 		return result;
@@ -80,14 +71,22 @@ public class OrderConsumerController extends AbstractController {
 	public ModelAndView save(@Valid Order order, BindingResult binding){
 		ModelAndView result;
 		
-		if (binding.hasErrors()) {
+		boolean bindingError;
+		
+		if(binding.hasFieldErrors("orderItems")){
+			bindingError = binding.getErrorCount() > 1;
+		}else{
+			bindingError = binding.getErrorCount() > 0;
+		}
+		
+		if(bindingError){
 			result = createEditModelAndView(order);
 		} else {
 			try {
 				ShoppingCartService.saveCheckOut(order, order.getConsumer());
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(order, "order.commit.error");				
+				result = createEditModelAndView(order, "order.commit.create.error");				
 			}
 		}
 		

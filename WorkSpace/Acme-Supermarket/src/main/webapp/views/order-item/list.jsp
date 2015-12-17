@@ -38,3 +38,8 @@
 	<display:column property="unitsServed" title="${unitsServedHeader}" sortable="true" />
 
 </display:table>
+
+<input type="button" name="cancel"
+		value="<spring:message code="orderItem.return" />"
+		onclick="javascript: relativeRedir('order/clerk/list.do');" />
+	<br />
