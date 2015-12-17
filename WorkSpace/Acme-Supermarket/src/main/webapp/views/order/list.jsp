@@ -19,7 +19,7 @@
 			<spring:message code="order.delete" var="deleteHeader" />
 			<jstl:if test="${row.clerk == null && row.cancelMoment == null}">
 				<display:column>
-					<a href="order/consumer/cancel.do?orderId=${row.id}"> <spring:message
+					<a href="order/consumer/cancel.do?orderId=${row.id}" onclick="return confirm('<spring:message code="order.cancel.advise" />')"> <spring:message
 						code="order.cancel" />
 					</a>
 				</display:column>	

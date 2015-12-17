@@ -27,10 +27,12 @@
 	
 	<!-- Action buttons -->
 	<input type="submit" name="save"
-		value="<spring:message code="content.save" />" />&nbsp;
+		value="<spring:message code="content.save" />" 
+		onclick="return confirm('<spring:message code="content.save.advise" />')"/>&nbsp;
 		
 	<input type="submit" name="delete"
-		value="<spring:message code="content.delete" />" />&nbsp;
+		value="<spring:message code="content.delete" />" 
+		onclick="return confirm('<spring:message code="content.delete.advise" />')" />&nbsp;
 		
 	<input type="button" name="cancel"
 		value="<spring:message code="item.cancel" />"

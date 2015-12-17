@@ -29,7 +29,12 @@
 		</form:label>
 		<form:input path="address"/>
 		<form:errors cssClass="error" path="address"/>
-		<br />
+		<br /> <br/>
+		
+		<fieldset>
+			<legend align="left">
+				<spring:message code = "order.creditCard"/>
+			</legend>
 		
 		<form:label path="creditCard.holderName">
 			<spring:message code = "order.creditCard.holderName"/>
@@ -73,9 +78,13 @@
 		<form:errors cssClass="error" path="creditCard.expirationYear"/>
 		<br />
 		
+		</fieldset>
+		<br/>
+		
 		<!-- Action buttons -->
 		<input type="submit" name="save"
-			value="<spring:message code="order.checkout"/>"/>
+			value="<spring:message code="order.checkout"/>"
+			onclick="return confirm('<spring:message code="order.checkout.advise" />')"/>
 		&nbsp;
 		<input type="button" name="cancel"
 			value="<spring:message code="order.cancel" />"
