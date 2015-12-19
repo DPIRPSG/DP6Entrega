@@ -11,6 +11,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
+	
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="orders" requestURI="${requestURI}" id="row">
@@ -56,19 +57,22 @@
 
 		<security:authorize access="hasRole('CLERK')">
 			<spring:message code="order.clerk" var="clerkHeader" />
-			<jstl:if test="${row.clerk == null}">
-				<display:column sortable = "true"  title="${clerkHeader}">
+			<jstl:set var="clerkUsername"
+				value="${row.clerk.userAccount.username}" />
+			<jstl:if test="${clerkUsername == null}">
+				<display:column sortable="true" title="${clerkHeader}">
 					<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
 							code="order.self-assign" />
 					</a>
 				</display:column>
 			</jstl:if>
-			<jstl:if test="${row.clerk != null}">
-				<display:column property="clerk.userAccount.username" title="${clerkHeader}"
-					sortable="true" />
+			<jstl:if test="${clerkUsername != null}">
+				<display:column title="${clerkHeader}" sortable="true">
+					<jstl:out value="${clerkUsername}" />
+				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('ADMIN')">
 			<spring:message code="order.clerk" var="clerkHeader" />
 			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
