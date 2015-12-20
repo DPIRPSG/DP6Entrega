@@ -33,6 +33,25 @@
 	
 	</display:table>
 	
+	<!-- Comments table -->
+<%-- 	<display:table pagesize="5" class="displaytag" keepStatus="true" --%>
+<%-- 		name="shoppingCarts" requestURI="${requestURI}" id="row2"> --%>
+	
+<%-- 	<spring:message code="shoppingCart.comments.edit.url" var="editHeader" /> --%>
+<%-- 	<display:column title="${editHeader}"> --%>
+<%-- 		<a href="shopping-cart/consumer/edit.do?shoppingCartId=${row2.id}"> <spring:message --%>
+<%-- 			code="shoppingCart.comments.edit" /> --%>
+<!-- 		</a> -->
+<%-- 	</display:column> --%>
+	
+<%-- 	<spring:message code="shoppingCart.comments" var="commentsHeader2" /> --%>
+<%-- 	<display:column title="${commentsHeader2}"> --%>
+<%-- 		<jstl:forEach var="comment" items="${row2.comments}"> --%>
+<%-- 			<jstl:out value="${comment}"/> --%>
+<%-- 		</jstl:forEach> --%>
+<%-- 	</display:column> --%>
+<%-- 	</display:table> --%>
+	
 	<!-- Action links -->
 	
 </security:authorize>
