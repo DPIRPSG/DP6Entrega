@@ -13,17 +13,17 @@
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="folders" requestURI="${requestURI}" id="row">
+		name="folders" requestURI="${requestURI}" id="row_folder">
 
 		<spring:message code="folder.edit" var="editHeader" />
-		<jstl:if test="${!row.isSystem}">
+		<jstl:if test="${!row_folder.isSystem}">
 			<display:column>
-				<a href="folder/actor/edit.do?folderId=${row.id}"> 
+				<a href="folder/actor/edit.do?folderId=${row_folder.id}"> 
 					<spring:message code="folder.edit" />
 				</a>
 			</display:column>
 		</jstl:if>
-		<jstl:if test="${row.isSystem}">
+		<jstl:if test="${row_folder.isSystem}">
 			<display:column>
 
 			</display:column>
@@ -37,7 +37,7 @@
 
 		<spring:message code="folder.messages" var="messageHeader" />
 		<display:column>
-			<a href="message/actor/list.do?folderId=${row.id}"> <spring:message
+			<a href="message/actor/list.do?folderId=${row_folder.id}"> <spring:message
 					code="folder.messages" />
 			</a>
 		</display:column>

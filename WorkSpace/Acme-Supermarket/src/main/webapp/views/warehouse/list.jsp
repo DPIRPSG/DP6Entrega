@@ -12,11 +12,11 @@
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="warehouses" requestURI="${requestURI}" id="row">
+	name="warehouses" requestURI="${requestURI}" id="row_whouse">
 	<!-- Action links -->
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="warehouse/administrator/edit.do?warehouseId=${row.id}"> <spring:message
+			<a href="warehouse/administrator/edit.do?warehouseId=${row_whouse.id}"> <spring:message
 					code="warehouse.edit" />
 			</a>
 		</display:column>
@@ -32,7 +32,7 @@
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="storage/administrator/list.do?warehouseId=${row.id}"> <spring:message
+			<a href="storage/administrator/list.do?warehouseId=${row_whouse.id}"> <spring:message
 					code="warehouse.storage" />
 			</a>
 		</display:column>
@@ -40,7 +40,7 @@
 	
 	<security:authorize access="hasRole('CLERK')">
 		<display:column>
-			<a href="storage/clerk/list.do?warehouseId=${row.id}&itemId="> <spring:message
+			<a href="storage/clerk/list.do?warehouseId=${row_whouse.id}&itemId="> <spring:message
 					code="warehouse.storage" />
 			</a>
 		</display:column>

@@ -12,19 +12,19 @@
 
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="messa" requestURI="${requestURI}" id="row">
+	<display:table pagesize="5" class="displaytag"
+		name="messa" requestURI="${requestURI}" id="row_messa">
 
 		<spring:message code="message.display" var="displayHeader" />
 		<display:column>
-			<a href="message/actor/display.do?messageId=${row.id}"> 
+			<a href="message/actor/display.do?messageId=${row_messa.id}"> 
 				<spring:message code="message.display" />
 			</a>
 		</display:column>
 		
 		<spring:message code="message.delete" var="deleteHeader" />
 		<display:column>
-			<a href="message/actor/delete.do?messageId=${row.id}&folderId=${folder.id}"> 
+			<a href="message/actor/delete.do?messageId=${row_messa.id}&folderId=${folder.id}"> 
 				<spring:message code="message.delete" />
 			</a>
 		</display:column>
