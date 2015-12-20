@@ -10,34 +10,27 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('ADMIN')">
-	<!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="consumers" requestURI="${requestURI}" id="row">
-		
-		<!-- Attributes -->
-		<spring:message code="consumer.username" var="userNameHeader" />
-		<display:column property="userAccount.username" title="${userNameHeader}"
-			sortable="true" />
+<!-- Listing grid -->
+<display:table pagesize="5" class="displaytag" keepStatus="true"
+	name="consumers" requestURI="${requestURI}" id="row">
 
-		<spring:message code="consumer.name"
-			var="nameHeader" />
-		<display:column property="name"
-			title="${nameHeader}" sortable="true" />
+	<!-- Attributes -->
+	<spring:message code="consumer.username" var="userNameHeader" />
+	<display:column property="userAccount.username"
+		title="${userNameHeader}" sortable="true" />
 
-		<spring:message code="consumer.surname" var="surnameHeader" />
-		<display:column property="surname"
-			title="${surnameHeader}" sortable="true" />
-        
-		<spring:message code="consumer.phone"
-			var="phoneHeader" />
-		<display:column property="phone"
-			title="${phoneHeader}" sortable="true" />
+	<spring:message code="consumer.name" var="nameHeader" />
+	<display:column property="name" title="${nameHeader}" sortable="true" />
 
-		<spring:message code="consumer.email" var="emailHeader" />
-		<display:column property="email"
-			title="${emailHeader}" sortable="true" />
+	<spring:message code="consumer.surname" var="surnameHeader" />
+	<display:column property="surname" title="${surnameHeader}"
+		sortable="true" />
 
-	</display:table>
+	<spring:message code="consumer.phone" var="phoneHeader" />
+	<display:column property="phone" title="${phoneHeader}" sortable="true" />
 
-</security:authorize>
+	<spring:message code="consumer.email" var="emailHeader" />
+	<display:column property="email" title="${emailHeader}" sortable="true" />
+
+</display:table>
+
