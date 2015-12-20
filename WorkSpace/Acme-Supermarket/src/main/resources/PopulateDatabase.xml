@@ -1268,9 +1268,39 @@
 	<!-- ExchangeRate -->
 	
 	<bean id="exchangeRate1" class="domain.ExchangeRate">
-		<property name="name" value="pesetas"/>
+		<property name="name" value="Euros"/>
+		<property name="currency" value="EUR"></property>
+		<property name="rate" value="1"/>
+	</bean>
+	
+	<bean id="exchangeRate2" class="domain.ExchangeRate">
+		<property name="name" value="Spanish Pesetas"/>
 		<property name="currency" value="ESP"></property>
 		<property name="rate" value="166.386"/>
+	</bean>
+	
+	<bean id="exchangeRate3" class="domain.ExchangeRate">
+		<property name="name" value="French Francs"/>
+		<property name="currency" value="FRF"></property>
+		<property name="rate" value="6.56"/>
+	</bean>
+	
+	<bean id="exchangeRate4" class="domain.ExchangeRate">
+		<property name="name" value="Italian Liras"/>
+		<property name="currency" value="ITL"></property>
+		<property name="rate" value="1936.27"/>
+	</bean>
+	
+	<bean id="exchangeRate5" class="domain.ExchangeRate">
+		<property name="name" value="German Marks"/>
+		<property name="currency" value="DEM"></property>
+		<property name="rate" value="1.96"/>
+	</bean>
+	
+	<bean id="exchangeRate6" class="domain.ExchangeRate">
+		<property name="name" value="Portuguese Escudos"/>
+		<property name="currency" value="PTE"></property>
+		<property name="rate" value="200.48"/>
 	</bean>
 	
 	<!-- Order -->
