@@ -85,6 +85,11 @@
 				sortable="false" />
 		</security:authorize>
 		
+		<security:authorize access="hasRole('ADMIN')">
+			<spring:message code="order.creditCard.number.list" var="creditCardHeader"/>
+			<display:column property="creditCard.number" title="${creditCardHeader}" sortable="false"/>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('CLERK')">
 				<display:column>
 					<a href="order-item/clerk/list.do?orderId=${row.id}"> <spring:message
