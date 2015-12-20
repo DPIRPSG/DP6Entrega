@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ItemService;
+import domain.ExchangeRate;
 import domain.Item;
 
 @Controller
@@ -20,6 +22,8 @@ public class ItemController extends AbstractController {
 
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -30,22 +34,35 @@ public class ItemController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam String keyword) {
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String keyword, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Item> items;
+		Collection<ExchangeRate> moneyList;
 		String keywordToFind;
+		ExchangeRate exchangeRate;
 
-		if (keyword == "") {
+		exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+				
+		if (keyword.equals("")) {
 			items = itemService.findAll();
 		} else {
 			String[] keywordComoArray = keyword.split(" ");
 			keywordToFind = keywordComoArray[0];
 			items = itemService.findBySingleKeyword(keywordToFind);
 		}
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 
 		result = new ModelAndView("item/list");
 		result.addObject("requestURI", "item/list.do");
 		result.addObject("items", items);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 
 		return result;
 	}

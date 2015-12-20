@@ -48,7 +48,6 @@ public class RegisterController extends AbstractController{
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Consumer consu, BindingResult binding){
-
 		ModelAndView result;
 		boolean bindingError;
 		
@@ -65,7 +64,6 @@ public class RegisterController extends AbstractController{
 				consumerService.save(consu);
 				result = new ModelAndView("redirect:../security/login.do");
 			} catch (Throwable oops){
-				System.out.println("Error oops: "+ oops);
 				result = createEditModelAndView(consu, "consumer.commit.error");
 			}
 		}

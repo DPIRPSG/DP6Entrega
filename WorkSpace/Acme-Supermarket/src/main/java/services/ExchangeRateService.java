@@ -65,8 +65,28 @@ public class ExchangeRateService {
 		
 		return result;		
 	}
+
+	
 	
 	// Other business methods -------------------------------------------------
 		
-	
+	public ExchangeRate findOne(int exchangeRateId) {
+		Assert.notNull(exchangeRateId);
+		
+		ExchangeRate result;
+		
+		result = exchangeRateRepository.findOne(exchangeRateId);
+		
+		return result;
+	}
+
+	public ExchangeRate findOneByName(String name) {
+		Assert.notNull(name);
+		
+		ExchangeRate result;
+		
+		result = exchangeRateRepository.findOneByName(name);
+		
+		return result;
+	}
 }
