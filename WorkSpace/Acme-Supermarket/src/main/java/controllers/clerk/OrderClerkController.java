@@ -68,10 +68,10 @@ public class OrderClerkController extends AbstractController{
 		
 			orderService.assignToClerkManual(clerk, order);
 			result = new ModelAndView("redirect: list.do");
-			result.addObject("message", "order.self-assign.ok");
+			result.addObject("message-status", "order.self-assign.ok");
 		} catch (Throwable ops){
 			result = new ModelAndView("redirect: list.do");
-			result.addObject("message", "order.self-assign.error");
+			result.addObject("message-status", "order.self-assign.error");
 			
 			
 		}

@@ -10,13 +10,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
 <!-- Listing grid -->
-<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="storages" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag"
+	name="storages" requestURI="${requestURI}" id="row_storage">
 	<!-- Action links -->
 	<security:authorize access="hasRole('ADMIN')">
 		<spring:message code="storage.edit" var="editHeader" />
 		<display:column>
-			<a href="storage/administrator/edit.do?storageId=${row.id}"> <spring:message
+			<a href="storage/administrator/edit.do?storageId=${row_storage.id}"> <spring:message
 					code="storage.edit" />
 			</a>
 		</display:column>

@@ -54,7 +54,7 @@ public class OrderItemClerkController extends AbstractController {
 		ordersItem = orderItemService.findAllByOrderId(orderId);
 		
 		result = new ModelAndView("order-item/list");
-		result.addObject("requestURI", "order-item/list.do");
+		result.addObject("requestURI", "order-item/clerk/list.do");
 		result.addObject("orders-item", ordersItem);
 
 		return result;
@@ -69,7 +69,7 @@ public class OrderItemClerkController extends AbstractController {
 
 		
 		result = new ModelAndView("order-item/confirm");
-		result.addObject("requestURI", "order-item/confirm.do");
+		result.addObject("requestURI", "order-item/clerk/confirm.do");
 		result.addObject("warehouse", warehouse);
 		result.addObject("orderId", orderId);
 
