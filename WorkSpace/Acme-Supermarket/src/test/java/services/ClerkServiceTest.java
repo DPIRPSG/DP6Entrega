@@ -12,7 +12,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import security.UserAccount;
-import security.UserAccountService;
 import utilities.AbstractTest;
 import domain.Clerk;
 import domain.Message;
@@ -29,8 +28,6 @@ public class ClerkServiceTest extends AbstractTest{
 	// Service under test -------------------------
 	@Autowired
 	private ClerkService clerkService;
-	@Autowired
-	private UserAccountService userAccountService;
 	
 	// Test ---------------------------------------
 	@Test
@@ -57,14 +54,15 @@ public class ClerkServiceTest extends AbstractTest{
 			System.out.println(c.getName());
 		}
 		
-		userAccount = userAccountService.createComplete("Clerk99", "91ec1f9322200048c9496d036a694f86", "CLERK");
-		
 		result = clerkService.create();
+		userAccount = result.getUserAccount();
 	
 		result.setName("Manuel");
 		result.setEmail("manuel@mail.com");
 		result.setPhone("666123123");
 		result.setSurname("García");
+		userAccount.setUsername("Clerk99");
+		userAccount.setPassword("Clerk99");
 		result.setUserAccount(userAccount);
 		result.setReceived(received);
 		result.setSent(sent);

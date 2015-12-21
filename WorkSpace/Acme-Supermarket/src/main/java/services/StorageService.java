@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class StorageService {
 	 * USAR EN WareHouse. Devuelve WareHouse preparado para ser modificado. Necesita usar save para que persista en la base de datos
 	 */
 	//req: 17.5
-	private Storage create(){
+	public Storage create(){
 		Storage result;
 		
 		result = new Storage();
@@ -66,6 +68,16 @@ public class StorageService {
 		
 		storageRepository.delete(storage);
 	}
+	
+	public Storage findOne(int id){
+		Storage result;
+		
+		result = storageRepository.findOne(id);
+		
+		Assert.notNull(result);
+		
+		return result;
+	}
 
 	//Other business methods -------------------------------------------------
 	
@@ -73,7 +85,7 @@ public class StorageService {
 	 * Dado un wareHouse y un item, busca el storage
 	 */
 	//req: 17.5
-	private Storage findByWareHouseAndItem(WareHouse wareHouse, Item item){
+	public Storage findByWareHouseAndItem(WareHouse wareHouse, Item item){
 		Assert.notNull(wareHouse);
 		Assert.notNull(item);
 		
@@ -150,5 +162,26 @@ public class StorageService {
 		
 		return result;
 	}
+
+	public Collection<Storage> findAllByWarehouseId(int warehouseId) {
+		Assert.notNull(warehouseId);
+		
+		Collection<Storage> result;
+		
+		result = storageRepository.findAllByWarehouseId(warehouseId);
+		
+		return result;	
+	}
+
+	public Collection<Storage> findAllByItemId(int itemId) {
+		Assert.notNull(itemId);
+
+		Collection<Storage> result;
+
+		result = storageRepository.findAllByItemId(itemId);
+
+		return result;
+	}
+
  
 }

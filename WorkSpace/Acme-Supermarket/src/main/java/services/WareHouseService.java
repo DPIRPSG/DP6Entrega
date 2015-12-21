@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.WareHouseRepository;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
+import domain.Storage;
 import domain.WareHouse;
-
-import repositories.WareHouseRepository;
 
 @Service
 @Transactional 
@@ -62,13 +63,29 @@ public class WareHouseService {
 	}
 	
 	/**
+	 * Devuelve el warehouse con el id
+	 */
+	public WareHouse findOne(int id){
+		WareHouse result;
+		
+		result = wareHouseRepository.findOne(id);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
+	/**
 	 * Devuelve WareHouse preparado para ser modificado. Necesita usar save para que persista en la base de datos
 	 */
 	//req: 17.3
 	public WareHouse create(){
 		WareHouse result;
+		Collection<Storage> storages;
 		
+		storages = new ArrayList<Storage>();		
 		result = new WareHouse();
+		
+		result.setStorages(storages);
 		
 		return result;
 	}
@@ -116,34 +133,51 @@ public class WareHouseService {
 	/**
 	 * Actualiza la cantidad de item en un WareHouse y de orderItem en una order
 	 */
-	public void addItemToOrderItem(WareHouse wareHouse, Item item, int quantity, Order order){
-		Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse, item) >= quantity, "No se pueden añadir a una order mas items de los que hay en el WareHouse");
-		
-		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()), "Only the clerk of the order can add items");
-		
+	public WareHouse addItemToOrderItem(Item item, int quantity, Order order) {
+		// Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse,
+		// item) >= quantity,
+		// "No se pueden añadir a una order mas items de los que hay en el WareHouse");
+		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()),
+				"Only the clerk of the order can add items");
+		Assert.isTrue(order.getCancelMoment() == null, "No se pueden servir unidades de un pedido cancelado");
+
+		WareHouse result;
 		OrderItem orderItem;
 		Collection<OrderItem> orderItems;
+		Collection<WareHouse> warehouses;
 		int unitsServed;
+
+		warehouses = wareHouseRepository.findAll();
+
+		result = null;
 		
 		orderItem = null;
 		orderItems = order.getOrderItems();
-		for(OrderItem o : orderItems) {
-			if(item.getSku().equals(o.getSku())) {
+		for (OrderItem o : orderItems) {
+			if (item.getSku().equals(o.getSku())) {
 				orderItem = o;
 				break;
 			}
 		}
-		
+
 		Assert.notNull(orderItem, "No existe OrderItem del Item pasado");
-				
+
 		unitsServed = orderItem.getUnitsServed() + quantity;
-		
-		Assert.isTrue(unitsServed <= orderItem.getUnits(), "Se intentan añadir mas unidades de las solicitadas por el OrderItem");
-		
-		storageService.subtractQuantityByWareHouseAndItem(wareHouse, item, quantity);
-		orderItem.setUnitsServed(unitsServed);
-		
+
+		Assert.isTrue(unitsServed <= orderItem.getUnits(),
+				"Se intentan añadir mas unidades de las solicitadas por el OrderItem");
+		for (WareHouse warehouse : warehouses) {
+			if (storageService.quantityByWareHouseAndItem(warehouse, item) >= quantity) {
+				storageService.subtractQuantityByWareHouseAndItem(warehouse,
+						item, quantity);
+				orderItem.setUnitsServed(unitsServed);
+				result = warehouse;
+				break;
+			}
+		}
 		orderItemService.save(orderItem);
+		
+		return result;
 	}
 	
 	/**

@@ -20,4 +20,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	
 	@Query("select o from Order o where o.ticker = ?1")
 	Order findByTicker(String ticker);
+	
+	@Query("select o from Order o where o.consumer.id = ?1 order by o.placementMoment")
+	Collection<Order> findAllByConsumerId(int id);
+	
+	@Query("select o from Order o where o.clerk.id = ?1 order by o.placementMoment")
+	Collection<Order> findAllByClerkId(int id);	
 }

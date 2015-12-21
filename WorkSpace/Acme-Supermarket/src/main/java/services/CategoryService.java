@@ -99,6 +99,14 @@ public class CategoryService {
 		
 		return result;
 	}
+
+	public Category findOne(int categoryId) {
+		Category result;
+
+		result = categoryRepository.findOne(categoryId);
+
+		return result;
+	}
 	
 	
 }

@@ -1,11 +1,15 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Consumer;
+import domain.Content;
 import domain.Item;
 import domain.Order;
 import domain.ShoppingCart;
@@ -44,6 +48,22 @@ public class ShoppingCartService {
 	//Simple CRUD methods ----------------------------------------------------
 
 	/**
+	 * Inicializa un carrito
+	 */
+	public ShoppingCart create(Consumer consumer){
+		ShoppingCart result;
+		Collection<Content> content;
+		
+		result = new ShoppingCart();
+		content = new ArrayList<Content>();
+		
+		result.setConsumer(consumer);
+		result.setContents(content);
+		
+		return result;
+	}
+	
+	/**
 	 * Guarda los cambios del carrito. Usar solo para comentarios.
 	 */
 	//req: 11.6
@@ -70,6 +90,7 @@ public class ShoppingCartService {
 		ShoppingCart shoppingCart;
 		
 		consumer = consumerService.findByPrincipal();
+		Assert.notNull(consumer);
 		shoppingCart = this.findByConsumer(consumer);		
 		
 		// Create a order with their orderItems (none is persist)
@@ -87,7 +108,7 @@ public class ShoppingCartService {
 		Assert.notNull(consumer);
 		Assert.isTrue(order.getConsumer().equals(consumer), "Only the owner can keep order");
 		
-		orderService.save(order);
+		orderService.saveFromShoppingCart(consumer.getShoppingCart(), order);
 		this.emptyShoppingCart(consumer);
 	}
 	
@@ -167,5 +188,13 @@ public class ShoppingCartService {
 		
 		shoppingCart.addComment(comment);
 		shoppingCartRepository.save(shoppingCart);
+	}
+	
+	public ShoppingCart finOneByShoppingCartId(int shoppingCartId){
+		ShoppingCart shoppingCart;
+		
+		shoppingCart = shoppingCartRepository.findOne(shoppingCartId);
+		
+		return shoppingCart;
 	}
 }
