@@ -70,9 +70,7 @@ public class OrderClerkController extends AbstractController{
 		result.addObject("exchangeRate", exchangeRate);
 		
 		if(messageStatus != ""){
-			result.addObject("messageStatusT","window.alert(" + messageStatus + ")");
-			messageResult = messageStatus;
-			result.addObject("messageStatus", messageResult);
+			result.addObject("messageStatus", messageStatus);
 		}
 		
 		return result;

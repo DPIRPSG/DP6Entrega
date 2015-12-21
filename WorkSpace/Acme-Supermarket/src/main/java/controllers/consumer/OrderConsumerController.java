@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,9 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
-import domain.ExchangeRate;
+import domain.Consumer;
 import domain.Order;
-
+import services.ConsumerService;
+import domain.ExchangeRate;
 import services.ExchangeRateService;
 import services.OrderService;
 import services.ShoppingCartService;
@@ -31,6 +33,8 @@ public class OrderConsumerController extends AbstractController {
 	@Autowired
 	private ShoppingCartService ShoppingCartService;
 	@Autowired
+	private ConsumerService consumerService;
+	@Autowired
 	private ExchangeRateService exchangeRateService;
 
 	
@@ -41,8 +45,7 @@ public class OrderConsumerController extends AbstractController {
 	
 	// Listing ----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required=false) Integer exchangeRateId){
-		
+	public ModelAndView list(@RequestParam(required=false) Integer exchangeRateId, @RequestParam(required=false, defaultValue="") String messageStatus){		
 		ModelAndView result;
 		Collection<Order> orders;
 		ExchangeRate exchangeRate;
@@ -57,7 +60,6 @@ public class OrderConsumerController extends AbstractController {
 			exchangeRate = exchangeRateService.findOneByName("Euros");
 		}
 		
-		/* Falta crear un servicio sin parámetros de entrada para que devuelva los order de un consumer determinado */
 		orders = orderService.findAllByConsumer();
 		
 		result = new ModelAndView("order/list");
@@ -65,6 +67,10 @@ public class OrderConsumerController extends AbstractController {
 		result.addObject("requestURI", "order/consumer/list.do");
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
+		
+		if(messageStatus != ""){
+			result.addObject("messageStatus", messageStatus);
+		}
 		
 		return result;
 	}
@@ -87,6 +93,11 @@ public class OrderConsumerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Order order, BindingResult binding){
 		ModelAndView result;
+		Consumer actualConsumer;
+		
+		actualConsumer = order.getConsumer();
+		
+		Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the order can save it");
 		
 		boolean bindingError;
 		
@@ -118,16 +129,18 @@ public class OrderConsumerController extends AbstractController {
 	public ModelAndView cancel(@RequestParam int orderId){
 		ModelAndView result;
 		Order order;
+		Consumer actualConsumer;
 		
 		try{
 			order = orderService.findOne(orderId);
+			actualConsumer = order.getConsumer();
+			Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the order can cancel it");
 			orderService.cancelOrder(order);
-		
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "order.commit.ok");
+			result.addObject("messageStatus", "order.commit.ok");
 		}catch(Throwable oops){
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "order.commit.error");
+			result.addObject("messageStatus", "order.commit.error");
 		}
 		
 		return result;
