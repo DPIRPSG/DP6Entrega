@@ -2,6 +2,8 @@ package controllers.clerk;
 
 import java.util.Collection;
 
+import javax.validation.constraints.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -38,9 +40,10 @@ public class OrderClerkController extends AbstractController{
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(){
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String messageStatus){
 		ModelAndView result;
 		Collection<Order> orders;
+		String messageResult;
 		
 		orders = orderService.findAllNotAssigned();
 		orders.addAll(orderService.findAllByClerk());
@@ -48,6 +51,12 @@ public class OrderClerkController extends AbstractController{
 		result = new ModelAndView("order/list");
 		result.addObject("requestURI", "order/clerk/list.do");
 		result.addObject("orders", orders);
+		
+		if(messageStatus != ""){
+			result.addObject("messageStatusT","window.alert(" + messageStatus + ")");
+			messageResult = messageStatus;
+			result.addObject("messageStatus", messageResult);
+		}
 		
 		return result;
 	}
@@ -68,10 +77,10 @@ public class OrderClerkController extends AbstractController{
 		
 			orderService.assignToClerkManual(clerk, order);
 			result = new ModelAndView("redirect: list.do");
-			result.addObject("message", "order.self-assign.ok");
+			result.addObject("messageStatus", "order.self-assign.ok");
 		} catch (Throwable ops){
 			result = new ModelAndView("redirect: list.do");
-			result.addObject("message", "order.self-assign.error");
+			result.addObject("messageStatus", "order.self-assign.error");
 			
 			
 		}

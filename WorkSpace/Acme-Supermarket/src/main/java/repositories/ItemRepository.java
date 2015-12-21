@@ -11,10 +11,10 @@ import domain.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-	@Query("select i from Item i where i.deleted is false and i.sku IN (select oi.sku from OrderItem oi join oi.order o where o.deliveryMoment is not null group by oi.sku having max(oi.units) = (select max(oi.units) from OrderItem oi))")
+	@Query("select i from Item i where i.deleted is false and i.sku IN (select oi.sku from OrderItem oi group by oi.sku having sum(oi.units)>=ALL(select sum(oi.units) from OrderItem oi group by oi.sku having oi.sku IN (select i.sku from Item i where i.deleted is false)))")
 	Collection<Item> findItemBestSelling();
 	
-	@Query("select i from Item i where i.deleted is false and i.sku IN (select oi.sku from OrderItem oi join oi.order o where o.deliveryMoment is not null group by oi.sku having min(oi.units) = (select min(oi.units) from OrderItem oi))")
+	@Query("select i from Item i where i.deleted is false and i.sku IN (select oi.sku from OrderItem oi group by oi.sku having sum(oi.units)<=ALL(select sum(oi.units) from OrderItem oi group by oi.sku having oi.sku IN (select i.sku from Item i where i.deleted is false)))")
 	Collection<Item> findItemWorstSelling();
 	
 	@Query("select i from Item i where i.deleted is false and i.comments.size = (select max(i.comments.size) from Item i where i.deleted is false) group by i")
