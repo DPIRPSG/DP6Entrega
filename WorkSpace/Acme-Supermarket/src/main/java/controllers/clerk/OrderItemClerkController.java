@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ItemService;
 import services.OrderItemService;
+import services.OrderService;
 import services.WareHouseService;
 import controllers.AbstractController;
 import domain.Item;
@@ -37,6 +38,9 @@ public class OrderItemClerkController extends AbstractController {
 	
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	//Constructors ----------------------------------------------------------
 
@@ -50,12 +54,15 @@ public class OrderItemClerkController extends AbstractController {
 	public ModelAndView list(@RequestParam int orderId) {
 		ModelAndView result;
 		Collection<OrderItem> ordersItem;
+		Order order;
 
+		order = orderService.findOne(orderId);
 		ordersItem = orderItemService.findAllByOrderId(orderId);
 		
 		result = new ModelAndView("order-item/list");
 		result.addObject("requestURI", "order-item/clerk/list.do");
 		result.addObject("orders-item", ordersItem);
+		result.addObject("order", order);
 
 		return result;
 	}
@@ -85,6 +92,7 @@ public class OrderItemClerkController extends AbstractController {
 		
 		orderItem = orderItemService.findOne(orderItemId);
 		Assert.notNull(orderItem);
+		
 		result = createEditModelAndView(orderItem);
 		
 		return result;
@@ -139,10 +147,16 @@ public class OrderItemClerkController extends AbstractController {
 		int units;
 		int unitsServed;
 		int orderId;
+
+		Order order;
+		Item item;
 		
 		units = orderItem.getUnits();
 		unitsServed = orderItem.getUnitsServed();
 		orderId = orderItem.getOrder().getId();
+		
+		order = orderService.findOne(orderItem.getOrder().getId());
+		item = itemService.findOneBySKU(orderItem.getSku());
 		
 		result = new ModelAndView("order-item/serve");
 		result.addObject("orderItem", orderItem);
@@ -150,6 +164,9 @@ public class OrderItemClerkController extends AbstractController {
 		result.addObject("unitsNum", units);
 		result.addObject("unitsServedNum", unitsServed);
 		result.addObject("orderId", orderId);
+		
+		result.addObject("order", order);
+		result.addObject("item", item);
 
 		
 		return result;

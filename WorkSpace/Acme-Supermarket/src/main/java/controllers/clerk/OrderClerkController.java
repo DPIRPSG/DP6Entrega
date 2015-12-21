@@ -2,8 +2,6 @@ package controllers.clerk;
 
 import java.util.Collection;
 
-import javax.validation.constraints.Null;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -14,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ClerkService;
 import services.OrderService;
-
 import controllers.AbstractController;
 import domain.Clerk;
 import domain.Order;

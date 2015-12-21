@@ -8,7 +8,13 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-	
+
+<jstl:if test="${byWarehouse}">
+	<h3><spring:message code="storage.warehouse"/> <jstl:out value="${warehouse.name}" /></h3>
+</jstl:if>
+<jstl:if test="${byItem}">
+	<h3><spring:message code="storage.itemReference"/> <jstl:out value="${item.name}" /></h3>
+</jstl:if>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag"
 	name="storages" requestURI="${requestURI}" id="row_storage">

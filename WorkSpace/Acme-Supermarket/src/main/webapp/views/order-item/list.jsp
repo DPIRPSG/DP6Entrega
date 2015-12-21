@@ -10,6 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="orderItem.order"/> <jstl:out value="${order.ticker}" /></h3>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="orders-item" requestURI="${requestURI}" id="row_OItem">
