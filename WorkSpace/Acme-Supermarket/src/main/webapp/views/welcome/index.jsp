@@ -39,7 +39,7 @@
 	<p><spring:message code="consumer.item.price" />: <jstl:out value="${item.price}" /></p>
 	<p><spring:message code="consumer.item.description" />: <jstl:out value="${item.description}" /></p>
 	<p><spring:message code="consumer.item.tags" />: <jstl:out value="${item.tags}" /></p>
-	<p><spring:message code="consumer.item.picture" />: <img src="${item.picture}" /></p>
+	<p><spring:message code="consumer.item.picture" />: <img src="${item.picture}" style="width:204px;height:128px;" /></p>
 	<p>
 		<a href="comment/list.do?itemId=${item.id}">
 			<spring:message code="consumer.item.comments" />

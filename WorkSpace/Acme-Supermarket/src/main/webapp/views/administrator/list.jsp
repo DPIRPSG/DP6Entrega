@@ -111,7 +111,15 @@
 	<!-- Dashboard 9 -->
 	<h3><spring:message code="administrator.ratioCancelledCurrentMonth"/></h3>
 	<!-- Result -->
-	<jstl:out value="${ratioCancelledCurrentMonth}" />
+	<jstl:choose>
+  		<jstl:when test="${ratioCancelledCurrentMonth == 0}">
+ 			<spring:message code="administrator.ratio.null"/> <%--OPTION 2 --%>
+<%-- 			<jstl:out value="0" /> OPTION 1 --%>
+		</jstl:when>
+  		<jstl:otherwise>
+			<jstl:out value="${ratioCancelledCurrentMonth}" />
+		</jstl:otherwise>
+	</jstl:choose>
 	
 	
 	
