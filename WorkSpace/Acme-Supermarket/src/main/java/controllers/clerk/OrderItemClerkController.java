@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ItemService;
 import services.OrderItemService;
 import services.WareHouseService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
@@ -37,6 +39,9 @@ public class OrderItemClerkController extends AbstractController {
 	
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	//Constructors ----------------------------------------------------------
 
@@ -47,15 +52,29 @@ public class OrderItemClerkController extends AbstractController {
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int orderId) {
+	public ModelAndView list(@RequestParam int orderId, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<OrderItem> ordersItem;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 
 		ordersItem = orderItemService.findAllByOrderId(orderId);
 		
 		result = new ModelAndView("order-item/list");
 		result.addObject("requestURI", "order-item/clerk/list.do");
 		result.addObject("orders-item", ordersItem);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("orderId", orderId);
 
 		return result;
 	}

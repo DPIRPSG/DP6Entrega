@@ -80,7 +80,7 @@
 		<spring:message code="order.amount" var="amountHeader" />
 		<display:column title="${amountHeader}"
 			sortable="true" >
-			<jstl:out value="${row_order.amount * exchangeRate.rate}"/>
+			<fmt:formatNumber value="${row_order.amount * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 		</display:column>
 
 		<security:authorize access="hasRole('CLERK')">

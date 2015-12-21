@@ -64,7 +64,7 @@
 	<spring:message code="content.item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
 		sortable="true" >
-		<jstl:out value="${row_Content.item.price * exchangeRate.rate}"/>
+		<fmt:formatNumber value="${row_Content.item.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 	</display:column>
 	
 	</display:table>
