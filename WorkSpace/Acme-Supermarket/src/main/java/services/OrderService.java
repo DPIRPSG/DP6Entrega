@@ -1,5 +1,6 @@
 package services;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -246,13 +247,17 @@ public class OrderService {
 		Assert.notEmpty(orderItems);
 		
 		double result;
+		DecimalFormat df;
 		
 		result = 0.0;
+		df = new DecimalFormat("#.00");
 		
 		for (OrderItem orderItem : orderItems) {
 			result += orderItem.getPrice() * orderItem.getUnits();
 		}
-		
+
+		result = Double.parseDouble(df.format(result));
+
 		return result;
 	}
 	
