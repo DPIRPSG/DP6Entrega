@@ -69,7 +69,7 @@
 	<spring:message code="item.name" var="nameHeader" />
 	<display:column title="${nameHeader}"
 		sortable="true">
-		<jstl:out value="${row.name}"/>
+		<jstl:out value="${row_Item.name}"/>
 	</display:column>
 
 	<spring:message code="item.price" var="priceHeader" />
@@ -87,7 +87,7 @@
 	<spring:message code="item.tags" var="tagsHeader" />
 	<display:column title="${tagsHeader}" 
 		sortable="false">
-		<jstl:out value="${row.tags}"/>
+		<jstl:out value="${row_Item.tags}"/>
 	</display:column>
 
 	<spring:message code="item.picture" var="pictureHeader" />

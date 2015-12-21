@@ -45,26 +45,26 @@
 	<spring:message code="content.item.name" var="nameHeader" />
 	<display:column title="${nameHeader}"
 		sortable="true" >
-		<jstl:out value="${row.item.name}"/>
+		<jstl:out value="${row_Content.item.name}"/>
 	</display:column>
 		
 	<spring:message code="content.units" var="unitsHeader" />
 	<display:column title="${unitsHeader}" 
 		sortable="false" >
-		<jstl:out value="${row.units}"/>
+		<jstl:out value="${row_Content.units}"/>
 	</display:column>
 	
 	<spring:message code="content.item.description"
 		var="descriptionHeader" />
 	<display:column title="${descriptionHeader}"
 		sortable="false" >
-		<jstl:out value="${row.item.description}"/>
+		<jstl:out value="${row_Content.item.description}"/>
 	</display:column>
 
 	<spring:message code="content.item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
 		sortable="true" >
-		<jstl:out value="${row.item.price * exchangeRate.rate}"/>
+		<jstl:out value="${row_Content.item.price * exchangeRate.rate}"/>
 	</display:column>
 	
 	</display:table>

@@ -25,7 +25,7 @@
 	<spring:message code="shoppingCart.comments" var="commentsHeader" />
 	<display:column title="${commentsHeader}"
 		sortable="false" >
-		<jstl:out value="${row.comments}"/>
+		<jstl:out value="${row_SCart.comments}"/>
 	</display:column>
 	
 	<display:column>

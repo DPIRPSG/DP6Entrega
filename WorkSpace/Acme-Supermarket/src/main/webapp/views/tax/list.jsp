@@ -25,13 +25,13 @@
 		<spring:message code="tax.name" var="nameHeader" />
 		<display:column title="${nameHeader}" 
 			sortable="true">
-			<jstl:out value="${row.name}"/>
+			<jstl:out value="${row_Tax.name}"/>
 		</display:column>
 		
 		<spring:message code="tax.value" var="valueHeader" />
 		<display:column title="${valueHeader}" 
 			sortable="true">
-			<jstl:out value="${row.value}"/>
+			<jstl:out value="${row_Tax.value}"/>
 		</display:column>
 		
 </display:table>

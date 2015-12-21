@@ -29,7 +29,7 @@
 			<spring:message code="comment.userName" var="userNameHeader" />
 			<display:column title="${userNameHeader}"
 				sortable="true" >
-				<jstl:out value="${row.userName}"/>
+				<jstl:out value="${row_Comment.userName}"/>
 			</display:column>
 		</jstl:when>
   		<jstl:otherwise>
@@ -40,19 +40,19 @@
 	<spring:message code="comment.title" var="titleHeader" />
 	<display:column title="${titleHeader}"
 		sortable="false" >
-		<jstl:out value="${row.title}"/>
+		<jstl:out value="${row_Comment.title}"/>
 	</display:column>
 
 	<spring:message code="comment.text" var="textHeader" />
 	<display:column title="${textHeader}" 
 		sortable="false" >
-		<jstl:out value="${row.text}"/>
+		<jstl:out value="${row_Comment.text}"/>
 	</display:column>
 
 	<spring:message code="comment.rating" var="ratingHeader" />
 	<display:column title="${ratingHeader}" 
 		sortable="true" >
-		<jstl:out value="${row.rating}"/>
+		<jstl:out value="${row_Comment.rating}"/>
 	</display:column>
 		
 </display:table>
