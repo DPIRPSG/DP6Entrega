@@ -1,6 +1,7 @@
 package services;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import org.springframework.util.Assert;
 
 import domain.Clerk;
 import domain.Consumer;
+import domain.CreditCard;
 import domain.Order;
 import domain.OrderItem;
 import domain.ShoppingCart;
@@ -116,6 +118,9 @@ public class OrderService {
 		
 		Collection<OrderItem> orderItems;
 		double amount;
+		
+		//Check CreditCard
+		Assert.isTrue(this.checkCreditcard(order.getCreditCard()), "order.commit.error.creditcard.date");
 
 		// Adding OrderItems
 		orderItems = orderItemService.createByShoppingCart(shoppingCart, order);
@@ -374,6 +379,31 @@ public class OrderService {
 		Assert.notNull(consu);
 		
 		result = orderRepository.findAllByConsumerId(consu.getId());
+		
+		return result;
+	}
+	
+	/**
+	 * Comprueba fecha creditCard
+	 */
+	private boolean checkCreditcard(CreditCard input){
+		boolean result;
+		int actMonth, actYear;
+		Calendar act;
+		
+		result = true;
+		act = Calendar.getInstance();
+		
+		actMonth = act.get(Calendar.MONTH);
+		actYear = act.get(Calendar.YEAR);
+
+		if (input.getExpirationYear() == actYear) {
+			if(input.getExpirationMonth() < actMonth){
+				result = false;
+			}
+		}else if (input.getExpirationYear() < actYear){
+			result = false;
+		}
 		
 		return result;
 	}
