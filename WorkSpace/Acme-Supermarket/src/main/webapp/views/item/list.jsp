@@ -10,6 +10,20 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<form action="${requestURI}">
+	<select name="exchangeRateId">
+		<jstl:forEach var="exchangeRate" items="${moneyList}">
+			<option value="${exchangeRate.id}">${exchangeRate.name}</option>
+		</jstl:forEach>
+	</select> 
+	<input type="submit" value="<spring:message code="item.change" />" />&nbsp;
+</form>
+
+<br/>
+
+<jstl:out value="${exchangeRate.name} [${exchangeRate.currency}]"/>
+
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="items" requestURI="${requestURI}" id="row">
@@ -49,8 +63,10 @@
 	<display:column property="name" title="${nameHeader}" sortable="true" />
 
 	<spring:message code="item.price" var="priceHeader" />
-	<display:column property="price" title="${priceHeader}"
-		sortable="true" />
+	<display:column title="${priceHeader}"
+		sortable="true">
+		<jstl:out value="${row.price * exchangeRate.rate}"/>
+	</display:column>
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column title="${descriptionHeader}"

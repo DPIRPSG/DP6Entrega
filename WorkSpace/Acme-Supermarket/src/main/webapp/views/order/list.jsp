@@ -11,20 +11,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
+	
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="orders" requestURI="${requestURI}" id="row">
+		name="orders" requestURI="${requestURI}" id="row_order">
 		
 		<security:authorize access="hasRole('CONSUMER')">
 			<spring:message code="order.delete" var="deleteHeader" />
-			<jstl:if test="${row.clerk == null && row.cancelMoment == null}">
+			<jstl:if test="${row_order.clerk == null && row_order.cancelMoment == null}">
 				<display:column>
-					<a href="order/consumer/cancel.do?orderId=${row.id}" onclick="return confirm('<spring:message code="order.cancel.advise" />')"> <spring:message
+					<a href="order/consumer/cancel.do?orderId=${row_order.id}" onclick="return confirm('<spring:message code="order.cancel.advise" />')"> <spring:message
 						code="order.cancel" />
 					</a>
 				</display:column>	
 			</jstl:if>
-			<jstl:if test="${row.clerk != null}">
+			<jstl:if test="${row_order.clerk != null}">
 				<display:column title="${deleteHeader}"
 					sortable="false" />
 			</jstl:if>
@@ -56,19 +57,22 @@
 
 		<security:authorize access="hasRole('CLERK')">
 			<spring:message code="order.clerk" var="clerkHeader" />
-			<jstl:if test="${row.clerk == null}">
-				<display:column sortable = "true"  title="${clerkHeader}">
-					<a href="order/clerk/self-assign.do?orderId=${row.id}"> <spring:message
+			<jstl:set var="clerkUsername"
+				value="${row_order.clerk.userAccount.username}" />
+			<jstl:if test="${clerkUsername == null}">
+				<display:column sortable="true" title="${clerkHeader}">
+					<a href="order/clerk/self-assign.do?orderId=${row_order.id}"> <spring:message
 							code="order.self-assign" />
 					</a>
 				</display:column>
 			</jstl:if>
-			<jstl:if test="${row.clerk != null}">
-				<display:column property="clerk.userAccount.username" title="${clerkHeader}"
-					sortable="true" />
+			<jstl:if test="${clerkUsername != null}">
+				<display:column title="${clerkHeader}" sortable="true">
+					<jstl:out value="${clerkUsername}" />
+				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('ADMIN')">
 			<spring:message code="order.clerk" var="clerkHeader" />
 			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
@@ -88,7 +92,7 @@
 		
 		<security:authorize access="hasRole('CLERK')">
 				<display:column>
-					<a href="order-item/clerk/list.do?orderId=${row.id}"> <spring:message
+					<a href="order-item/clerk/list.do?orderId=${row_order.id}"> <spring:message
 						code="order.orderItems" />
 					</a>
 				</display:column>	

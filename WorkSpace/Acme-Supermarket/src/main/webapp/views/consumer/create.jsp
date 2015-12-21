@@ -21,7 +21,6 @@
 		<form:hidden path="userAccount.authorities"/>
 		
 		
-		
 		<!-- Editable Attributes -->
 		<form:label path="name">
 			<spring:message code = "consumer.name"/>
