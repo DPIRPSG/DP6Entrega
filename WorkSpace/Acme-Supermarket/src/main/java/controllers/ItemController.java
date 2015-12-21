@@ -44,12 +44,17 @@ public class ItemController extends AbstractController {
 		exchangeRate = null;
 		moneyList = exchangeRateService.findAll();
 				
-		if (keyword.equals("")) {
-			items = itemService.findAll();
-		} else {
+		items = itemService.findAll();
+		
+		if (!keyword.equals("")) {
 			String[] keywordComoArray = keyword.split(" ");
-			keywordToFind = keywordComoArray[0];
-			items = itemService.findBySingleKeyword(keywordToFind);
+			for (int i = 0; i < keywordComoArray.length; i++) {
+				if (!keywordComoArray[i].equals("")) {
+					keywordToFind = keywordComoArray[i];
+					items = itemService.findBySingleKeyword(keywordToFind);
+					break;
+				}
+			}
 		}
 		
 		if(exchangeRateId != null) {
@@ -59,10 +64,11 @@ public class ItemController extends AbstractController {
 		}
 
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
+		result.addObject("requestURI", "item/list.do?");
 		result.addObject("items", items);
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("keyword", keyword);
 
 		return result;
 	}

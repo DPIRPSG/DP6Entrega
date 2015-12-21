@@ -86,7 +86,11 @@ public class OrderConsumerController extends AbstractController {
 				ShoppingCartService.saveCheckOut(order, order.getConsumer());
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(order, "order.commit.create.error");				
+				if(oops.getMessage().equals("order.commit.error.creditcard.date")){
+					result = createEditModelAndView(order, "order.commit.error.creditcard.date");
+				}else{
+					result = createEditModelAndView(order, "order.commit.create.error");				
+				}
 			}
 		}
 		
