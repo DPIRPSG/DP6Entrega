@@ -199,4 +199,14 @@ public class ContentService {
 		
 		return content;
 	}
+
+	public Collection<Content> findAllByItemId(int itemId) {
+		Assert.notNull(itemId);
+		
+		Collection<Content> result;
+		
+		result = contentRepository.findAllByItemId(itemId);
+		
+		return result;
+	}
 }
