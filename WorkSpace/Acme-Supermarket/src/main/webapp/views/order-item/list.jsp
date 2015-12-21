@@ -12,11 +12,11 @@
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="orders-item" requestURI="${requestURI}" id="row">
+	name="orders-item" requestURI="${requestURI}" id="row_OItem">
 	
 	<!-- Action links -->
 	<display:column>
-			<a href="order-item/clerk/serve.do?orderItemId=${row.id}"> <spring:message
+			<a href="order-item/clerk/serve.do?orderItemId=${row_OItem.id}"> <spring:message
 					code="orderItem.serve" />
 			</a>
 	</display:column>

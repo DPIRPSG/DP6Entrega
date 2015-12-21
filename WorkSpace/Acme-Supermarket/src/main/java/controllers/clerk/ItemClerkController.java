@@ -47,7 +47,7 @@ public class ItemClerkController extends AbstractController {
 		}
 
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
+		result.addObject("requestURI", "item/clerk/list.do");
 		result.addObject("items", items);
 
 		return result;
