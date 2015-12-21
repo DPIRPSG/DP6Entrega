@@ -53,9 +53,7 @@ public class OrderClerkController extends AbstractController{
 		result.addObject("orders", orders);
 		
 		if(messageStatus != ""){
-			result.addObject("messageStatusT","window.alert(" + messageStatus + ")");
-			messageResult = messageStatus;
-			result.addObject("messageStatus", messageResult);
+			result.addObject("messageStatus", messageStatus);
 		}
 		
 		return result;

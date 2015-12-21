@@ -121,3 +121,8 @@
 	</jstl:if>	
 
 </security:authorize>
+
+<jstl:if test="${messageStatus != Null && messageStatus != ''}">
+	<br />
+	<span class="cssError"><spring:message code="${messageStatus}" /></span>
+</jstl:if>	

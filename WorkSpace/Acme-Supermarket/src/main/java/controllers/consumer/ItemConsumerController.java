@@ -99,11 +99,11 @@ public class ItemConsumerController extends AbstractController {
 			item = itemService.findOne(itemId);
 			shoppingCartService.addItem(shoppingCart, item);
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "item.add.ok");
+			result.addObject("messageStatus", "item.add.ok");
 			result.addObject("keyword", "");
 		}catch(Throwable oops){
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "item.commit.error");
+			result.addObject("messageStatus", "item.commit.error");
 			result.addObject("keyword", "");
 		}
 		
