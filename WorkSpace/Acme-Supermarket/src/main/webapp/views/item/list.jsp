@@ -33,11 +33,11 @@
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="items" requestURI="${requestURI}" id="row">
+	name="items" requestURI="${requestURI}" id="row_Item">
 	<!-- Action links -->
 	<security:authorize access="hasRole('CONSUMER')">
 		<display:column>
-			<a href="item/consumer/add.do?itemId=${row.id}&?keyword=" onclick="return confirm('<spring:message code="item.add.advise" />')"> 
+			<a href="item/consumer/add.do?itemId=${row_Item.id}&?keyword=" onclick="return confirm('<spring:message code="item.add.advise" />')"> 
 				<spring:message code="item.add" />
 				
 			</a>
@@ -46,7 +46,7 @@
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="item/administrator/edit.do?itemId=${row.id}"> <spring:message
+			<a href="item/administrator/edit.do?itemId=${row_Item.id}"> <spring:message
 					code="item.edit" />
 			</a>
 		</display:column>
@@ -54,7 +54,7 @@
 
 	<security:authorize access="hasRole('CLERK')">
 		<display:column>
-			<a href="storage/clerk/list.do?warehouseId=&itemId=${row.id}"> <spring:message
+			<a href="storage/clerk/list.do?warehouseId=&itemId=${row_Item.id}"> <spring:message
 					code="item.storage" />
 			</a>
 		</display:column>
@@ -72,13 +72,13 @@
 	<spring:message code="item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
 		sortable="true">
-		<jstl:out value="${row.price * exchangeRate.rate}"/>
+		<jstl:out value="${row_Item.price * exchangeRate.rate}"/>
 	</display:column>
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column title="${descriptionHeader}"
 		sortable="false">
-		<jstl:out value="${row.description}"></jstl:out>
+		<jstl:out value="${row_Item.description}"></jstl:out>
 	</display:column>
 
 	<spring:message code="item.tags" var="tagsHeader" />
@@ -86,11 +86,11 @@
 
 	<spring:message code="item.picture" var="pictureHeader" />
 	<display:column title="${pictureHeader}" sortable="false" >
-		<img src="${row.picture}" style="width:204px;height:128px;"/>
+		<img src="${row_Item.picture}" style="width:204px;height:128px;"/>
 	</display:column>
 
 	<display:column>
-		<a href="comment/list.do?itemId=${row.id}"> <spring:message
+		<a href="comment/list.do?itemId=${row_Item.id}"> <spring:message
 				code="item.comments" />
 		</a>
 	</display:column>

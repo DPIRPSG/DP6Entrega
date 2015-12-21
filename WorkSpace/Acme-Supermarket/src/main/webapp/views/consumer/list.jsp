@@ -12,7 +12,7 @@
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="consumers" requestURI="${requestURI}" id="row">
+	name="consumers" requestURI="${requestURI}" id="row_Consumer">
 
 	<!-- Attributes -->
 	<spring:message code="consumer.username" var="userNameHeader" />

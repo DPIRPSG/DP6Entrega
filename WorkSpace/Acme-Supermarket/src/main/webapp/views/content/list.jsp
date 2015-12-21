@@ -12,11 +12,11 @@
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="contents" requestURI="${requestURI}" id="row">
+		name="contents" requestURI="${requestURI}" id="row_Content">
 	
 	<spring:message code="content.edit" var="editHeader" />
 	<display:column title="${editHeader}">
-		<a href="content/consumer/edit.do?contentId=${row.id}"> <spring:message
+		<a href="content/consumer/edit.do?contentId=${row_Content.id}"> <spring:message
 			code="content.edit.url" />
 		</a>
 	</display:column>

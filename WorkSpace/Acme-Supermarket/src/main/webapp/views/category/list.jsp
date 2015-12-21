@@ -13,10 +13,10 @@
 <security:authorize access="hasRole('ADMIN')">
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="categories" requestURI="${requestURI}" id="row">
+	name="categories" requestURI="${requestURI}" id="row_Category">
 		<!-- Action links -->
 		<display:column>
-			<a href="category/administrator/edit.do?categoryId=${row.id}">
+			<a href="category/administrator/edit.do?categoryId=${row_Category.id}">
 				<spring:message	code="category.list.edit" />
 			</a>
 		</display:column>
@@ -29,7 +29,7 @@
 		
 		<spring:message code="category.list.picture" var="pictureHeader" />
 		<display:column title="${pictureHeader}" sortable="false" >
-			<img src="${row.picture}" style="width:204px;height:128px;"/>
+			<img src="${row_Category.picture}" style="width:204px;height:128px;"/>
 		</display:column>
 		
 		<spring:message code="category.list.taxName" var="taxNameHeader" />

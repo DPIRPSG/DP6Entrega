@@ -13,10 +13,10 @@
 <security:authorize access="hasRole('ADMIN')">
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="taxes" requestURI="${requestURI}" id="row">
+	name="taxes" requestURI="${requestURI}" id="row_Tax">
 		<!-- Action links -->
 		<display:column>
-			<a href="tax/administrator/edit.do?taxId=${row.id}">
+			<a href="tax/administrator/edit.do?taxId=${row_Tax.id}">
 				<spring:message	code="tax.edit" />
 			</a>
 		</display:column>
