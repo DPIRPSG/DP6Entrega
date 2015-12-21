@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CategoryService;
+import services.ExchangeRateService;
 import services.ItemService;
 
 
 import controllers.AbstractController;
 import domain.Category;
+import domain.ExchangeRate;
 import domain.Item;
 
 @Controller
@@ -32,6 +34,9 @@ public class ItemAdministratorController extends AbstractController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 	//Constructors ----------------------------------------------------------
 
 	public ItemAdministratorController() {
@@ -41,22 +46,41 @@ public class ItemAdministratorController extends AbstractController {
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam String keyword) {
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String keyword, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Item> items;
+		Collection<ExchangeRate> moneyList;
 		String keywordToFind;
+		ExchangeRate exchangeRate;
 
-		if (keyword == "") {
-			items = itemService.findAll();
-		} else {
+		exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+				
+		items = itemService.findAll();
+		
+		if (!keyword.equals("")) {
 			String[] keywordComoArray = keyword.split(" ");
-			keywordToFind = keywordComoArray[0];
-			items = itemService.findBySingleKeyword(keywordToFind);
+			for (int i = 0; i < keywordComoArray.length; i++) {
+				if (!keywordComoArray[i].equals("")) {
+					keywordToFind = keywordComoArray[i];
+					items = itemService.findBySingleKeyword(keywordToFind);
+					break;
+				}
+			}
+		}
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
 		}
 
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
+		result.addObject("requestURI", "item/administrator/list.do?");
 		result.addObject("items", items);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("keyword", keyword);
 
 		return result;
 	}
