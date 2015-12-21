@@ -64,10 +64,11 @@ public class ItemController extends AbstractController {
 		}
 
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
+		result.addObject("requestURI", "item/list.do?");
 		result.addObject("items", items);
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("keyword", keyword);
 
 		return result;
 	}

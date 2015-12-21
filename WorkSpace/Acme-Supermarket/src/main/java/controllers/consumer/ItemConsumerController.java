@@ -12,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 
 import services.ConsumerService;
+import services.ExchangeRateService;
 import services.ItemService;
 import services.ShoppingCartService;
 import domain.Consumer;
+import domain.ExchangeRate;
 import domain.Item;
 import domain.ShoppingCart;
 
@@ -32,6 +34,9 @@ public class ItemConsumerController extends AbstractController {
 	
 	@Autowired
 	private ConsumerService consumerService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -42,22 +47,41 @@ public class ItemConsumerController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam String keyword) {
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String keyword, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Item> items;
+		Collection<ExchangeRate> moneyList;
 		String keywordToFind;
+		ExchangeRate exchangeRate;
 
-		if (keyword == "") {
-			items = itemService.findAll();
-		} else {
+		exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+				
+		items = itemService.findAll();
+		
+		if (!keyword.equals("")) {
 			String[] keywordComoArray = keyword.split(" ");
-			keywordToFind = keywordComoArray[0];
-			items = itemService.findBySingleKeyword(keywordToFind);
+			for (int i = 0; i < keywordComoArray.length; i++) {
+				if (!keywordComoArray[i].equals("")) {
+					keywordToFind = keywordComoArray[i];
+					items = itemService.findBySingleKeyword(keywordToFind);
+					break;
+				}
+			}
+		}
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
 		}
 
 		result = new ModelAndView("item/list");
-		result.addObject("requestURI", "item/list.do");
+		result.addObject("requestURI", "item/consumer/list.do?");
 		result.addObject("items", items);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("keyword", keyword);
 
 		return result;
 	}

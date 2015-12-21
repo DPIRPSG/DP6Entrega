@@ -12,17 +12,24 @@
 
 
 <form action="${requestURI}">
+	<input type="hidden" name="keyword" value="${keyword}">
 	<select name="exchangeRateId">
-		<jstl:forEach var="exchangeRate" items="${moneyList}">
-			<option value="${exchangeRate.id}">${exchangeRate.name}</option>
+		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
+			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
+				<option value="${exchangeRateSel.id}" selected="selected">${exchangeRateSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${exchangeRateSel.id != exchangeRate.id}">
+				<option value="${exchangeRateSel.id}">${exchangeRateSel.name}</option>
+			</jstl:if>
 		</jstl:forEach>
-	</select> 
-	<input type="submit" value="<spring:message code="item.change" />" />&nbsp;
+	</select> <input type="submit" value="<spring:message code="item.change" />" />&nbsp;
 </form>
 
 <br/>
 
-<jstl:out value="${exchangeRate.name} [${exchangeRate.currency}]"/>
+<spring:message code="item.exchangeRate" var="message"/>
+<jstl:out value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]"/>
+<br/>
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
@@ -99,6 +106,7 @@
 
 
 <form action="${requestURI}">
+	<input type="hidden" name="exchangeRateId" value="${exchangeRate.id}">
 	<input type="text" name="keyword"> <input type="submit"
 		value="<spring:message code="item.search" />" />&nbsp;
 </form>
