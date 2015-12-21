@@ -11,6 +11,7 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -80,7 +81,7 @@
 	<p>
 		<spring:message code="consumer.item.price" />
 		:
-		<jstl:out value="${item.price * exchangeRate.rate}" />
+		<fmt:formatNumber value="${item.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 	</p>
 	<p>
 		<spring:message code="consumer.item.description" />
