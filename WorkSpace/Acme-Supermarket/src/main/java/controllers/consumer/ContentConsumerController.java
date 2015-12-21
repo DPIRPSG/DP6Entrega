@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ConsumerService;
 import services.ContentService;
+import services.ExchangeRateService;
 
 import controllers.AbstractController;
 import domain.Consumer;
 import domain.Content;
+import domain.ExchangeRate;
 
 @Controller
 @RequestMapping(value = "/content/consumer")
@@ -30,6 +32,9 @@ public class ContentConsumerController extends AbstractController{
 	@Autowired
 	private ConsumerService consumerService;
 	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
+	
 	// Constructors ----------------------------------------------------------
 
 	public ContentConsumerController() {
@@ -39,14 +44,28 @@ public class ContentConsumerController extends AbstractController{
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int shoppingCartId) {
+	public ModelAndView list(@RequestParam int shoppingCartId, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Content> contents;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		contents = contentService.findByShoppingCart(shoppingCartId);
 		result = new ModelAndView("content/list");
 		result.addObject("requestURI", "content/consumer/list.do");
 		result.addObject("contents", contents);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("shoppingCartId", shoppingCartId);
 		
 		return result;
 	}

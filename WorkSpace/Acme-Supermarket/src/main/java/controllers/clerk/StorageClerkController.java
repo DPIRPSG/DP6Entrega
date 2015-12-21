@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.StorageService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Storage;
 
 @Controller
@@ -20,6 +22,9 @@ public class StorageClerkController extends AbstractController {
 	// Services ----------------------------------------------------------
 	@Autowired
 	private StorageService storageService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -30,11 +35,22 @@ public class StorageClerkController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listByWarehouse(@RequestParam Integer warehouseId, @RequestParam Integer itemId) {
+	public ModelAndView listByWarehouse(@RequestParam Integer warehouseId, @RequestParam Integer itemId, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Storage> storages;
 		boolean byWarehouse;
 		boolean byItem;
+		ExchangeRate exchangeRate;
+		Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		if(warehouseId != null) {
 			byWarehouse = true;
@@ -44,6 +60,9 @@ public class StorageClerkController extends AbstractController {
 			result.addObject("requestURI", "storage/clerk/list.do");
 			result.addObject("storages", storages);
 			result.addObject("byWarehouse", byWarehouse);
+			result.addObject("moneyList", moneyList);
+			result.addObject("exchangeRate", exchangeRate);
+			result.addObject("warehouseId", warehouseId);
 		} else {
 			byItem = true;
 			

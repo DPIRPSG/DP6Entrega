@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ItemService;
 import services.StorageService;
 import services.WareHouseService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Item;
 import domain.Storage;
 import domain.WareHouse;
@@ -34,6 +36,9 @@ public class StorageAdministratorController extends AbstractController {
 	
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	// Constructors ----------------------------------------------------------
 
@@ -44,10 +49,21 @@ public class StorageAdministratorController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int warehouseId) {
+	public ModelAndView list(@RequestParam int warehouseId, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<Storage> storages;
 		boolean byWarehouse;
+		ExchangeRate exchangeRate;
+		Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 
 		byWarehouse = true;
 		storages = storageService.findAllByWarehouseId(warehouseId);
@@ -57,6 +73,8 @@ public class StorageAdministratorController extends AbstractController {
 		result.addObject("byWarehouse", byWarehouse);
 		result.addObject("storages", storages);
 		result.addObject("warehouseId", warehouseId);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 
 		return result;
 	}

@@ -12,7 +12,7 @@
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="consumers" requestURI="${requestURI}" id="row">
+	name="consumers" requestURI="${requestURI}" id="row_Consumer">
 
 	<!-- Attributes -->
 	<spring:message code="consumer.username" var="userNameHeader" />
@@ -22,25 +22,25 @@
 	<spring:message code="consumer.name" var="nameHeader" />
 	<display:column title="${nameHeader}" 
 		sortable="true" >
-		<jstl:out value="${row.name}"/>
+		<jstl:out value="${row_Consumer.name}"/>
 	</display:column>
 
 	<spring:message code="consumer.surname" var="surnameHeader" />
 	<display:column title="${surnameHeader}"
 		sortable="true" >
-		<jstl:out value="${row.surname}"/>
+		<jstl:out value="${row_Consumer.surname}"/>
 	</display:column>
 
 	<spring:message code="consumer.phone" var="phoneHeader" />
 	<display:column title="${phoneHeader}" 
 		sortable="true" >
-		<jstl:out value="${row.phone}"/>
+		<jstl:out value="${row_Consumer.phone}"/>
 	</display:column>
 
 	<spring:message code="consumer.email" var="emailHeader" />
 	<display:column title="${emailHeader}"
 		sortable="true" >
-		<jstl:out value="${row.email}"/>
+		<jstl:out value="${row_Consumer.email}"/>
 	</display:column>
 
 </display:table>

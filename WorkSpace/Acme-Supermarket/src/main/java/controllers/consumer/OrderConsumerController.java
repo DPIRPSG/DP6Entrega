@@ -17,8 +17,9 @@ import controllers.AbstractController;
 
 import domain.Consumer;
 import domain.Order;
-
 import services.ConsumerService;
+import domain.ExchangeRate;
+import services.ExchangeRateService;
 import services.OrderService;
 import services.ShoppingCartService;
 
@@ -33,6 +34,8 @@ public class OrderConsumerController extends AbstractController {
 	private ShoppingCartService ShoppingCartService;
 	@Autowired
 	private ConsumerService consumerService;
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	
 	// Constructors ----------------------------------------------------------
@@ -42,17 +45,28 @@ public class OrderConsumerController extends AbstractController {
 	
 	// Listing ----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required=false, defaultValue="") String messageStatus){
-		
+	public ModelAndView list(@RequestParam(required=false) Integer exchangeRateId, @RequestParam(required=false, defaultValue="") String messageStatus){		
 		ModelAndView result;
 		Collection<Order> orders;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
 		
-		/* Falta crear un servicio sin parámetros de entrada para que devuelva los order de un consumer determinado */
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
+		
 		orders = orderService.findAllByConsumer();
 		
 		result = new ModelAndView("order/list");
 		result.addObject("orders", orders);
 		result.addObject("requestURI", "order/consumer/list.do");
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 		
 		if(messageStatus != ""){
 			result.addObject("messageStatus", messageStatus);

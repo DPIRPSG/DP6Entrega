@@ -11,6 +11,26 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
+
+<form action="${requestURI}">
+	<select name="exchangeRateId">
+		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
+			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
+				<option value="${exchangeRateSel.id}" selected="selected">${exchangeRateSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${exchangeRateSel.id != exchangeRate.id}">
+				<option value="${exchangeRateSel.id}">${exchangeRateSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="order.change" />" />&nbsp;
+</form>
+
+<br/>
+
+<spring:message code="order.exchangeRate" var="message"/>
+<jstl:out value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]"/>
+<br/>
+
 	
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
@@ -58,9 +78,9 @@
 		</display:column>
 
 		<spring:message code="order.amount" var="amountHeader" />
-		<display:column property="amount" title="${amountHeader}"
+		<display:column title="${amountHeader}"
 			sortable="true" >
-			<jstl:out value="${row_order.amount}"/>
+			<fmt:formatNumber value="${row_order.amount * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 		</display:column>
 
 		<security:authorize access="hasRole('CLERK')">
@@ -117,7 +137,8 @@
 	<!-- Alert -->
 	<jstl:if test="${messageStatus != Null && messageStatus != ''}">
 		<spring:message code="${messageStatus}" var="showAlert" />
-		<script>window.alert("${showAlert}")</script>
+		<script>window.alert("${showAlert}");</script>
+		
 	</jstl:if>	
 
 </security:authorize>
