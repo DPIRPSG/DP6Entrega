@@ -22,10 +22,16 @@
 		</display:column>
 		<!-- Attributes -->
 		<spring:message code="category.list.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="true" />
+		<display:column title="${nameHeader}"
+			sortable="true">
+			<jstl:out value="${row.name}"/>
+		</display:column>
 		
 		<spring:message code="category.list.description" var="descriptionHeader" />
-		<display:column property="description" title="${descriptionHeader}" sortable="true" />
+		<display:column title="${descriptionHeader}"
+			sortable="true" >
+			<jstl:out value="${row.description}"/>
+		</display:column>
 		
 		<spring:message code="category.list.picture" var="pictureHeader" />
 		<display:column title="${pictureHeader}" sortable="false" >
@@ -33,10 +39,16 @@
 		</display:column>
 		
 		<spring:message code="category.list.taxName" var="taxNameHeader" />
-		<display:column property="tax.name" title="${taxNameHeader}" sortable="true" />
+		<display:column title="${taxNameHeader}"
+			sortable="true">
+			<jstl:out value="${row.tax.name}"/>
+		</display:column>
 		
 		<spring:message code="category.list.taxValue" var="taxValueHeader" />
-		<display:column property="tax.value" title="${taxValueHeader}" sortable="true" />
+		<display:column title="${taxValueHeader}"
+			sortable="true">
+			<jstl:out value="${row.tax.value}"/>
+		</display:column>
 		
 </display:table>
 <!-- Action links -->

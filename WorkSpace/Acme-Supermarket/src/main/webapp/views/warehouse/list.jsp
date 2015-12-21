@@ -24,11 +24,16 @@
 	
 	<!-- Attributes -->
 	<spring:message code="warehouse.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column title="${nameHeader}"
+		sortable="true"> 
+		<jstl:out value="${row_whouse.name}"/>
+	</display:column>
 
 	<spring:message code="warehouse.address" var="addressHeader" />
-	<display:column property="address" title="${addressHeader}"
-		sortable="true" />
+	<display:column title="${addressHeader}"
+		sortable="true">
+		<jstl:out value="${row_whouse.address}"/>	
+	</display:column>
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

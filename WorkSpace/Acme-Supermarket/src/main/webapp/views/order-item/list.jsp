@@ -23,19 +23,34 @@
 
 	<!-- Attributes -->
 	<spring:message code="orderItem.sku" var="skuHeader" />
-	<display:column property="sku" title="${skuHeader}" sortable="true" />
+	<display:column title="${skuHeader}"
+		sortable="true" >
+		<jstl:out value="${row_OItem.sku}"/>
+	</display:column>
 
 	<spring:message code="orderItem.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column title="${nameHeader}"
+		sortable="true" >
+		<jstl:out value="${row_OItem.name}"/>
+	</display:column>
 	
 	<spring:message code="orderItem.price" var="priceHeader" />
-	<display:column property="price" title="${priceHeader}" sortable="true" />
+	<display:column title="${priceHeader}"
+		sortable="true" >
+		<jstl:out value="${row_OItem.price}"/>
+	</display:column>
 	
 	<spring:message code="orderItem.units" var="unitsHeader" />
-	<display:column property="units" title="${unitsHeader}" sortable="true" />
+	<display:column title="${unitsHeader}"
+		sortable="true" >
+		<jstl:out value="${row_OItem.units}"/>
+	</display:column>
 	
 	<spring:message code="orderItem.unitsServed" var="unitsServedHeader" />
-	<display:column property="unitsServed" title="${unitsServedHeader}" sortable="true" />
+	<display:column title="${unitsServedHeader}"
+		sortable="true" >
+		<jstl:out value="${row_OItem.unitsServed}"/>
+	</display:column>
 
 </display:table>
 
