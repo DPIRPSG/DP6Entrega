@@ -53,8 +53,10 @@
 		sortable="true" />
 
 	<spring:message code="item.description" var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}"
-		sortable="false" />
+	<display:column title="${descriptionHeader}"
+		sortable="false">
+		<jstl:out value="${row.description}"></jstl:out>
+	</display:column>
 
 	<spring:message code="item.tags" var="tagsHeader" />
 	<display:column property="tags" title="${tagsHeader}" sortable="false" />
