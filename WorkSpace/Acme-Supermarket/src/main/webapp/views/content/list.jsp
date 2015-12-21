@@ -9,6 +9,26 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<form action="${requestURI}">
+	<input type="hidden" name="shoppingCartId" value="${shoppingCartId}"/>
+	<select name="exchangeRateId">
+		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
+			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
+				<option value="${exchangeRateSel.id}" selected="selected">${exchangeRateSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${exchangeRateSel.id != exchangeRate.id}">
+				<option value="${exchangeRateSel.id}">${exchangeRateSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="content.change" />" />&nbsp;
+</form>
+
+<br/>
+
+<spring:message code="content.exchangeRate" var="message"/>
+<jstl:out value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]"/>
+<br/>
+
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
@@ -44,7 +64,7 @@
 	<spring:message code="content.item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
 		sortable="true" >
-		<jstl:out value="${row.item.price}"/>
+		<jstl:out value="${row.item.price * exchangeRate.rate}"/>
 	</display:column>
 	
 	</display:table>
