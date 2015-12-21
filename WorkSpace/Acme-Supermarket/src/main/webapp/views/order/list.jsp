@@ -33,27 +33,35 @@
 		
 		<!-- Attributes -->
 		<spring:message code="order.ticker" var="tickerHeader" />
-		<display:column property="ticker" title="${tickerHeader}"
-			sortable="false" />
+		<display:column title="${tickerHeader}"
+			sortable="false" >
+			<jstl:out value="${row_order.ticker}"/>
+		</display:column>
 
 		<spring:message code="order.placementMoment"
 			var="placementMomentHeader" />
-		<display:column property="placementMoment"
-			title="${placementMomentHeader}" sortable="true"
-			format="{0,date,yyyy/MM/dd }" />
+		<display:column title="${placementMomentHeader}"
+			sortable="true" format="{0,date,yyyy/MM/dd }" >
+			<jstl:out value="${row_order.placementMoment}"/>
+		</display:column>
 
 		<spring:message code="order.deliveryMoment" var="deliveryMomentHeader" />
-		<display:column property="deliveryMoment"
-			title="${deliveryMomentHeader}" sortable="true"
-			format="{0,date,yyyy/MM/dd }" />
+		<display:column title="${deliveryMomentHeader}"
+			sortable="true" format="{0,date,yyyy/MM/dd }" >
+			<jstl:out value="${row_order.deliveryMoment}"/>
+		</display:column>
 
 		<spring:message code="order.cancelMoment" var="cancelMomentHeader" />
-		<display:column property="cancelMoment" title="${cancelMomentHeader}"
-			sortable="true" format="{0,date,yyyy/MM/dd }" />
+		<display:column title="${cancelMomentHeader}"
+			sortable="true" format="{0,date,yyyy/MM/dd }" >
+			<jstl:out value="${row_order.cancelMoment}"/>
+		</display:column>
 
 		<spring:message code="order.amount" var="amountHeader" />
 		<display:column property="amount" title="${amountHeader}"
-			sortable="true" />
+			sortable="true" >
+			<jstl:out value="${row_order.amount}"/>
+		</display:column>
 
 		<security:authorize access="hasRole('CLERK')">
 			<spring:message code="order.clerk" var="clerkHeader" />
@@ -75,19 +83,26 @@
 
 		<security:authorize access="hasRole('ADMIN')">
 			<spring:message code="order.clerk" var="clerkHeader" />
-			<display:column property="clerk.userAccount.username" title="${clerkHeader}"
-					sortable="false" />
+			<display:column title="${clerkHeader}"
+				sortable="false" >
+				<jstl:out value="${row_order.clerk.userAccount.username}"/>
+			</display:column>
 		</security:authorize>
 
 		<security:authorize access="!hasAnyRole('CONSUMER')">
 			<spring:message code="order.consumer" var="consumerHeader" />
-			<display:column property="consumer.userAccount.username" title="${consumerHeader}"
-				sortable="false" />
+			<display:column title="${consumerHeader}"
+				sortable="false" >
+				<jstl:out value="${row_order.consumer.userAccount.username}"/>
+			</display:column>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ADMIN')">
 			<spring:message code="order.creditCard.number.list" var="creditCardHeader"/>
-			<display:column property="creditCard.number" title="${creditCardHeader}" sortable="false"/>
+			<display:column title="${creditCardHeader}"
+				sortable="false">
+				<jstl:out value="${row_order.creditCard.number}"/>
+			</display:column>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CLERK')">

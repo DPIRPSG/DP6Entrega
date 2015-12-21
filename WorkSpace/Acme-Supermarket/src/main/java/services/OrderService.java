@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -340,7 +341,11 @@ public class OrderService {
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 
 		double result;
-		result = orderRepository.rateOrderCancelled();
+		try {
+			result = orderRepository.rateOrderCancelled();
+		} catch (AopInvocationException e) {
+			result = 0;
+		}
 		
 		return result;
 	}

@@ -19,7 +19,10 @@
 		name="consumerMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	 
@@ -31,8 +34,10 @@
 		name="consumerSpentMoreMoney" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
 	 
 	
@@ -43,7 +48,10 @@
 		name="bestSellingItem" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	
@@ -55,7 +63,10 @@
 		name="worstSellingItem" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	
@@ -67,8 +78,10 @@
 		name="clerkMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="clerk.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
 	
 	
@@ -79,7 +92,10 @@
 		name="clerkLessOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="clerk.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	
@@ -91,8 +107,10 @@
 		name="consumerCancelledMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
 	
 	
@@ -103,7 +121,10 @@
 		name="consumerCancelledLessOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	
@@ -111,7 +132,15 @@
 	<!-- Dashboard 9 -->
 	<h3><spring:message code="administrator.ratioCancelledCurrentMonth"/></h3>
 	<!-- Result -->
-	<jstl:out value="${ratioCancelledCurrentMonth}" />
+	<jstl:choose>
+  		<jstl:when test="${ratioCancelledCurrentMonth == 0}">
+ 			<spring:message code="administrator.ratio.null"/> <%--OPTION 2 --%>
+<%-- 			<jstl:out value="0" /> OPTION 1 --%>
+		</jstl:when>
+  		<jstl:otherwise>
+			<jstl:out value="${ratioCancelledCurrentMonth}" />
+		</jstl:otherwise>
+	</jstl:choose>
 	
 	
 	
@@ -122,7 +151,10 @@
 		name="itemMoreComment" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 

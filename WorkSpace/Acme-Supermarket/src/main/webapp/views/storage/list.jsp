@@ -29,29 +29,39 @@
 	<jstl:if test="${byWarehouse}">
 
 		<spring:message code="storage.item.name" var="nameHeader" />
-		<display:column property="item.name" title="${nameHeader}"
-			sortable="true" />
+		<display:column title="${nameHeader}"
+			sortable="true">
+			<jstl:out value="${row_storage.item.name}"/>	
+		</display:column>
 
 		<spring:message code="storage.item.description"
 			var="descriptionHeader" />
-		<display:column property="item.description"
-			title="${descriptionHeader}" sortable="false" />
+		<display:column title="${descriptionHeader}"
+			sortable="false" >
+			<jstl:out value="${row_storage.item.description}"/>
+		</display:column>
 
 		<spring:message code="storage.item.price" var="priceHeader" />
-		<display:column property="item.price" title="${priceHeader}"
-			sortable="true" />
+		<display:column title="${priceHeader}"
+			sortable="true" >
+			<jstl:out value="${row_storage.item.price}"/>
+		</display:column>
 
 	</jstl:if>
 
 	<jstl:if test="${byItem}">
 
 		<spring:message code="storage.warehouse.name" var="nameHeader" />
-		<display:column property="wareHouse.name" title="${nameHeader}"
-			sortable="true" />
+		<display:column title="${nameHeader}"
+			sortable="true" >
+			<jstl:out value="${row_storage.wareHouse.name}"/>	
+		</display:column>
 			
 		<spring:message code="storage.warehouse.address" var="addressHeader" />
-		<display:column property="wareHouse.address" title="${addressHeader}"
-			sortable="true" />
+		<display:column title="${addressHeader}"
+			sortable="true" >
+			<jstl:out value="${row_storage.wareHouse.address}"/>
+		</display:column>
 
 	</jstl:if>
 

@@ -31,12 +31,16 @@
 
 		<!-- Attributes -->
 		<spring:message code="message.moment" var="momentHeader" />
-		<display:column property="moment" title="${momentHeader}"
-			sortable="true" format="{0,date,yyyy/MM/dd }" />
+		<display:column title="${momentHeader}"
+			sortable="true" format="{0,date,yyyy/MM/dd }" >
+			<jstl:out value="${row_messa.moment}"/>
+		</display:column>
 		
 		<spring:message code="message.subject" var="subjectHeader" />
-		<display:column property="subject" title="${subjectHeader}"
-			sortable="true" />
+		<display:column title="${subjectHeader}"
+			sortable="true" >
+			<jstl:out value="${row_messa.subject}"/>
+		</display:column>
 			
 	</display:table>
 	

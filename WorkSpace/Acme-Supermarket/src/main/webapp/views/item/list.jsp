@@ -67,7 +67,10 @@
 		sortable="true" />
 
 	<spring:message code="item.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column title="${nameHeader}"
+		sortable="true">
+		<jstl:out value="${row.name}"/>
+	</display:column>
 
 	<spring:message code="item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
@@ -82,10 +85,14 @@
 	</display:column>
 
 	<spring:message code="item.tags" var="tagsHeader" />
-	<display:column property="tags" title="${tagsHeader}" sortable="false" />
+	<display:column title="${tagsHeader}" 
+		sortable="false">
+		<jstl:out value="${row.tags}"/>
+	</display:column>
 
 	<spring:message code="item.picture" var="pictureHeader" />
-	<display:column title="${pictureHeader}" sortable="false" >
+	<display:column title="${pictureHeader}"
+		sortable="false" >
 		<img src="${row.picture}" style="width:204px;height:128px;"/>
 	</display:column>
 
