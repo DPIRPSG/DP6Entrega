@@ -12,12 +12,12 @@
 <h3><spring:message code="comment.itemPlural"/> <jstl:out value="${item.name}" /></h3>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="comments" requestURI="${requestURI}" id="row">
+	name="comments" requestURI="${requestURI}" id="row_Comment">
 	
 	<!-- Action links -->
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="comment/administrator/delete.do?commentId=${row.id}">
+			<a href="comment/administrator/delete.do?commentId=${row_Comment.id}">
 				<spring:message	code="comment.delete" />
 			</a>
 		</display:column>		
@@ -25,11 +25,11 @@
 	
 	<!-- Attributes -->
 	<jstl:choose>
-  		<jstl:when test="${row.userName != 'Anonymous'}">
+  		<jstl:when test="${row_Comment.userName != 'Anonymous'}">
 			<spring:message code="comment.userName" var="userNameHeader" />
 			<display:column title="${userNameHeader}"
 				sortable="true" >
-				<jstl:out value="${row.userName}"/>
+				<jstl:out value="${row_Comment.userName}"/>
 			</display:column>
 		</jstl:when>
   		<jstl:otherwise>
@@ -40,19 +40,19 @@
 	<spring:message code="comment.title" var="titleHeader" />
 	<display:column title="${titleHeader}"
 		sortable="false" >
-		<jstl:out value="${row.title}"/>
+		<jstl:out value="${row_Comment.title}"/>
 	</display:column>
 
 	<spring:message code="comment.text" var="textHeader" />
 	<display:column title="${textHeader}" 
 		sortable="false" >
-		<jstl:out value="${row.text}"/>
+		<jstl:out value="${row_Comment.text}"/>
 	</display:column>
 
 	<spring:message code="comment.rating" var="ratingHeader" />
 	<display:column title="${ratingHeader}" 
 		sortable="true" >
-		<jstl:out value="${row.rating}"/>
+		<jstl:out value="${row_Comment.rating}"/>
 	</display:column>
 		
 </display:table>
