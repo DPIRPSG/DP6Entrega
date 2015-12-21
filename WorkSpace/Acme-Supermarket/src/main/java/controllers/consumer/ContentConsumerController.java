@@ -17,6 +17,7 @@ import services.ContentService;
 
 import controllers.AbstractController;
 import domain.Content;
+import domain.Item;
 
 @Controller
 @RequestMapping(value = "/content/consumer")
@@ -103,9 +104,13 @@ public class ContentConsumerController extends AbstractController{
 	
 	protected ModelAndView createEditModelAndView(Content content, String message){
 		ModelAndView result;
+		Item item;
+		
+		item = content.getItem();
 		
 		result = new ModelAndView("content/edit");
 		result.addObject("content", content);
+		result.addObject("item", item);
 		result.addObject("message", message);
 		
 		return result;

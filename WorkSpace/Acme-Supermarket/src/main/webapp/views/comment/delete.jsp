@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h3><spring:message code="comment.item"/> <jstl:out value="${item.name}" /></h3>
+<h3><spring:message code="comment.item"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 <!-- Form -->
 <form:form action="comment/administrator/delete.do" modelAttribute="comment">
 	<!-- Hidden Attributes -->

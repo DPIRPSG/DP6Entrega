@@ -13,7 +13,7 @@
 	<h3><spring:message code="storage.warehouse"/> <jstl:out value="${warehouse.name}" /></h3>
 </jstl:if>
 <jstl:if test="${byItem}">
-	<h3><spring:message code="storage.itemReference"/> <jstl:out value="${item.name}" /></h3>
+	<h3><spring:message code="storage.itemReference"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 </jstl:if>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag"
