@@ -12,7 +12,7 @@
 
 
 <form action="${requestURI}">
-	<input type="hidden" name="keyword" value="${keyword}">
+	<input type="hidden" name="keyword" value="${keyword}"/>
 	<select name="exchangeRateId">
 		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
 			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
