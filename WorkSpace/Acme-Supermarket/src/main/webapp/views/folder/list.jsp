@@ -32,8 +32,10 @@
 
 		<!-- Attributes -->
 		<spring:message code="folder.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}"
-			sortable="true" />
+		<display:column title="${nameHeader}"
+			sortable="true" >
+			<jstl:out value="${row_folder.name}"/>
+		</display:column>
 
 		<spring:message code="folder.messages" var="messageHeader" />
 		<display:column>

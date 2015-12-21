@@ -20,17 +20,28 @@
 		title="${userNameHeader}" sortable="true" />
 
 	<spring:message code="consumer.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column title="${nameHeader}" 
+		sortable="true" >
+		<jstl:out value="${row.name}"/>
+	</display:column>
 
 	<spring:message code="consumer.surname" var="surnameHeader" />
-	<display:column property="surname" title="${surnameHeader}"
-		sortable="true" />
+	<display:column title="${surnameHeader}"
+		sortable="true" >
+		<jstl:out value="${row.surname}"/>
+	</display:column>
 
 	<spring:message code="consumer.phone" var="phoneHeader" />
-	<display:column property="phone" title="${phoneHeader}" sortable="true" />
+	<display:column title="${phoneHeader}" 
+		sortable="true" >
+		<jstl:out value="${row.phone}"/>
+	</display:column>
 
 	<spring:message code="consumer.email" var="emailHeader" />
-	<display:column property="email" title="${emailHeader}" sortable="true" />
+	<display:column title="${emailHeader}"
+		sortable="true" >
+		<jstl:out value="${row.email}"/>
+	</display:column>
 
 </display:table>
 
