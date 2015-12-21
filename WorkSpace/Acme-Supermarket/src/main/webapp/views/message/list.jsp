@@ -24,7 +24,7 @@
 		
 		<spring:message code="message.delete" var="deleteHeader" />
 		<display:column>
-			<a href="message/actor/delete.do?messageId=${row_messa.id}&folderId=${folder.id}"> 
+			<a href="message/actor/delete.do?messageId=${row_messa.id}&folderId=${folder.id}" onclick="return confirm('<spring:message code="message.confirm.delete" />')"> 
 				<spring:message code="message.delete" />
 			</a>
 		</display:column>
