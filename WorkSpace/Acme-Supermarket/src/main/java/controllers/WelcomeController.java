@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ItemService;
+import domain.ExchangeRate;
 import domain.Item;
 
 @Controller
@@ -31,6 +33,9 @@ public class WelcomeController extends AbstractController {
 
 		@Autowired
 		private ItemService itemService;
+		
+		@Autowired
+		private ExchangeRateService exchangeRateService;
 
 	// Constructors -----------------------------------------------------------
 	
@@ -41,10 +46,21 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required=false, defaultValue="John Doe") String name) {
+	public ModelAndView index(@RequestParam(required=false, defaultValue="John Doe") String name, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		Collection<Item> items;
 		Item item;
@@ -70,6 +86,8 @@ public class WelcomeController extends AbstractController {
 		result.addObject("name", name);
 		result.addObject("item", item);
 		result.addObject("moment", moment);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 
 		return result;
 	}

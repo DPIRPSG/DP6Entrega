@@ -9,6 +9,26 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<form action="${requestURI}">
+	<input type="hidden" name="shoppingCartId" value="${shoppingCartId}"/>
+	<select name="exchangeRateId">
+		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
+			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
+				<option value="${exchangeRateSel.id}" selected="selected">${exchangeRateSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${exchangeRateSel.id != exchangeRate.id}">
+				<option value="${exchangeRateSel.id}">${exchangeRateSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="content.change" />" />&nbsp;
+</form>
+
+<br/>
+
+<spring:message code="content.exchangeRate" var="message"/>
+<jstl:out value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]"/>
+<br/>
+
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
@@ -23,20 +43,29 @@
 
 	<!-- Attributes -->
 	<spring:message code="content.item.name" var="nameHeader" />
-	<display:column property="item.name" title="${nameHeader}"
-		sortable="true" />
+	<display:column title="${nameHeader}"
+		sortable="true" >
+		<jstl:out value="${row.item.name}"/>
+	</display:column>
 		
 	<spring:message code="content.units" var="unitsHeader" />
-	<display:column property="units" title="${unitsHeader}" sortable="false" />
+	<display:column title="${unitsHeader}" 
+		sortable="false" >
+		<jstl:out value="${row.units}"/>
+	</display:column>
 	
 	<spring:message code="content.item.description"
 		var="descriptionHeader" />
-	<display:column property="item.description"
-		title="${descriptionHeader}" sortable="false" />
+	<display:column title="${descriptionHeader}"
+		sortable="false" >
+		<jstl:out value="${row.item.description}"/>
+	</display:column>
 
 	<spring:message code="content.item.price" var="priceHeader" />
-	<display:column property="item.price" title="${priceHeader}"
-		sortable="true" />
+	<display:column title="${priceHeader}"
+		sortable="true" >
+		<jstl:out value="${row.item.price * exchangeRate.rate}"/>
+	</display:column>
 	
 	</display:table>
 	

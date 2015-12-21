@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
+import domain.ExchangeRate;
 import domain.Order;
 
+import services.ExchangeRateService;
 import services.OrderService;
 import services.ShoppingCartService;
 
@@ -28,6 +30,8 @@ public class OrderConsumerController extends AbstractController {
 	private OrderService orderService;
 	@Autowired
 	private ShoppingCartService ShoppingCartService;
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	
 	// Constructors ----------------------------------------------------------
@@ -37,10 +41,21 @@ public class OrderConsumerController extends AbstractController {
 	
 	// Listing ----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(){
+	public ModelAndView list(@RequestParam(required=false) Integer exchangeRateId){
 		
 		ModelAndView result;
 		Collection<Order> orders;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		/* Falta crear un servicio sin parámetros de entrada para que devuelva los order de un consumer determinado */
 		orders = orderService.findAllByConsumer();
@@ -48,6 +63,8 @@ public class OrderConsumerController extends AbstractController {
 		result = new ModelAndView("order/list");
 		result.addObject("orders", orders);
 		result.addObject("requestURI", "order/consumer/list.do");
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 		
 		return result;
 	}

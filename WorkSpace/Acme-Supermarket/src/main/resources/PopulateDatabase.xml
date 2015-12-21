@@ -1464,10 +1464,12 @@
 	
 	<bean id="order11" class="domain.Order">
 		<property name="ticker" value="112221-K5L8"/>
-		<property name="placementMoment" value="2015/12/04 17:55"/>
+		<property name="placementMoment" value="2015/11/04 17:55"/>
+		<!-- <property name="placementMoment" value="2015/12/04 17:55"/> -->
 		<property name="address" value="calle Afrodita nº2"/>
 		<property name="creditCard" ref="creditCard4"/>
-		<property name="cancelMoment" value="2015/12/06 18:00"></property>
+		<property name="cancelMoment" value="2015/11/06 18:00"/>
+<!-- 		<property name="cancelMoment" value="2015/12/06 18:00"/> -->
 		<property name="consumer" ref="consumer4"/>
 		<property name="orderItems">
 			<list>
@@ -1479,10 +1481,12 @@
 	
 	<bean id="order12" class="domain.Order">
 		<property name="ticker" value="112000-K5L8"/>
-		<property name="placementMoment" value="2015/12/14 11:55"/>
+		<property name="placementMoment" value="2015/11/14 11:55"/>
+		<!-- <property name="placementMoment" value="2015/12/14 11:55"/> -->
 		<property name="address" value="calle Afrodita nº2"/>
 		<property name="creditCard" ref="creditCard4"/>
-		<property name="cancelMoment" value="2015/12/16 18:00"></property>
+		<property name="cancelMoment" value="2015/11/16 18:00"/>
+<!-- 		<property name="cancelMoment" value="2015/12/16 18:00"/> -->
 		<property name="consumer" ref="consumer4"/>
 		<property name="orderItems">
 			<list>
@@ -1495,6 +1499,7 @@
 	<bean id="order13" class="domain.Order">
 		<property name="ticker" value="110000-K5L8"/>
 		<property name="placementMoment" value="2015/12/13 11:55"/>
+<!-- 		<property name="placementMoment" value="2015/12/13 11:55"/> -->
 		<property name="address" value="calle Afrodita nº2"/>
 		<property name="creditCard" ref="creditCard1"/>
 		<property name="consumer" ref="consumer1"/>

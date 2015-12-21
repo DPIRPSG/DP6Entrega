@@ -23,10 +23,16 @@
 		<!-- Attributes -->
 		
 		<spring:message code="tax.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="true" />
+		<display:column title="${nameHeader}" 
+			sortable="true">
+			<jstl:out value="${row.name}"/>
+		</display:column>
 		
 		<spring:message code="tax.value" var="valueHeader" />
-		<display:column property="value" title="${valueHeader}" sortable="true" />
+		<display:column title="${valueHeader}" 
+			sortable="true">
+			<jstl:out value="${row.value}"/>
+		</display:column>
 		
 </display:table>
 

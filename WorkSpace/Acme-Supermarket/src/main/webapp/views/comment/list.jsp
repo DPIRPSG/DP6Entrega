@@ -27,7 +27,10 @@
 	<jstl:choose>
   		<jstl:when test="${row_Comment.userName != 'Anonymous'}">
 			<spring:message code="comment.userName" var="userNameHeader" />
-			<display:column property="userName" title="${userNameHeader}" sortable="true" />
+			<display:column title="${userNameHeader}"
+				sortable="true" >
+				<jstl:out value="${row.userName}"/>
+			</display:column>
 		</jstl:when>
   		<jstl:otherwise>
 		<display:column title="${userNameHeader}" sortable="true"><spring:message code="comment.anonymous"/></display:column>
@@ -35,13 +38,22 @@
 	</jstl:choose>
 	
 	<spring:message code="comment.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="false" />
+	<display:column title="${titleHeader}"
+		sortable="false" >
+		<jstl:out value="${row.title}"/>
+	</display:column>
 
 	<spring:message code="comment.text" var="textHeader" />
-	<display:column property="text" title="${textHeader}" sortable="false" />
+	<display:column title="${textHeader}" 
+		sortable="false" >
+		<jstl:out value="${row.text}"/>
+	</display:column>
 
 	<spring:message code="comment.rating" var="ratingHeader" />
-	<display:column property="rating" title="${ratingHeader}" sortable="true" />
+	<display:column title="${ratingHeader}" 
+		sortable="true" >
+		<jstl:out value="${row.rating}"/>
+	</display:column>
 		
 </display:table>
 
