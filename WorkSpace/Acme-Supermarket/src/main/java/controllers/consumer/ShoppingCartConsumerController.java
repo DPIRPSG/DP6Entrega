@@ -74,6 +74,7 @@ public class ShoppingCartConsumerController extends AbstractController{
 			result = createEditModelAndView(shoppingCart);
 		} else {
 			try {
+				Assert.isTrue(shoppingCart.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can save it");
 				shoppingCartService.save(shoppingCart);
 				result = new ModelAndView("redirect:/shopping-cart/consumer/list.do");
 			} catch (Throwable oops) {

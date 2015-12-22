@@ -15,8 +15,10 @@
 
 <div>
 	<a href=""> 
-		<img src="images/logo.png" alt="Acme-Supermarket Co., Inc." />
-	</a>
+		<img src="${cookie['customLogo'].value}" style="height:128px;" alt="${cookie['customName'].value}" /></a>
+	<br/>
+	<jstl:out value="${cookie['customName'].value}"/>
+
 </div>
 
 <div>
