@@ -64,6 +64,12 @@
 		<fmt:formatNumber value="${row_OItem.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 	</display:column>
 	
+	<spring:message code="orderItem.price.tax" var="priceTaxHeader" />
+	<display:column title="${priceTaxHeader}"
+		sortable="true">
+		<fmt:formatNumber value="${row_OItem.price * exchangeRate.rate * (1 - row_OItem.tax/100)}" maxFractionDigits="2" minFractionDigits="2"/>
+	</display:column>
+	
 	<spring:message code="orderItem.units" var="unitsHeader" />
 	<display:column title="${unitsHeader}"
 		sortable="true" >
