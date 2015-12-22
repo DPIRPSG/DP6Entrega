@@ -130,5 +130,8 @@
 <!-- Alert -->
 <jstl:if test="${messageStatus != Null && messageStatus != ''}">
 	<spring:message code="${messageStatus}" var="showAlert" />
-	<script>window.alert("${showAlert}")</script>
+			<script>$(document).ready(function(){
+		    alert("${showAlert}");
+		  });
+		</script>
 </jstl:if>	
