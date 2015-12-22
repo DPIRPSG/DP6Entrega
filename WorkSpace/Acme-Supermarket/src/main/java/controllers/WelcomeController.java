@@ -28,66 +28,73 @@ import domain.Item;
 @Controller
 @RequestMapping("/welcome")
 public class WelcomeController extends AbstractController {
-	
+
 	// Services ----------------------------------------------------------
 
-		@Autowired
-		private ItemService itemService;
-		
-		@Autowired
-		private ExchangeRateService exchangeRateService;
+	@Autowired
+	private ItemService itemService;
+
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	// Constructors -----------------------------------------------------------
-	
+
 	public WelcomeController() {
 		super();
 	}
-		
-	// Index ------------------------------------------------------------------		
+
+	// Index ------------------------------------------------------------------
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required=false, defaultValue="John Doe") String name, @RequestParam(required=false) Integer exchangeRateId) {
+	public ModelAndView index(
+			@RequestParam(required = false, defaultValue = "John Doe") String name,
+			@RequestParam(required = false) Integer exchangeRateId,
+			@RequestParam(required = false, defaultValue = "") String messageStatus) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
 		ExchangeRate exchangeRate;
-        Collection<ExchangeRate> moneyList;
-        
-        exchangeRate = null;
+		Collection<ExchangeRate> moneyList;
+
+		exchangeRate = null;
 		moneyList = exchangeRateService.findAll();
-		
-		if(exchangeRateId != null) {
+
+		if (exchangeRateId != null) {
 			exchangeRate = exchangeRateService.findOne(exchangeRateId);
 		} else {
 			exchangeRate = exchangeRateService.findOneByName("Euros");
 		}
-		
+
 		Collection<Item> items;
 		Item item;
-		//Random rnd = new Random();
-		//int r;
-		//int i;
-		
+		// Random rnd = new Random();
+		// int r;
+		// int i;
+
 		items = itemService.findItemBestSelling();
-		//r = (int) (Math.random() * items.size());
-		//r = rnd.nextInt(items.size());
-		//System.out.println(items.size());
-		//System.out.println(r);
-		//item = null;
-		/*for(i=1;i<=r;i++) {
-			item = items.iterator().next();
-		}*/
+		// r = (int) (Math.random() * items.size());
+		// r = rnd.nextInt(items.size());
+		// System.out.println(items.size());
+		// System.out.println(r);
+		// item = null;
+		/*
+		 * for(i=1;i<=r;i++) { item = items.iterator().next(); }
+		 */
 		item = items.iterator().next();
-		
+
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
-		
+
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("item", item);
 		result.addObject("moment", moment);
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
+		
+		if(messageStatus != ""){
+			result.addObject("messageStatus", messageStatus);
+		}
 
 		return result;
 	}
