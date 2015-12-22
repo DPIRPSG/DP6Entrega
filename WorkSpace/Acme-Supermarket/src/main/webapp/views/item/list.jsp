@@ -120,3 +120,9 @@
 		</a>
 	</div>
 </security:authorize>
+
+<!-- Alert -->
+<jstl:if test="${messageStatus != Null && messageStatus != ''}">
+	<spring:message code="${messageStatus}" var="showAlert" />
+	<script>window.alert("${showAlert}")</script>
+</jstl:if>	

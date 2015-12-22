@@ -9,6 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="storage.warehouse"/> <jstl:out value="${storage.wareHouse.name}" /></h3>
+<h3><spring:message code="storage.itemReference"/> <jstl:out value="${storage.item.name}(${storage.item.sku})" /></h3>
 <!-- Form -->
 <form:form action="storage/administrator/edit.do" modelAttribute="storage">
 	<!-- Hidden Attributes -->

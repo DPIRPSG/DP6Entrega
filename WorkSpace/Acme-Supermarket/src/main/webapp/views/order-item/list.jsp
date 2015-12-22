@@ -10,6 +10,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="orderItem.order"/> <jstl:out value="${order.ticker}" /></h3>
+
+<br/>
+
 <form action="${requestURI}">
 <input type="hidden" name="orderId" value="${orderId}"/>
 	<select name="exchangeRateId">

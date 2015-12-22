@@ -10,6 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="message.folder"/> <jstl:out value="${folder.name}" /></h3>
 <security:authorize access="hasAnyRole('ADMIN', 'CLERK', 'CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag"
@@ -24,7 +25,7 @@
 		
 		<spring:message code="message.delete" var="deleteHeader" />
 		<display:column>
-			<a href="message/actor/delete.do?messageId=${row_messa.id}&folderId=${folder.id}"> 
+			<a href="message/actor/delete.do?messageId=${row_messa.id}&folderId=${folder.id}" onclick="return confirm('<spring:message code="message.confirm.delete" />')"> 
 				<spring:message code="message.delete" />
 			</a>
 		</display:column>

@@ -34,7 +34,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"
-		onclick="javascript: relativeRedir('folder/actor/list.do');" />
+		onclick="javascript: relativeRedir('message/actor/display.do?messageId=${messa.id}');" />
 	<br />
 
 </form:form>

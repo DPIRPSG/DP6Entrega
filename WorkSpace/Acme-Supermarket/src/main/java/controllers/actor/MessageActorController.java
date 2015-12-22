@@ -176,7 +176,7 @@ public class MessageActorController extends AbstractController{
 						folderService.save(a);
 					}
 				}
-				result = new ModelAndView("redirect:../../folder/actor/list.do");
+				result = new ModelAndView("redirect:/message/actor/display.do?messageId=" + message.getId());
 			} catch (Throwable oops) {
 				result = createEditModelAndView(message, "message.commit.error");				
 			}
