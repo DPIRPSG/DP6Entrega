@@ -134,8 +134,7 @@
 	<!-- Result -->
 	<jstl:choose>
   		<jstl:when test="${ratioCancelledCurrentMonth == 0}">
- 			<spring:message code="administrator.ratio.null"/> <%--OPTION 2 --%>
-<%-- 			<jstl:out value="0" /> OPTION 1 --%>
+ 			<spring:message code="administrator.ratio.null"/>
 		</jstl:when>
   		<jstl:otherwise>
 			<jstl:out value="${ratioCancelledCurrentMonth}" />
