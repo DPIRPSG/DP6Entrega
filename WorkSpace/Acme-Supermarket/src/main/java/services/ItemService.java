@@ -74,7 +74,7 @@ public class ItemService {
 		
 		for(Content content : contents) {
 			contentService.deleteComplete(content);
-		}	
+		}
 	}
 	
 	/**

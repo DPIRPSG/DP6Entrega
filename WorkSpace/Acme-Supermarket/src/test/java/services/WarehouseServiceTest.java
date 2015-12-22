@@ -119,8 +119,8 @@ public class WarehouseServiceTest extends AbstractTest{
 		
 		authenticate("clerk1");
 		
-		System.out.println("Veamos el/los WareHouse que tienen el item con id 61:");
-		itemId = 61;
+		System.out.println("Veamos el/los WareHouse que tienen el item con id 64:");
+		itemId = 64;
 		item = itemService.findOne(itemId);
 		all = warehouseService.findAllByItem(item);
 		for(WareHouse w: all){
