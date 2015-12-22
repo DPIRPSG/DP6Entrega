@@ -8,6 +8,27 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<form action="${requestURI}">
+	<select name="exchangeRateId">
+		<jstl:forEach var="exchangeRateSel" items="${moneyList}">
+			<jstl:if test="${exchangeRateSel.id == exchangeRate.id}">
+				<option value="${exchangeRateSel.id}" selected="selected">${exchangeRateSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${exchangeRateSel.id != exchangeRate.id}">
+				<option value="${exchangeRateSel.id}">${exchangeRateSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="order.change" />" />&nbsp;
+</form>
+
+<br/>
+
+<spring:message code="order.exchangeRate" var="message"/>
+<jstl:out value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]"/>
+<br/>
+<br/>
+
+
 <security:authorize access = "hasRole('CONSUMER')">
 	<!-- Form -->
 		<form:form action="order/consumer/create.do" modelAttribute="order">
@@ -80,6 +101,8 @@
 		
 		</fieldset>
 		<br/>
+		
+		<p><spring:message code = "order.amount"/>: <fmt:formatNumber value="${order.amount * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/></p>
 		
 		<!-- Action buttons -->
 		<input type="submit" name="save"
