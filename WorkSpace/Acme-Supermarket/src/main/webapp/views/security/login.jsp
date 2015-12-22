@@ -41,3 +41,12 @@
 	<input type="submit" value="<spring:message code="security.login" />" />
 	
 </form:form>
+
+<jstl:if test="${messageStatus != Null && messageStatus != ''}">
+	<spring:message code="${messageStatus}" var="showAlert" />
+	<script>$(document).ready(function(){
+	    alert("${showAlert}");
+	  });
+	</script>
+
+</jstl:if>

@@ -64,6 +64,7 @@ public class ClerkAdministratorController extends AbstractController{
 			try {
 				clerkService.save(clerk);
 				result = new ModelAndView("redirect:../..");
+				result.addObject("messageStatus", "clerk.commit.ok");
 			} catch (Throwable oops){
 				System.out.println("Error oops: "+ oops);
 				result = createEditModelAndView(clerk, "clerk.commit.error");

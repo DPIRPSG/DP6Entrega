@@ -137,13 +137,11 @@
 	<!-- Alert -->
 	<jstl:if test="${messageStatus != Null && messageStatus != ''}">
 		<spring:message code="${messageStatus}" var="showAlert" />
-		<script>window.alert("${showAlert}");</script>
+		<script>$(document).ready(function(){
+		    alert("${showAlert}");
+		  });
+		</script>
 		
 	</jstl:if>	
 
 </security:authorize>
-
-<jstl:if test="${messageStatus != Null && messageStatus != ''}">
-	<br />
-	<span class="error"><spring:message code="${messageStatus}" /></span>
-</jstl:if>	
