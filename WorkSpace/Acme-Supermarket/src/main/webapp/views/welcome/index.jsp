@@ -111,46 +111,4 @@
 			code="consumer.item.add" />
 	</a>
 
-	<!--
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="items" requestURI="${requestURI}" id="row">
-	
-		<display:column>
-			<a href="item/consumer/add.do?itemId=${row.id}&?keyword="> <spring:message
-					code="consumer.item.add" />
-			</a>
-		</display:column>
-		
-		<!- Attributes ->
-		<spring:message code="consumer.item.category" var="categoryHeader" />
-		<display:column property="category.name" title="${categoryHeader}"
-			sortable="true" />
-	
-		<spring:message code="consumer.item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
-		<spring:message code="consumer.item.price" var="priceHeader" />
-		<display:column property="price" title="${priceHeader}"
-			sortable="false" />
-	
-		<spring:message code="consumer.item.description" var="descriptionHeader" />
-		<display:column property="description" title="${descriptionHeader}"
-			sortable="false" />
-	
-		<spring:message code="consumer.item.tags" var="tagsHeader" />
-		<display:column property="tags" title="${tagsHeader}" sortable="false" />
-	
-		<spring:message code="consumer.item.picture" var="pictureHeader" />
-		<display:column>
-			<img src="${pictureHeader}" />
-		</display:column>
-	
-		<display:column>
-			<a href="comment/list.do?itemId=${row.id}"> <spring:message
-					code="consumer.item.comments" />
-			</a>
-		</display:column>
-	
-	</display:table>
--->
 </security:authorize>

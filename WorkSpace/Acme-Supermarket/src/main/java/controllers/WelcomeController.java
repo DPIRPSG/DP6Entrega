@@ -14,8 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,8 +58,9 @@ public class WelcomeController extends AbstractController {
 	public ModelAndView index(
 			@RequestParam(required = false, defaultValue = "John Doe") String name,
 			@RequestParam(required = false) Integer exchangeRateId,
+			@CookieValue(value = "item", required = false) Item itemCookie,
 			@RequestParam(required = false, defaultValue = "") String messageStatus,
-			@RequestParam(required=false, defaultValue="94") int customizationInfoId) {
+			HttpServletResponse response) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
@@ -78,19 +83,8 @@ public class WelcomeController extends AbstractController {
 
 		Collection<Item> items;
 		Item item;
-		// Random rnd = new Random();
-		// int r;
-		// int i;
 
 		items = itemService.findItemBestSelling();
-		// r = (int) (Math.random() * items.size());
-		// r = rnd.nextInt(items.size());
-		// System.out.println(items.size());
-		// System.out.println(r);
-		// item = null;
-		/*
-		 * for(i=1;i<=r;i++) { item = items.iterator().next(); }
-		 */
 		item = items.iterator().next();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -104,6 +98,18 @@ public class WelcomeController extends AbstractController {
 		result.addObject("exchangeRate", exchangeRate);
 		result.addObject("customizations", customizations);
 		result.addObject("customizationInfo", customizationInfo);
+		
+		if(itemCookie == null){
+			itemCookie = itemService.findAll().iterator().next();
+			response.addCookie(new Cookie("item", String.valueOf(itemCookie.getId())));
+		}else{
+			System.out.println("cookie recibida: ");
+			System.out.println("ID: "+itemCookie.getId());
+			System.out.println("Name: "+itemCookie.getName());
+
+		}
+		
+		
 		
 		if(messageStatus != ""){
 			result.addObject("messageStatus", messageStatus);
