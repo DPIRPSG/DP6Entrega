@@ -83,6 +83,12 @@
 		<display:column title="${priceHeader}" sortable="true">
 			<fmt:formatNumber value="${row_storage.item.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 		</display:column>
+		
+		<spring:message code="storage.item.price.tax" var="priceTaxHeader" />
+	<display:column title="${priceTaxHeader}"
+		sortable="true">
+		<fmt:formatNumber value="${row_storage.item.price * exchangeRate.rate * (1 - row_storage.item.category.tax.value/100)}" maxFractionDigits="2" minFractionDigits="2"/>
+	</display:column>
 
 	</jstl:if>
 

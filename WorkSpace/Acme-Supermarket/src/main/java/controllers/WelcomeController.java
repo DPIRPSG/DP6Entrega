@@ -58,7 +58,8 @@ public class WelcomeController extends AbstractController {
 	public ModelAndView index(
 			@RequestParam(required = false, defaultValue = "John Doe") String name,
 			@RequestParam(required = false) Integer exchangeRateId,
-			@CookieValue(value = "item", required = false) Item itemCookie,
+			@CookieValue(value = "customizationInfo", required = false) CustomizationInfo customizationInfo,
+			@RequestParam(required = false) String customizationInfoId,
 			@RequestParam(required = false, defaultValue = "") String messageStatus,
 			HttpServletResponse response) {
 		ModelAndView result;
@@ -67,13 +68,11 @@ public class WelcomeController extends AbstractController {
 		ExchangeRate exchangeRate;
 		Collection<ExchangeRate> moneyList;
 		Collection<CustomizationInfo> customizations;
-		CustomizationInfo customizationInfo;
-		
-		customizationInfo = customizationInfoService.findOne(customizationInfoId);
-		customizations = customizationInfoService.findAll();
+		int customId;
 
 		exchangeRate = null;
 		moneyList = exchangeRateService.findAll();
+		customizations = customizationInfoService.findAll();
 
 		if (exchangeRateId != null) {
 			exchangeRate = exchangeRateService.findOne(exchangeRateId);
@@ -97,23 +96,25 @@ public class WelcomeController extends AbstractController {
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
 		result.addObject("customizations", customizations);
-		result.addObject("customizationInfo", customizationInfo);
-		
-		if(itemCookie == null){
-			itemCookie = itemService.findAll().iterator().next();
-			response.addCookie(new Cookie("item", String.valueOf(itemCookie.getId())));
-		}else{
-			System.out.println("cookie recibida: ");
-			System.out.println("ID: "+itemCookie.getId());
-			System.out.println("Name: "+itemCookie.getName());
-
-		}
-		
-		
 		
 		if(messageStatus != ""){
 			result.addObject("messageStatus", messageStatus);
 		}
+
+		if(customizationInfo == null){
+			customizationInfoId = "1";
+		}
+		
+		if(customizationInfoId != null){
+			customId = Integer.valueOf(customizationInfoId);
+			customizationInfo = customizationInfoService.findOne(customId);
+			response.addCookie(new Cookie("customLogo", customizationInfo.getLogo()));
+			response.addCookie(new Cookie("customName", customizationInfo.getName()));
+			response.addCookie(new Cookie("customDescrip", customizationInfo.getDescription()));
+			response.addCookie(new Cookie("customWelcome", customizationInfo.getWelcomeMessage()));
+			response.addCookie(new Cookie("customizationInfo", String.valueOf(customizationInfo.getId())));
+			result = new ModelAndView("redirect:");
+		}		
 
 		return result;
 	}

@@ -77,6 +77,12 @@
 		sortable="true">
 		<fmt:formatNumber value="${row_Item.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 	</display:column>
+	
+	<spring:message code="item.price.tax" var="priceTaxHeader" />
+	<display:column title="${priceTaxHeader}"
+		sortable="true">
+		<fmt:formatNumber value="${row_Item.price * exchangeRate.rate * (1 - row_Item.category.tax.value/100)}" maxFractionDigits="2" minFractionDigits="2"/>
+	</display:column>
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column title="${descriptionHeader}"
@@ -124,5 +130,8 @@
 <!-- Alert -->
 <jstl:if test="${messageStatus != Null && messageStatus != ''}">
 	<spring:message code="${messageStatus}" var="showAlert" />
-	<script>window.alert("${showAlert}")</script>
+			<script>$(document).ready(function(){
+		    alert("${showAlert}");
+		  });
+		</script>
 </jstl:if>	

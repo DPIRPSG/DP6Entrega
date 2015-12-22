@@ -16,6 +16,30 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 	
+	<!-- CustomizationInfo -->
+	
+	<bean id="customizationInfo1" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Sevilla"/>
+		<property name="description" value="Este es el supermercado Acme de Sevilla"/>
+		<property name="logo" value="https://raw.githubusercontent.com/DPIRPSG/DP6Entrega/master/WorkSpace/Acme-Supermarket/src/main/webapp/images/logo.png"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	<bean id="customizationInfo2" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Cádiz"/>
+		<property name="description" value="Este es el supermercado Acme de Cádiz"/>
+		<property name="logo" value="http://www.crearempresas.com/proyectos14/cartek/ideas/carrito.png"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	<bean id="customizationInfo3" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Madrid"/>
+		<property name="description" value="Este es el supermercado Acme de Madrid"/>
+		<property name="logo" value="http://comercioelectronicolatam.com/wp-content/uploads/2014/04/carrito-de-compra-e1301501059252.jpg"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -1256,29 +1280,6 @@
 		<property name="cvvCode" value="683"/>
 	</bean>
 	
-	<!-- CustomizationInfo -->
-	
-	<bean id="customizationInfo1" class="domain.CustomizationInfo">
-		<property name="name" value="Acme-Supermarket Sevilla"/>
-		<property name="description" value="Este es el supermercado Acme de Sevilla"/>
-		<property name="logo" value="https://raw.githubusercontent.com/DPIRPSG/DP6Entrega/master/WorkSpace/Acme-Supermarket/src/main/webapp/images/logo.png"/>
-		<property name="welcomeMessage" value="Hola, bienvenido"/>
-	</bean>
-	
-	<bean id="customizationInfo2" class="domain.CustomizationInfo">
-		<property name="name" value="Acme-Supermarket Cádiz"/>
-		<property name="description" value="Este es el supermercado Acme de Cádiz"/>
-		<property name="logo" value="http://www.crearempresas.com/proyectos14/cartek/ideas/carrito.png"/>
-		<property name="welcomeMessage" value="Hola, bienvenido"/>
-	</bean>
-	
-	<bean id="customizationInfo3" class="domain.CustomizationInfo">
-		<property name="name" value="Acme-Supermarket Madrid"/>
-		<property name="description" value="Este es el supermercado Acme de Madrid"/>
-		<property name="logo" value="http://comercioelectronicolatam.com/wp-content/uploads/2014/04/carrito-de-compra-e1301501059252.jpg"/>
-		<property name="welcomeMessage" value="Hola, bienvenido"/>
-	</bean>
-	
 	<!-- ExchangeRate -->
 	
 	<bean id="exchangeRate1" class="domain.ExchangeRate">
@@ -1354,7 +1355,7 @@
 		<property name="ticker" value="654721-FPKJ"/>
 		<property name="placementMoment" value="2015/11/01 06:55"/>
 		<property name="address" value="calle Cádiz nº8"/>
-		<property name="cancelMoment" value="2015/11/01 09:45"/>
+		<property name="cancelMoment" value="2015/12/01 09:45"/>
 		<property name="creditCard" ref="creditCard3"/>
 		<property name="consumer" ref="consumer3"/>
 		<property name="clerk" ref="clerk3"/>
@@ -1370,7 +1371,7 @@
 		<property name="ticker" value="854911-LH8J"/>
 		<property name="placementMoment" value="2015/10/27 17:55"/>
 		<property name="address" value="calle Sevilla nº8"/>
-		<property name="cancelMoment" value="2015/11/28 19:45"/>
+		<property name="cancelMoment" value="2015/12/28 19:45"/>
 		<property name="creditCard" ref="creditCard2"/>
 		<property name="consumer" ref="consumer2"/>
 		<property name="clerk" ref="clerk2"/>
