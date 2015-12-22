@@ -69,7 +69,7 @@ public class ItemController extends AbstractController {
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
 		result.addObject("keyword", keyword);
-
+		
 		return result;
 	}
 }

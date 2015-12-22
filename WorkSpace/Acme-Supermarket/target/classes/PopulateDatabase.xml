@@ -16,6 +16,30 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 	
+	<!-- CustomizationInfo -->
+	
+	<bean id="customizationInfo1" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Sevilla"/>
+		<property name="description" value="Este es el supermercado Acme de Sevilla"/>
+		<property name="logo" value="https://raw.githubusercontent.com/DPIRPSG/DP6Entrega/master/WorkSpace/Acme-Supermarket/src/main/webapp/images/logo.png"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	<bean id="customizationInfo2" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Cádiz"/>
+		<property name="description" value="Este es el supermercado Acme de Cádiz"/>
+		<property name="logo" value="http://www.crearempresas.com/proyectos14/cartek/ideas/carrito.png"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	<bean id="customizationInfo3" class="domain.CustomizationInfo">
+		<property name="name" value="Acme-Supermarket Madrid"/>
+		<property name="description" value="Este es el supermercado Acme de Madrid"/>
+		<property name="logo" value="http://comercioelectronicolatam.com/wp-content/uploads/2014/04/carrito-de-compra-e1301501059252.jpg"/>
+		<property name="welcomeMessage" value="Hola, bienvenido"/>
+	</bean>
+	
+	
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -1254,15 +1278,6 @@
 		<property name="expirationMonth" value="9"/>
 		<property name="expirationYear" value="2016"/>
 		<property name="cvvCode" value="683"/>
-	</bean>
-	
-	<!-- CustomizationInfo -->
-	
-	<bean id="customizationInfo1" class="domain.CustomizationInfo">
-		<property name="name" value="name1"/>
-		<property name="description" value="description1"/>
-		<property name="logo" value="http://logo.com"/>
-		<property name="welcomeMessage" value="Hola, bienvenido"/>
 	</bean>
 	
 	<!-- ExchangeRate -->

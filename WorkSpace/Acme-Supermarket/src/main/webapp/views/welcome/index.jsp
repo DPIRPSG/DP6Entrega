@@ -19,6 +19,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+	
+
+
 <jstl:if test="${messageStatus != Null && messageStatus != ''}">
 	<spring:message code="${messageStatus}" var="showAlert" />
 	<script>$(document).ready(function(){
@@ -27,6 +31,22 @@
 	</script>
 
 </jstl:if>
+
+<b><spring:message code="customization.description"/>:</b>
+<form action="${requestURI}">
+	<select name="customizationInfoId">
+		<jstl:forEach var="customizationInfoSel" items="${customizations}">
+			<jstl:if test="${customizationInfoSel.id == cookie['customizationInfo'].value}">
+				<option value="${customizationInfoSel.id}" selected="selected">${customizationInfoSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${customizationInfoSel.id != cookie['customizationInfo'].value}">
+				<option value="${customizationInfoSel.id}">${customizationInfoSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="welcome.change" />" />&nbsp;
+</form>
+
+<br />
 
 <security:authorize access="hasRole('CONSUMER')">
 	<form action="${requestURI}">
@@ -52,15 +72,7 @@
 </security:authorize>
 
 <p>
-	<spring:message code="welcome.greeting.prefix" />
-
-	<security:authorize access="isAnonymous()">
-		<spring:message code="welcome.greeting.middle" />!
-	</security:authorize>
-
-	<security:authorize access="isAuthenticated()">
-		<security:authentication property="principal.username" />!
-	</security:authorize>
+	<jstl:out value="${cookie['customWelcome'].value}"/>
 </p>
 
 <p>

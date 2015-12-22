@@ -109,9 +109,8 @@ public class ContentConsumerController extends AbstractController{
 		
 		actualConsumer = content.getShoppingCart().getConsumer();
 		
-		Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can delete its content");
-		
 		try{
+			Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can delete its content");
 			contentService.deleteComplete(content);
 			result = new ModelAndView("redirect:list.do?shoppingCartId=" + content.getShoppingCart().getId());
 		}catch(Throwable oops){
