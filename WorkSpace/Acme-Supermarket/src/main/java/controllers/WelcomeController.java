@@ -67,19 +67,8 @@ public class WelcomeController extends AbstractController {
 
 		Collection<Item> items;
 		Item item;
-		// Random rnd = new Random();
-		// int r;
-		// int i;
 
 		items = itemService.findItemBestSelling();
-		// r = (int) (Math.random() * items.size());
-		// r = rnd.nextInt(items.size());
-		// System.out.println(items.size());
-		// System.out.println(r);
-		// item = null;
-		/*
-		 * for(i=1;i<=r;i++) { item = items.iterator().next(); }
-		 */
 		item = items.iterator().next();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
