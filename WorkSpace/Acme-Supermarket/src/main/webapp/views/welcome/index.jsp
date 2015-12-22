@@ -55,13 +55,12 @@
 	<spring:message code="welcome.greeting.prefix" />
 
 	<security:authorize access="isAnonymous()">
-		<spring:message code="welcome.greeting.middle" />
+		<spring:message code="welcome.greeting.middle" />!
 	</security:authorize>
 
 	<security:authorize access="isAuthenticated()">
-		<security:authentication property="principal.username" />
+		<security:authentication property="principal.username" />!
 	</security:authorize>
-	<spring:message code="welcome.greeting.suffix" />
 </p>
 
 <p>

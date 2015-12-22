@@ -11,7 +11,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message code="orderItem.confirm" var="confirm"/>
-<jstl:out value="${confirm} ${warehouse}"/>
+<jstl:out value="${confirm}: ${warehouse}"/>
 <br/>
 <br/>
 
