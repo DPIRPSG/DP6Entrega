@@ -45,7 +45,7 @@
 					</a>
 				</display:column>	
 			</jstl:if>
-			<jstl:if test="${row_order.clerk != null}">
+			<jstl:if test="${row_order.clerk != null || row_order.cancelMoment != null}">
 				<display:column title="${deleteHeader}"
 					sortable="false" />
 			</jstl:if>
@@ -80,7 +80,7 @@
 		<spring:message code="order.amount" var="amountHeader" />
 		<display:column title="${amountHeader}"
 			sortable="true" >
-			<jstl:out value="${row_order.amount * exchangeRate.rate}"/>
+			<fmt:formatNumber value="${row_order.amount * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 		</display:column>
 
 		<security:authorize access="hasRole('CLERK')">
@@ -142,3 +142,8 @@
 	</jstl:if>	
 
 </security:authorize>
+
+<jstl:if test="${messageStatus != Null && messageStatus != ''}">
+	<br />
+	<span class="error"><spring:message code="${messageStatus}" /></span>
+</jstl:if>	

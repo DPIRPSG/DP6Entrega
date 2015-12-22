@@ -160,6 +160,8 @@ public class StorageService {
 		storage = this.findByWareHouseAndItem(wareHouse, item);
 		result = storage.getUnits();
 		
+		Assert.notNull(result, "No hay unidades en el almacen: " + wareHouse.getName());
+		
 		return result;
 	}
 

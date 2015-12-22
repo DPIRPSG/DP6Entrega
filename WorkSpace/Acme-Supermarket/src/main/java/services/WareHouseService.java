@@ -140,7 +140,9 @@ public class WareHouseService {
 		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()),
 				"Only the clerk of the order can add items");
 		Assert.isTrue(order.getCancelMoment() == null, "No se pueden servir unidades de un pedido cancelado");
-
+		Assert.notNull(quantity, "No puedes pasar una cantidad vacia");
+		
+		
 		WareHouse result;
 		OrderItem orderItem;
 		Collection<OrderItem> orderItems;
@@ -167,14 +169,20 @@ public class WareHouseService {
 		Assert.isTrue(unitsServed <= orderItem.getUnits(),
 				"Se intentan añadir mas unidades de las solicitadas por el OrderItem");
 		for (WareHouse warehouse : warehouses) {
-			if (storageService.quantityByWareHouseAndItem(warehouse, item) >= quantity) {
-				storageService.subtractQuantityByWareHouseAndItem(warehouse,
-						item, quantity);
-				orderItem.setUnitsServed(unitsServed);
-				result = warehouse;
-				break;
+			try {
+				if (storageService.quantityByWareHouseAndItem(warehouse, item) >= quantity) {
+					storageService.subtractQuantityByWareHouseAndItem(warehouse,
+							item, quantity);
+					orderItem.setUnitsServed(unitsServed);
+					result = warehouse;
+					break;
+				}
+			} catch (Exception e) {
+				result = null;
 			}
+			
 		}
+		Assert.notNull(result, "No hay suficientes unidades en los almacenes");
 		orderItemService.save(orderItem);
 		
 		return result;

@@ -363,8 +363,8 @@ public class ItemServiceTest extends AbstractTest{
 		
 		authenticate("admin");
 		
-		itemId = 54;
-		System.out.println("Pretendemos modificar el item con el id 54, ¿Existe?, ¿Cuál es?:");
+		itemId = 61;
+		System.out.println("Pretendemos modificar el item con el id 61, ¿Existe?, ¿Cuál es?:");
 		all = itemService.findAll();
 		item = null;
 		for (Item i: all){
@@ -404,8 +404,8 @@ public class ItemServiceTest extends AbstractTest{
 		
 		authenticate("admin");
 		
-		itemId = 54;
-		System.out.println("Pretendemos eliminar el item con el id 54, ¿Existe?, ¿Tiene la propiedad deleted = false?:");
+		itemId = 61;
+		System.out.println("Pretendemos eliminar el item con el id 61, ¿Existe?, ¿Tiene la propiedad deleted = false?:");
 		item = itemService.findOne(itemId);
 		System.out.println("Nombre: " + item.getName());
 		System.out.println("Id: " + item.getId());

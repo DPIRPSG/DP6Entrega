@@ -64,18 +64,19 @@
 	<spring:message code="content.item.price" var="priceHeader" />
 	<display:column title="${priceHeader}"
 		sortable="true" >
-		<jstl:out value="${row_Content.item.price * exchangeRate.rate}"/>
+		<fmt:formatNumber value="${row_Content.item.price * exchangeRate.rate}" maxFractionDigits="2" minFractionDigits="2"/>
 	</display:column>
 	
 	</display:table>
 	
 	<!-- Action Links -->
-	<div>
-		<b><a
-			href="order/consumer/create.do" >
-				<spring:message code="content.checkout" />
-		</a></b>
-	</div>
-
-	
+	<jstl:if test="${contents != '[]'}">
+		<div>
+			<b><a
+				href="order/consumer/create.do" >
+					<spring:message code="content.checkout" />
+			</a></b>
+		</div>
+	</jstl:if>	
+		
 </security:authorize>

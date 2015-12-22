@@ -9,6 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="orderItem.order"/> <jstl:out value="${order.ticker}" /></h3>
+<h3><spring:message code="orderItem.item"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 <!-- Form -->
 <form:form action="order-item/clerk/serve.do" modelAttribute="orderItem">
 	
@@ -40,7 +42,7 @@
 	
 	<spring:message code="orderItem.unitsToServe" var="unitsToServe"/>
 	<jstl:out value="${unitsToServe}:"></jstl:out>
-	<input type="text" name="unitsToServe">
+	<input type="number" name="unitsToServe" max="${unitsNum - unitsServedNum}" min="1" value="1">
 	<br />
 
 	

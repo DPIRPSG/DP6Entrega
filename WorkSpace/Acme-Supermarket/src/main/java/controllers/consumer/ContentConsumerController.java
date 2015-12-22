@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConsumerService;
 import services.ContentService;
 import services.ExchangeRateService;
 
 import controllers.AbstractController;
+import domain.Consumer;
 import domain.Content;
+import domain.Item;
 import domain.ExchangeRate;
 
 @Controller
@@ -27,6 +30,8 @@ public class ContentConsumerController extends AbstractController{
 	// Services ----------------------------------------------------------
 	@Autowired
 	private ContentService contentService;
+	@Autowired
+	private ConsumerService consumerService;
 	
 	@Autowired
 	private ExchangeRateService exchangeRateService;
@@ -100,6 +105,11 @@ public class ContentConsumerController extends AbstractController{
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(Content content, BindingResult binding){
 		ModelAndView result;
+		Consumer actualConsumer;
+		
+		actualConsumer = content.getShoppingCart().getConsumer();
+		
+		Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can delete its content");
 		
 		try{
 			contentService.deleteComplete(content);
@@ -122,9 +132,13 @@ public class ContentConsumerController extends AbstractController{
 	
 	protected ModelAndView createEditModelAndView(Content content, String message){
 		ModelAndView result;
+		Item item;
+		
+		item = content.getItem();
 		
 		result = new ModelAndView("content/edit");
 		result.addObject("content", content);
+		result.addObject("item", item);
 		result.addObject("message", message);
 		
 		return result;

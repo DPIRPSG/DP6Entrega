@@ -69,6 +69,7 @@ public class ShoppingCartService {
 	//req: 11.6
 	public void save(ShoppingCart shoppingCart){
 		Assert.notNull(shoppingCart);
+		Assert.isTrue(shoppingCart.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can save it");
 		
 		shoppingCartRepository.save(shoppingCart);
 	}
@@ -194,6 +195,8 @@ public class ShoppingCartService {
 		ShoppingCart shoppingCart;
 		
 		shoppingCart = shoppingCartRepository.findOne(shoppingCartId);
+		
+		Assert.isTrue(shoppingCart.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can display it");
 		
 		return shoppingCart;
 	}
