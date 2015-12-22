@@ -45,7 +45,7 @@
 					</a>
 				</display:column>	
 			</jstl:if>
-			<jstl:if test="${row_order.clerk != null}">
+			<jstl:if test="${row_order.clerk != null || row_order.cancelMoment != null}">
 				<display:column title="${deleteHeader}"
 					sortable="false" />
 			</jstl:if>
