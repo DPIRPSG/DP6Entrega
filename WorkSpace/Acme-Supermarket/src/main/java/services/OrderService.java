@@ -275,7 +275,7 @@ public class OrderService {
 		Assert.notNull(order);
 		Assert.isTrue(order.getId() != 0);
 		Assert.isTrue(order.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner can cancel the order");
-		
+		Assert.isTrue(order.getCancelMoment() == null,"order.cancel.error.isCancelled");
 		Clerk clerk;
 		
 		clerk = clerkService.findByOrder(order);
