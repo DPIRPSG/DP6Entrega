@@ -45,7 +45,7 @@
 					</a>
 				</display:column>	
 			</jstl:if>
-			<jstl:if test="${row_order.clerk != null}">
+			<jstl:if test="${row_order.clerk != null || row_order.cancelMoment != null}">
 				<display:column title="${deleteHeader}"
 					sortable="false" />
 			</jstl:if>
@@ -137,13 +137,11 @@
 	<!-- Alert -->
 	<jstl:if test="${messageStatus != Null && messageStatus != ''}">
 		<spring:message code="${messageStatus}" var="showAlert" />
-		<script>window.alert("${showAlert}");</script>
+		<script>$(document).ready(function(){
+		    alert("${showAlert}");
+		  });
+		</script>
 		
 	</jstl:if>	
 
 </security:authorize>
-
-<jstl:if test="${messageStatus != Null && messageStatus != ''}">
-	<br />
-	<span class="cssError"><spring:message code="${messageStatus}" /></span>
-</jstl:if>	

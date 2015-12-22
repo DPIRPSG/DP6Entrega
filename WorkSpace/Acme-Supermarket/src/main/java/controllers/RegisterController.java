@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import domain.Consumer;
 
 import services.ConsumerService;
@@ -63,6 +62,8 @@ public class RegisterController extends AbstractController{
 			try {
 				consumerService.save(consu);
 				result = new ModelAndView("redirect:../security/login.do");
+				result.addObject("messageStatus", "consumer.commit.ok");
+								
 			} catch (Throwable oops){
 				result = createEditModelAndView(consu, "consumer.commit.error");
 			}

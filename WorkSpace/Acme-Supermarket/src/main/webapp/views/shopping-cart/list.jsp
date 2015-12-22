@@ -28,11 +28,13 @@
 		<jstl:out value="${row_SCart.comments}"/>
 	</display:column>
 	
-	<display:column>
-			<a href="content/consumer/list.do?shoppingCartId=${row_SCart.id}"> <spring:message
-					code="shoppingCart.contents" />
-			</a>
-	</display:column>
+	<jstl:if test="${row_SCart.contents != '[]'}">
+		<display:column>
+				<a href="content/consumer/list.do?shoppingCartId=${row_SCart.id}"> <spring:message
+						code="shoppingCart.contents" />
+				</a>
+		</display:column>
+	</jstl:if>
 	
 	</display:table>
 	

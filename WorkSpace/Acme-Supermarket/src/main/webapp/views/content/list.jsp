@@ -70,12 +70,13 @@
 	</display:table>
 	
 	<!-- Action Links -->
-	<div>
-		<b><a
-			href="order/consumer/create.do" >
-				<spring:message code="content.checkout" />
-		</a></b>
-	</div>
-
-	
+	<jstl:if test="${contents != '[]'}">
+		<div>
+			<b><a
+				href="order/consumer/create.do" >
+					<spring:message code="content.checkout" />
+			</a></b>
+		</div>
+	</jstl:if>	
+		
 </security:authorize>

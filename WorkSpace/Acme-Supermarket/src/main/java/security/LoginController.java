@@ -43,6 +43,7 @@ public class LoginController extends AbstractController {
 	@RequestMapping("/login")
 	public ModelAndView login(
 			@Valid @ModelAttribute Credentials credentials,
+			@RequestParam(required=false, defaultValue="") String messageStatus, 
 			BindingResult bindingResult,
 			@RequestParam(required = false) boolean showError) {
 		Assert.notNull(credentials);
@@ -53,6 +54,10 @@ public class LoginController extends AbstractController {
 		result = new ModelAndView("security/login");
 		result.addObject("credentials", credentials);
 		result.addObject("showError", showError);
+		
+		if(messageStatus != ""){
+			result.addObject("messageStatus", messageStatus);
+		}
 
 		return result;
 	}
