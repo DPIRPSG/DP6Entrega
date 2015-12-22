@@ -42,7 +42,7 @@
 	
 	<spring:message code="orderItem.unitsToServe" var="unitsToServe"/>
 	<jstl:out value="${unitsToServe}:"></jstl:out>
-	<input type="number" name="unitsToServe" max="${unitsNum - unitsServedNum}" min="1">
+	<input type="number" name="unitsToServe" max="${unitsNum - unitsServedNum}" min="1" value="1">
 	<br />
 
 	

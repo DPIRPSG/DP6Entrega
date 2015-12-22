@@ -120,7 +120,7 @@ public class OrderItemClerkController extends AbstractController {
 	//Edition ----------------------------------------------------------
 	
 	@RequestMapping(value = "/serve", method = RequestMethod.POST, params = "serve")
-	public ModelAndView save(@Valid OrderItem orderItem, @RequestParam int unitsToServe, BindingResult binding) {
+	public ModelAndView save(@Valid OrderItem orderItem, @RequestParam String unitsToServe, BindingResult binding) {
 		ModelAndView result;
 		Order order;
 		Item item;
@@ -128,29 +128,48 @@ public class OrderItemClerkController extends AbstractController {
 		int orderId;
 		int warehouseId;
 		WareHouse warehouse;
+		int units;
+		
+		
 		
 		warehouse = null;
 		
 		orderId = orderItem.getOrder().getId();
 		sku = orderItem.getSku();
-		
+
 		order = orderItem.getOrder();
 		item = itemService.findOneBySKU(sku);
-		
+
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(orderItem);
 		} else {
 			try {
-				warehouse = warehouseService.addItemToOrderItem(item, unitsToServe, order);
+				units = Integer.parseInt(unitsToServe);
+
+				warehouse = warehouseService.addItemToOrderItem(item, units,
+						order);
 				warehouseId = warehouse.getId();
-				result = new ModelAndView("redirect:confirm.do?orderId="+orderId+"&warehouseId="+warehouseId);
+				result = new ModelAndView("redirect:confirm.do?orderId="
+						+ orderId + "&warehouseId=" + warehouseId);
+			} catch (NumberFormatException oops) {
+				result = createEditModelAndView(orderItem,
+						"orderItem.commit.error.quantity");
 			} catch (Throwable oops) {
-				result = createEditModelAndView(orderItem, "orderItem.commit.error");				
+				System.out.println(oops);
+				if (oops.getMessage().equals(
+						"No hay suficientes unidades en los almacenes")) {
+					result = createEditModelAndView(orderItem,
+							"orderItem.commit.error.warehouse");
+
+				} else {
+					result = createEditModelAndView(orderItem,
+							"orderItem.commit.error");
+				}
 			}
-		}		
+		}
 		return result;
 	}
-	
+
 	//Ancillary Methods ----------------------------------------------------------
 	
 	protected ModelAndView createEditModelAndView(OrderItem orderItem) {
