@@ -192,6 +192,7 @@ public class WareHouseService {
 	 * Elimina una cantidad de items del wareHouse
 	 */
 	//ref: 18.4
+	@SuppressWarnings("unused")
 	private void removeItemQuantity(WareHouse wareHouse, Item item, int quantityToEliminate){
 		int actualQuantity;
 		Integer finalQuantity;
