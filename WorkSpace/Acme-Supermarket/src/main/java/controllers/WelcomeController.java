@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CustomizationInfoService;
 import services.ExchangeRateService;
 import services.ItemService;
+import domain.CustomizationInfo;
 import domain.ExchangeRate;
 import domain.Item;
 
@@ -36,6 +38,9 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private ExchangeRateService exchangeRateService;
+	
+	@Autowired
+	private CustomizationInfoService customizationInfoService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -49,12 +54,18 @@ public class WelcomeController extends AbstractController {
 	public ModelAndView index(
 			@RequestParam(required = false, defaultValue = "John Doe") String name,
 			@RequestParam(required = false) Integer exchangeRateId,
-			@RequestParam(required = false, defaultValue = "") String messageStatus) {
+			@RequestParam(required = false, defaultValue = "") String messageStatus,
+			@RequestParam(required=false, defaultValue="94") int customizationInfoId) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
 		ExchangeRate exchangeRate;
 		Collection<ExchangeRate> moneyList;
+		Collection<CustomizationInfo> customizations;
+		CustomizationInfo customizationInfo;
+		
+		customizationInfo = customizationInfoService.findOne(customizationInfoId);
+		customizations = customizationInfoService.findAll();
 
 		exchangeRate = null;
 		moneyList = exchangeRateService.findAll();
@@ -91,6 +102,8 @@ public class WelcomeController extends AbstractController {
 		result.addObject("moment", moment);
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("customizations", customizations);
+		result.addObject("customizationInfo", customizationInfo);
 		
 		if(messageStatus != ""){
 			result.addObject("messageStatus", messageStatus);
