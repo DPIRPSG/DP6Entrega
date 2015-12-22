@@ -9,4 +9,4 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:out value="${customizationInfo.description}"/>
+<jstl:out value="${cookie['customDescrip'].value}"/>

@@ -32,6 +32,22 @@
 
 </jstl:if>
 
+<b><spring:message code="customization.description"/>:</b>
+<form action="${requestURI}">
+	<select name="customizationInfoId">
+		<jstl:forEach var="customizationInfoSel" items="${customizations}">
+			<jstl:if test="${customizationInfoSel.id == cookie['customizationInfo'].value}">
+				<option value="${customizationInfoSel.id}" selected="selected">${customizationInfoSel.name}</option>
+			</jstl:if>
+			<jstl:if test="${customizationInfoSel.id != cookie['customizationInfo'].value}">
+				<option value="${customizationInfoSel.id}">${customizationInfoSel.name}</option>
+			</jstl:if>
+		</jstl:forEach>
+	</select> <input type="submit" value="<spring:message code="welcome.change" />" />&nbsp;
+</form>
+
+<br />
+
 <security:authorize access="hasRole('CONSUMER')">
 	<form action="${requestURI}">
 		<input type="hidden" name="keyword" value="${keyword}" /> <select
@@ -56,7 +72,7 @@
 </security:authorize>
 
 <p>
-	<jstl:out value="${customizationInfo.welcomeMessage}"/>
+	<jstl:out value="${cookie['customWelcome'].value}"/>
 </p>
 
 <p>
