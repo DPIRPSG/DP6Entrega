@@ -2,6 +2,7 @@ package controllers.clerk;
 
 import java.util.Collection;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ClerkService;
+import services.ExchangeRateService;
 import services.OrderService;
 import controllers.AbstractController;
 import domain.Clerk;
+import domain.ExchangeRate;
 import domain.Order;
 
 @Controller
@@ -27,6 +30,9 @@ public class OrderClerkController extends AbstractController{
 	
 	@Autowired
 	private ClerkService clerkService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	//Constructors ----------------------------------------------------------
 
@@ -37,10 +43,20 @@ public class OrderClerkController extends AbstractController{
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required=false, defaultValue="") String messageStatus){
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String messageStatus, @RequestParam(required=false) Integer exchangeRateId){
 		ModelAndView result;
 		Collection<Order> orders;
-		String messageResult;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		orders = orderService.findAllNotAssigned();
 		orders.addAll(orderService.findAllByClerk());
@@ -48,11 +64,11 @@ public class OrderClerkController extends AbstractController{
 		result = new ModelAndView("order/list");
 		result.addObject("requestURI", "order/clerk/list.do");
 		result.addObject("orders", orders);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 		
 		if(messageStatus != ""){
-			result.addObject("messageStatusT","window.alert(" + messageStatus + ")");
-			messageResult = messageStatus;
-			result.addObject("messageStatus", messageResult);
+			result.addObject("messageStatus", messageStatus);
 		}
 		
 		return result;

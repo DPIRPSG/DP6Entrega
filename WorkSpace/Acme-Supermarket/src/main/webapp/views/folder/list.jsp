@@ -15,16 +15,16 @@
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="folders" requestURI="${requestURI}" id="row_folder">
 
-		<spring:message code="folder.edit" var="editHeader" />
+		<spring:message code="folder.editHeader" var="editHeader" />
 		<jstl:if test="${!row_folder.isSystem}">
-			<display:column>
+			<display:column title="${editHeader}">
 				<a href="folder/actor/edit.do?folderId=${row_folder.id}"> 
 					<spring:message code="folder.edit" />
 				</a>
 			</display:column>
 		</jstl:if>
 		<jstl:if test="${row_folder.isSystem}">
-			<display:column>
+			<display:column title="${editHeader}">
 
 			</display:column>
 		</jstl:if>

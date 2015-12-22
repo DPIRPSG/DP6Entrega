@@ -47,7 +47,7 @@ public class ItemConsumerController extends AbstractController {
 	// Listing ----------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required=false, defaultValue="") String keyword, @RequestParam(required=false) Integer exchangeRateId) {
+	public ModelAndView list(@RequestParam(required=false, defaultValue="") String keyword, @RequestParam(required=false) Integer exchangeRateId, @RequestParam(required=false, defaultValue="") String messageStatus) {
 		ModelAndView result;
 		Collection<Item> items;
 		Collection<ExchangeRate> moneyList;
@@ -82,6 +82,10 @@ public class ItemConsumerController extends AbstractController {
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
 		result.addObject("keyword", keyword);
+		
+		if(messageStatus != ""){
+			result.addObject("messageStatus", messageStatus);
+		}
 
 		return result;
 	}
@@ -99,11 +103,11 @@ public class ItemConsumerController extends AbstractController {
 			item = itemService.findOne(itemId);
 			shoppingCartService.addItem(shoppingCart, item);
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "item.add.ok");
+			result.addObject("messageStatus", "item.add.ok");
 			result.addObject("keyword", "");
 		}catch(Throwable oops){
 			result = new ModelAndView("redirect:list.do");
-			result.addObject("message", "item.commit.error");
+			result.addObject("messageStatus", "item.commit.error");
 			result.addObject("keyword", "");
 		}
 		

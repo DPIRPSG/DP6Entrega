@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ItemService;
 import services.OrderItemService;
 import services.OrderService;
 import services.WareHouseService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Item;
 import domain.Order;
 import domain.OrderItem;
@@ -41,6 +43,9 @@ public class OrderItemClerkController extends AbstractController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	//Constructors ----------------------------------------------------------
 
@@ -51,10 +56,21 @@ public class OrderItemClerkController extends AbstractController {
 	//Listing ----------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int orderId) {
+	public ModelAndView list(@RequestParam int orderId, @RequestParam(required=false) Integer exchangeRateId) {
 		ModelAndView result;
 		Collection<OrderItem> ordersItem;
 		Order order;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 
 		order = orderService.findOne(orderId);
 		ordersItem = orderItemService.findAllByOrderId(orderId);
@@ -63,6 +79,9 @@ public class OrderItemClerkController extends AbstractController {
 		result.addObject("requestURI", "order-item/clerk/list.do");
 		result.addObject("orders-item", ordersItem);
 		result.addObject("order", order);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
+		result.addObject("orderId", orderId);
 
 		return result;
 	}

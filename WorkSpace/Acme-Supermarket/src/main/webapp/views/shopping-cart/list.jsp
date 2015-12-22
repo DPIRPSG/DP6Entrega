@@ -12,11 +12,11 @@
 <security:authorize access="hasRole('CONSUMER')">
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="shoppingCarts" requestURI="${requestURI}" id="row">
+		name="shoppingCarts" requestURI="${requestURI}" id="row_SCart">
 		
 	<spring:message code="shoppingCart.comments.edit.url" var="editHeader" />
 	<display:column title="${editHeader}">
-		<a href="shopping-cart/consumer/edit.do?shoppingCartId=${row.id}"> <spring:message
+		<a href="shopping-cart/consumer/edit.do?shoppingCartId=${row_SCart.id}"> <spring:message
 			code="shoppingCart.comments.edit" />
 		</a>
 	</display:column>
@@ -25,11 +25,11 @@
 	<spring:message code="shoppingCart.comments" var="commentsHeader" />
 	<display:column title="${commentsHeader}"
 		sortable="false" >
-		<jstl:out value="${row.comments}"/>
+		<jstl:out value="${row_SCart.comments}"/>
 	</display:column>
 	
 	<display:column>
-			<a href="content/consumer/list.do?shoppingCartId=${row.id}"> <spring:message
+			<a href="content/consumer/list.do?shoppingCartId=${row_SCart.id}"> <spring:message
 					code="shoppingCart.contents" />
 			</a>
 	</display:column>
