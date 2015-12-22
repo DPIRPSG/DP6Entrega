@@ -81,6 +81,8 @@
 		</fieldset>
 		<br/>
 		
+		<p><spring:message code = "order.amount"/>: <jstl:out value="${order.amount}" /></p>
+		
 		<!-- Action buttons -->
 		<input type="submit" name="save"
 			value="<spring:message code="order.checkout"/>"

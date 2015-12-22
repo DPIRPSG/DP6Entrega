@@ -1340,7 +1340,7 @@
 		<property name="ticker" value="654721-FPKJ"/>
 		<property name="placementMoment" value="2015/11/01 06:55"/>
 		<property name="address" value="calle Cádiz nº8"/>
-		<property name="cancelMoment" value="2015/11/01 09:45"/>
+		<property name="cancelMoment" value="2015/12/01 09:45"/>
 		<property name="creditCard" ref="creditCard3"/>
 		<property name="consumer" ref="consumer3"/>
 		<property name="clerk" ref="clerk3"/>
@@ -1356,7 +1356,7 @@
 		<property name="ticker" value="854911-LH8J"/>
 		<property name="placementMoment" value="2015/10/27 17:55"/>
 		<property name="address" value="calle Sevilla nº8"/>
-		<property name="cancelMoment" value="2015/11/28 19:45"/>
+		<property name="cancelMoment" value="2015/12/28 19:45"/>
 		<property name="creditCard" ref="creditCard2"/>
 		<property name="consumer" ref="consumer2"/>
 		<property name="clerk" ref="clerk2"/>
