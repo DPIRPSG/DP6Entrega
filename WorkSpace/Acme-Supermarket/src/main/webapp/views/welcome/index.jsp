@@ -19,6 +19,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+	
+
+
 <jstl:if test="${messageStatus != Null && messageStatus != ''}">
 	<spring:message code="${messageStatus}" var="showAlert" />
 	<script>$(document).ready(function(){
@@ -52,15 +56,7 @@
 </security:authorize>
 
 <p>
-	<spring:message code="welcome.greeting.prefix" />
-
-	<security:authorize access="isAnonymous()">
-		<spring:message code="welcome.greeting.middle" />!
-	</security:authorize>
-
-	<security:authorize access="isAuthenticated()">
-		<security:authentication property="principal.username" />!
-	</security:authorize>
+	<jstl:out value="${customizationInfo.welcomeMessage}"/>
 </p>
 
 <p>

@@ -69,7 +69,8 @@ public class ItemController extends AbstractController {
 		result.addObject("moneyList", moneyList);
 		result.addObject("exchangeRate", exchangeRate);
 		result.addObject("keyword", keyword);
-
+		result.addObject("customizationInfo", "http://www.jurgita.com/images_new/models/F/editorial-tearsheet/w422xh450/monica-ordonez-257134-278064.jpg");
+		
 		return result;
 	}
 }

@@ -15,9 +15,26 @@
 
 <div>
 	<a href=""> 
-		<img src="images/logo.png" alt="Acme-Supermarket Co., Inc." />
+		<img src="${customizationInfo.logo}" style="height:128px;" alt="${customizationInfo.name}" />
 	</a>
+	<br/>
+	<jstl:out value="${customizationInfo.name}"/>
 </div>
+
+<form action="${requestURI}">
+		<select	name="customizationInfoId">
+			<jstl:forEach var="customizationInfoSel" items="${customizations}">
+				<jstl:if test="${customizationInfoSel.id == customizationInfo.id}">
+					<option value="${customizationInfoSel.id}" selected="selected">${customizationInfoSel.name}</option>
+				</jstl:if>
+				<jstl:if test="${customizationInfoSel.id != customizationInfo.id}">
+					<option value="${customizationInfoSel.id}">${customizationInfoSel.name}</option>
+				</jstl:if>
+			</jstl:forEach>
+		</select> <input type="submit" value="<spring:message code="welcome.change" />" />&nbsp;
+	</form>
+
+	<br />
 
 <div>
 	<ul id="jMenu">

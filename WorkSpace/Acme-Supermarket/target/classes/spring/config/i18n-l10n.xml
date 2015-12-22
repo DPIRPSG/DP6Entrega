@@ -40,6 +40,7 @@
 		<value>/views/order-item/messages</value>
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
+		<value>/views/about-us/messages</value>
 		
 		
 	</util:list>
