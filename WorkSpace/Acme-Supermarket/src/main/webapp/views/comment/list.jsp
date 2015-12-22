@@ -8,7 +8,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-	S
+
 <h3><spring:message code="comment.itemPlural"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
