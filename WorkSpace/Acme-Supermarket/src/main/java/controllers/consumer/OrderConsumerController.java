@@ -77,12 +77,25 @@ public class OrderConsumerController extends AbstractController {
 	
 	//Creation ---------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(){
+	public ModelAndView create(@RequestParam(required=false) Integer exchangeRateId){
 		ModelAndView result;
 		Order order;
+		ExchangeRate exchangeRate;
+        Collection<ExchangeRate> moneyList;
+        
+        exchangeRate = null;
+		moneyList = exchangeRateService.findAll();
+		
+		if(exchangeRateId != null) {
+			exchangeRate = exchangeRateService.findOne(exchangeRateId);
+		} else {
+			exchangeRate = exchangeRateService.findOneByName("Euros");
+		}
 		
 		order = ShoppingCartService.createCheckOut();
 		result = createEditModelAndView(order);
+		result.addObject("moneyList", moneyList);
+		result.addObject("exchangeRate", exchangeRate);
 		
 		return result;
 	}
@@ -158,6 +171,7 @@ public class OrderConsumerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(Order order, String message){
 		ModelAndView result;
+		
 		
 		result = new ModelAndView("order/create");
 		result.addObject("order", order);
