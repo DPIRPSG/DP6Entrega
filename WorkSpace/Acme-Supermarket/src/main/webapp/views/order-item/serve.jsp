@@ -9,6 +9,8 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="orderItem.order"/> <jstl:out value="${order.ticker}" /></h3>
+<h3><spring:message code="orderItem.item"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 <!-- Form -->
 <form:form action="order-item/clerk/serve.do" modelAttribute="orderItem">
 	

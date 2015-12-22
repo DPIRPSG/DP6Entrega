@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ClerkService;
 import services.ExchangeRateService;
 import services.OrderService;
-
 import controllers.AbstractController;
 import domain.Clerk;
 import domain.ExchangeRate;
@@ -47,7 +46,6 @@ public class OrderClerkController extends AbstractController{
 	public ModelAndView list(@RequestParam(required=false, defaultValue="") String messageStatus, @RequestParam(required=false) Integer exchangeRateId){
 		ModelAndView result;
 		Collection<Order> orders;
-		String messageResult;
 		ExchangeRate exchangeRate;
         Collection<ExchangeRate> moneyList;
         

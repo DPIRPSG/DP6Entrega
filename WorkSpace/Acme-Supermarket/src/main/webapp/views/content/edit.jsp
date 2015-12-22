@@ -9,6 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3><spring:message code="content.item"/> <jstl:out value="${item.name}(${item.sku})" /></h3>
 <!-- Form -->
 <form:form action="content/consumer/edit.do" modelAttribute="content">
 	<!-- Hidden Attributes -->

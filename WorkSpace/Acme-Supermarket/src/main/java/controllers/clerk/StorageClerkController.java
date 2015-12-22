@@ -9,20 +9,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ItemService;
 import services.ExchangeRateService;
 import services.StorageService;
+import services.WareHouseService;
 import controllers.AbstractController;
+import domain.Item;
 import domain.ExchangeRate;
 import domain.Storage;
+import domain.WareHouse;
 
 @Controller
 @RequestMapping(value = "/storage/clerk")
 public class StorageClerkController extends AbstractController {
 
 	// Services ----------------------------------------------------------
+	
 	@Autowired
 	private StorageService storageService;
 	
+	@Autowired
+	private WareHouseService warehouseService;
+	
+	@Autowired
+	private ItemService itemService;
+
 	@Autowired
 	private ExchangeRateService exchangeRateService;
 
@@ -40,6 +51,8 @@ public class StorageClerkController extends AbstractController {
 		Collection<Storage> storages;
 		boolean byWarehouse;
 		boolean byItem;
+		WareHouse warehouse;
+		Item item;
 		ExchangeRate exchangeRate;
 		Collection<ExchangeRate> moneyList;
         
@@ -55,22 +68,26 @@ public class StorageClerkController extends AbstractController {
 		if(warehouseId != null) {
 			byWarehouse = true;
 
+			warehouse = warehouseService.findOne(warehouseId);
 			storages = storageService.findAllByWarehouseId(warehouseId);
 			result = new ModelAndView("storage/list");
 			result.addObject("requestURI", "storage/clerk/list.do");
 			result.addObject("storages", storages);
 			result.addObject("byWarehouse", byWarehouse);
+			result.addObject("warehouse", warehouse);
 			result.addObject("moneyList", moneyList);
 			result.addObject("exchangeRate", exchangeRate);
 			result.addObject("warehouseId", warehouseId);
 		} else {
 			byItem = true;
 			
+			item = itemService.findOne(itemId);
 			storages = storageService.findAllByItemId(itemId);
 			result = new ModelAndView("storage/list");
 			result.addObject("requestURI", "storage/clerk/list.do");
 			result.addObject("storages", storages);
 			result.addObject("byItem", byItem);
+			result.addObject("item", item);
 		}
 		
 		

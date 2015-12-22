@@ -11,6 +11,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:if test="${byWarehouse}">
+	<h3>
+		<spring:message code="storage.warehouse" /> <jstl:out value="${warehouse.name}" />
+	</h3>
+
+	<br />
+
 	<form action="${requestURI}">
 		<input type="hidden" name="warehouseId" value="${warehouseId}" /> <input
 			type="hidden" name="itemId" value="${itemId}" /> <select
@@ -31,8 +37,14 @@
 	<spring:message code="storage.exchangeRate" var="message" />
 	<jstl:out
 		value="${message}: ${exchangeRate.name} [${exchangeRate.currency}]" />
-	<br />
 </jstl:if>
+<jstl:if test="${byItem}">
+	<h3>
+		<spring:message code="storage.itemReference" /> <jstl:out value="${item.name}(${item.sku})" />
+	</h3>
+</jstl:if>
+
+<br />
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" name="storages"
