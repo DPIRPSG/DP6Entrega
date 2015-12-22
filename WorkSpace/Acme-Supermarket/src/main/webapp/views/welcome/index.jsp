@@ -19,6 +19,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jstl:if test="${messageStatus != Null && messageStatus != ''}">
+	<spring:message code="${messageStatus}" var="showAlert" />
+	<script>$(document).ready(function(){
+	    alert("${showAlert}");
+	  });
+	</script>
+
+</jstl:if>
+
 <security:authorize access="hasRole('CONSUMER')">
 	<form action="${requestURI}">
 		<input type="hidden" name="keyword" value="${keyword}" /> <select
@@ -46,13 +55,12 @@
 	<spring:message code="welcome.greeting.prefix" />
 
 	<security:authorize access="isAnonymous()">
-		<spring:message code="welcome.greeting.middle" />
+		<spring:message code="welcome.greeting.middle" />!
 	</security:authorize>
 
 	<security:authorize access="isAuthenticated()">
-		<security:authentication property="principal.username" />
+		<security:authentication property="principal.username" />!
 	</security:authorize>
-	<spring:message code="welcome.greeting.suffix" />
 </p>
 
 <p>
