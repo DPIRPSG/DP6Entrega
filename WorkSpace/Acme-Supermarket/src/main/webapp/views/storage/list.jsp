@@ -12,7 +12,7 @@
 
 <jstl:if test="${byWarehouse}">
 	<h3>
-		<spring:message code="storage.warehouse" /> <jstl:out value="${warehouse.name}" />
+		<spring:message code="storage.warehouse" />: <jstl:out value="${warehouse.name}" />
 	</h3>
 
 	<br />
@@ -40,7 +40,7 @@
 </jstl:if>
 <jstl:if test="${byItem}">
 	<h3>
-		<spring:message code="storage.itemReference" /> <jstl:out value="${item.name}(${item.sku})" />
+		<spring:message code="storage.item" /> <jstl:out value="${item.name}(${item.sku})" />
 	</h3>
 </jstl:if>
 
