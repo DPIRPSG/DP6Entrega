@@ -363,8 +363,8 @@ public class ItemServiceTest extends AbstractTest{
 		
 		authenticate("admin");
 		
-		itemId = 54;
-		System.out.println("Pretendemos modificar el item con el id 54, ¿Existe?, ¿Cuál es?:");
+		itemId = 64;
+		System.out.println("Pretendemos modificar el item con el id 64, ¿Existe?, ¿Cuál es?:");
 		all = itemService.findAll();
 		item = null;
 		for (Item i: all){
@@ -404,13 +404,14 @@ public class ItemServiceTest extends AbstractTest{
 		
 		authenticate("admin");
 		
-		itemId = 54;
-		System.out.println("Pretendemos eliminar el item con el id 54, ¿Existe?, ¿Tiene la propiedad deleted = false?:");
+		itemId = 64;
+		System.out.println("Pretendemos eliminar el item con el id 64, ¿Existe?, ¿Tiene la propiedad deleted = false?:");
 		item = itemService.findOne(itemId);
 		System.out.println("Nombre: " + item.getName());
 		System.out.println("Id: " + item.getId());
 		System.out.println("deleted: " + item.getDeleted() + "\n");
 		itemService.delete(item);
+		
 		System.out.println("Ya se ha pulsado en Delete, el item debe estar en la BBDD con la propiedad deleted = true, ¿Es así?:");
 		itemDeleted = itemService.findOne(itemId);
 		System.out.println("Nombre: " + itemDeleted.getName());

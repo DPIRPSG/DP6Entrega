@@ -3,6 +3,7 @@ package security;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class UserAccountService {
 		super();
 	}
 	// Simple CRUD methods ----------------------------------------------------
-	private UserAccount create(String authority){
+	public UserAccount create(String authority){
 		UserAccount result;
 		Authority au;
 		Collection<Authority> authorities = new ArrayList<Authority>();
@@ -46,11 +47,26 @@ public class UserAccountService {
 		
 		result = this.create(authority);
 		
-		
 		result.setUsername(username);
 		result.setPassword(Password);
 		
 		return result;
+	}
+	
+	/**
+	 * This method hashCode the password
+	 */
+	public UserAccount modifyPassword(UserAccount input){
+		Md5PasswordEncoder encoder;
+		String newPassword;
+		
+		encoder = new Md5PasswordEncoder();
+				
+		newPassword = encoder.encodePassword(input.getPassword(), null);
+
+		input.setPassword(newPassword);
+		
+		return input;
 	}
 
 }

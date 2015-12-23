@@ -13,112 +13,147 @@
 
 	
 	<!-- Dashboard 1 -->
-	<spring:message code="administrator.consumerMoreOrders"/>
+	<h3><spring:message code="administrator.consumerMoreOrders"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="consumers" requestURI="${requestURI}" id="row">
+		name="consumerMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 	 
+
 	<!-- Dashboard 2 -->
-	<spring:message code="administrator.consumerSpentMoreMoney"/>
+	<h3><spring:message code="administrator.consumerSpentMoreMoney"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="consumers" requestURI="${requestURI}" id="row">
+		name="consumerSpentMoreMoney" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
 	 
+	
 	<!-- Dashboard 3 -->
-	<spring:message code="administrator.bestSellingItem"/>
+	<h3><spring:message code="administrator.bestSellingItem"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="items" requestURI="${requestURI}" id="row">
+		name="bestSellingItem" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
+	
 	
 	<!-- Dashboard 4 -->
-	<spring:message code="administrator.worstSellingItem"/>
+	<h3><spring:message code="administrator.worstSellingItem"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="items" requestURI="${requestURI}" id="row">
+		name="worstSellingItem" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
+	
 	
 	<!-- Dashboard 5 -->
-	<spring:message code="administrator.clerkMoreOrders"/>
+	<h3><spring:message code="administrator.clerkMoreOrders"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="clerks" requestURI="${requestURI}" id="row">
+		name="clerkMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
-		<spring:message code="ckerk.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<spring:message code="clerk.name" var="nameHeader" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
+	
 	
 	<!-- Dashboard 6 -->
-	<spring:message code="administrator.clerkLessOrders"/>
+	<h3><spring:message code="administrator.clerkLessOrders"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="clerks" requestURI="${requestURI}" id="row">
+		name="clerkLessOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
-		<spring:message code="ckerk.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<spring:message code="clerk.name" var="nameHeader" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
+	
 	
 	<!-- Dashboard 7 -->
-	<spring:message code="administrator.consumerCancelledMoreOrders"/>
+	<h3><spring:message code="administrator.consumerCancelledMoreOrders"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="consumers" requestURI="${requestURI}" id="row">
+		name="consumerCancelledMoreOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-	
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	</display:table>
+	
 	
 	<!-- Dashboard 8 -->
-	<spring:message code="administrator.consumerCancelledLessOrders"/>
+	<h3><spring:message code="administrator.consumerCancelledLessOrders"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="consumers" requestURI="${requestURI}" id="row">
+		name="consumerCancelledLessOrders" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}" 
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
+	
 	
 	<!-- Dashboard 9 -->
-	<spring:message code="administrator.ratioCancelledCurrentMonth"/>
-	<!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="ratioCancelledCurrentMonth" requestURI="${requestURI}" id="row">
-		<!-- Attributes -->
-		<spring:message code="ratio.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+	<h3><spring:message code="administrator.ratioCancelledCurrentMonth"/></h3>
+	<!-- Result -->
+	<jstl:choose>
+  		<jstl:when test="${ratioCancelledCurrentMonth == 0}">
+ 			<spring:message code="administrator.ratio.null"/>
+		</jstl:when>
+  		<jstl:otherwise>
+			<jstl:out value="${ratioCancelledCurrentMonth}" />
+		</jstl:otherwise>
+	</jstl:choose>
 	
-	</display:table>
+	
 	
 	<!-- Dashboard 10 -->
-	<spring:message code="administrator.itemMoreComment"/>
+	<h3><spring:message code="administrator.itemMoreComment"/></h3>
 	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="items" requestURI="${requestURI}" id="row">
+		name="itemMoreComment" requestURI="${requestURI}" id="row">
 		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
+		<display:column title="${nameHeader}"
+			sortable="false" >
+			<jstl:out value="${row.name}"/>
+		</display:column>
 	
 	</display:table>
 

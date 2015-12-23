@@ -1,8 +1,11 @@
 package services;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +13,7 @@ import org.springframework.util.Assert;
 
 import domain.Clerk;
 import domain.Consumer;
+import domain.CreditCard;
 import domain.Order;
 import domain.OrderItem;
 import domain.ShoppingCart;
@@ -69,10 +73,15 @@ public class OrderService {
 	 * Guarda o actualiza una order
 	 */
 	//req: 11.7
-	public void save(Order order){
+	public Order save(Order order){
 		Assert.notNull(order);
 		
-		orderRepository.saveAndFlush(order);
+		Order result;
+		
+		//orderRepository.saveAndFlush(order);
+		result = orderRepository.save(order);
+		
+		return result;
     }
 	
 	/**
@@ -89,8 +98,47 @@ public class OrderService {
 		return result;
 	}
 	
+	public Order findOne(int id){
+		Order result;
+		
+		result = orderRepository.findOne(id);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
 
 	//Other business methods -------------------------------------------------
+	
+	/**
+	 * Guarda la Order desde ShoppingCart. NO USAR. Usar desde ShoppingCartService.saveCheckOut.
+	 */
+	public void saveFromShoppingCart(ShoppingCart shoppingCart, Order order){
+		Assert.notNull(shoppingCart);
+		Assert.notNull(order);
+		
+		Collection<OrderItem> orderItems;
+		double amount;
+		
+		//Check CreditCard
+		Assert.isTrue(this.checkCreditcard(order.getCreditCard()), "order.commit.error.creditcard.date");
+
+		// Adding OrderItems
+		orderItems = orderItemService.createByShoppingCart(shoppingCart, order);
+		order.setOrderItems(orderItems);
+
+		
+		// Calculate amount
+		amount = this.amountCalculate(orderItems);
+		Assert.isTrue(amount == order.getAmount(), "order.commit.AmountChanged");
+		
+		order = this.save(order);
+		
+		//Saving OrderItems
+		orderItems = orderItemService.createByShoppingCart(shoppingCart, order);
+		orderItemService.save(orderItems);
+	}
+	
 	
 	/**
 	 * Crea una Order desde ShoppingCart. NO USAR. Usar desde ShoppingCartService.createCheckOut.
@@ -117,9 +165,8 @@ public class OrderService {
 		result.setAmount(amount);
 		
 			// Adding Order to Consumer
-		consumer.addOrder(result);
+		result.setConsumer(consumer);
 		
-		// consumerService.save(consumer);
 		return result;
 	}
 	
@@ -206,13 +253,17 @@ public class OrderService {
 		Assert.notEmpty(orderItems);
 		
 		double result;
+		DecimalFormat df;
 		
 		result = 0.0;
+		df = new DecimalFormat("#.00");
 		
 		for (OrderItem orderItem : orderItems) {
 			result += orderItem.getPrice() * orderItem.getUnits();
 		}
-		
+
+		result = Double.parseDouble(df.format(result));
+
 		return result;
 	}
 	
@@ -224,7 +275,7 @@ public class OrderService {
 		Assert.notNull(order);
 		Assert.isTrue(order.getId() != 0);
 		Assert.isTrue(order.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner can cancel the order");
-		
+		Assert.isTrue(order.getCancelMoment() == null,"order.cancel.error.isCancelled");
 		Clerk clerk;
 		
 		clerk = clerkService.findByOrder(order);
@@ -271,7 +322,7 @@ public class OrderService {
 	 * Devuelven las orders no asignadas a ningún clerk siendo la primera la más antigua
 	 */
 	//ref: 18.3
-	private Collection<Order> findAllNotAssigned(){
+	public Collection<Order> findAllNotAssigned(){
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 		
 		Collection<Order> result;
@@ -290,8 +341,11 @@ public class OrderService {
 		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 
 		double result;
-		
-		result = orderRepository.rateOrderCancelled();
+		try {
+			result = orderRepository.rateOrderCancelled();
+		} catch (AopInvocationException e) {
+			result = 0;
+		}
 		
 		return result;
 	}
@@ -306,6 +360,57 @@ public class OrderService {
 		order.setDeliveryMoment(new Date());
 		
 		this.save(order);
+	}
+	
+	public Collection<Order> findAllByClerk(){
+		Collection<Order> result;
+		Clerk clerk;
+		
+		clerk = clerkService.findByprincipal();
+		
+		Assert.notNull(clerk);
+		
+		result = orderRepository.findAllByClerkId(clerk.getId());
+		
+		return result;
+	}
+	
+	public Collection<Order> findAllByConsumer(){
+		Collection<Order> result;
+		Consumer consu;
+		
+		consu = consumerService.findByPrincipal();
+		
+		Assert.notNull(consu);
+		
+		result = orderRepository.findAllByConsumerId(consu.getId());
+		
+		return result;
+	}
+	
+	/**
+	 * Comprueba fecha creditCard
+	 */
+	private boolean checkCreditcard(CreditCard input){
+		boolean result;
+		int actMonth, actYear;
+		Calendar act;
+		
+		result = true;
+		act = Calendar.getInstance();
+		
+		actMonth = act.get(Calendar.MONTH);
+		actYear = act.get(Calendar.YEAR);
+
+		if (input.getExpirationYear() == actYear) {
+			if(input.getExpirationMonth() < actMonth){
+				result = false;
+			}
+		}else if (input.getExpirationYear() < actYear){
+			result = false;
+		}
+		
+		return result;
 	}
 
 

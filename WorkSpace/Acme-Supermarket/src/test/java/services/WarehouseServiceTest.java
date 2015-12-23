@@ -119,8 +119,8 @@ public class WarehouseServiceTest extends AbstractTest{
 		
 		authenticate("clerk1");
 		
-		System.out.println("Veamos el/los WareHouse que tienen el item con id 54:");
-		itemId = 54;
+		System.out.println("Veamos el/los WareHouse que tienen el item con id 64:");
+		itemId = 64;
 		item = itemService.findOne(itemId);
 		all = warehouseService.findAllByItem(item);
 		for(WareHouse w: all){
@@ -337,8 +337,8 @@ public class WarehouseServiceTest extends AbstractTest{
 		
 		System.out.println("\nQuitamos un par de unidades cada Warehouse");
 		order = orderService.findAll().iterator().next();
-		warehouseService.addItemToOrderItem(warehouse1, item1, 1, order);
-		warehouseService.addItemToOrderItem(warehouse2, item2, 1, order);
+		warehouseService.addItemToOrderItem(item1, 1, order);
+		warehouseService.addItemToOrderItem(item2, 1, order);
 		
 		System.out.println("\nComprobamos ahora el número de unidades de cada item en su correspondiente Warehouse:");
 		warehouses = warehouseService.findAll();

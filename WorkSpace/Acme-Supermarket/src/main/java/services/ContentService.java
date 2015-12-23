@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Consumer;
 import domain.Content;
 import domain.Item;
 import domain.ShoppingCart;
@@ -50,6 +51,10 @@ public class ContentService {
 	
 	public void save(Content content){
 		Assert.notNull(content);
+		
+		Consumer actualConsumer = content.getShoppingCart().getConsumer();
+		
+		Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can save the order");
 	
 		if(content.getUnits() == 0){
 			this.deleteComplete(content);
@@ -102,6 +107,18 @@ public class ContentService {
 		
 		result = contentRepository.findByShoppingCartID(shoppingCart.getId());
 		
+		return result;
+	}
+	
+	public Collection<Content> findByShoppingCart(int shoppingCartId){
+		Collection<Content> result;
+		ShoppingCart shoppingCart;
+		
+		shoppingCart = shoppingCartService.finOneByShoppingCartId(shoppingCartId);
+		Assert.isTrue(shoppingCart.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can list its items");
+		
+		result = contentRepository.findByShoppingCartID(shoppingCartId);
+				
 		return result;
 	}
 	
@@ -182,5 +199,27 @@ public class ContentService {
 		contents = this.findByShoppingCart(shoppingCart);
 		shoppingCart.setContents(contents);
 		shoppingCartService.save(shoppingCart);
+	}
+	
+	public Content findOneByContentId(int contentId){
+		Content content;
+		
+		content = contentRepository.findOne(contentId);
+		
+		Consumer actualConsumer = content.getShoppingCart().getConsumer();
+		
+		Assert.isTrue(actualConsumer.equals(consumerService.findByPrincipal()), "Only the owner of the shopping cart can edit it");
+		
+		return content;
+	}
+
+	public Collection<Content> findAllByItemId(int itemId) {
+		Assert.notNull(itemId);
+		
+		Collection<Content> result;
+		
+		result = contentRepository.findAllByItemId(itemId);
+		
+		return result;
 	}
 }

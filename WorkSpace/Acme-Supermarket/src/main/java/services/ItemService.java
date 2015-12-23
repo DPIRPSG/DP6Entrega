@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Category;
+import domain.Content;
 import domain.Item;
 import domain.ShoppingCart;
 import domain.Tax;
@@ -30,6 +31,9 @@ public class ItemService {
 	
 	@Autowired
 	private ConsumerService consumerService;
+	
+	@Autowired
+	private ContentService contentService;
 	
 	//Constructors -----------------------------------------------------------
 	
@@ -59,11 +63,18 @@ public class ItemService {
 	public void delete(Item item){
 		Assert.notNull(item);
 		Assert.isTrue(item.getId() != 0);
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete items");
 		
-		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create items");		
+		Collection<Content> contents;
+		
+		contents = contentService.findAllByItemId(item.getId());
 		
 		item.setDeleted(true);
 		this.save(item);
+		
+		for(Content content : contents) {
+			contentService.deleteComplete(content);
+		}
 	}
 	
 	/**
@@ -235,6 +246,16 @@ public class ItemService {
 		
 		result = itemRepository.findItemMoreComments();
 		
+		return result;
+	}
+
+	public Item findOneBySKU(String sku) {
+		Assert.notNull(sku);
+		
+		Item result;
+
+		result = itemRepository.findOneBySKU(sku);
+
 		return result;
 	}
 
